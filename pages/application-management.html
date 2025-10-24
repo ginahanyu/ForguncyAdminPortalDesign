@@ -1,0 +1,866 @@
+<!-- Application Management Page -->
+<div class="permission-page">
+    <!-- 左侧应用列表 -->
+    <div class="left-section">
+        <!-- 标题和分割线 -->
+        <div class="left-section-header">
+            <h2 class="left-section-title">Apps Management</h2>
+            <div class="left-section-divider"></div>
+        </div>
+
+        <!-- 应用列表 -->
+        <div class="list-container active" id="app-list">
+            <div class="list-item app-mgmt-item active" data-id="all-apps">
+                <span>All Apps</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testappwithexternaldb">
+                <span>testappwithexternaldb</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="token">
+                <span>获取token网</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testapp">
+                <span>testapp</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testpermission1">
+                <span>testpermission1</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testpermission2">
+                <span>testpermission2</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testpermission">
+                <span>testpermission</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="test">
+                <span>test</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="testpm">
+                <span>testpm</span>
+            </div>
+            <div class="list-item app-mgmt-item" data-id="app1">
+                <span>app1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右侧详情区 -->
+    <div class="right-section">
+        <!-- All Apps详情 -->
+        <div class="detail-panel" id="all-apps-detail" style="display: flex;">
+            <!-- 第一部分：图标和标题 -->
+            <div class="all-apps-header">
+                <svg class="all-apps-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                </svg>
+                <h2 class="all-apps-title">All Apps</h2>
+            </div>
+
+            <div class="all-apps-divider"></div>
+
+            <!-- 第二部分：搜索框和按钮 -->
+            <div class="all-apps-toolbar">
+                <div class="all-apps-search">
+                    <input type="text" class="all-apps-search-input" placeholder="Input search terms">
+                    <svg class="all-apps-search-icon" viewBox="0 0 24 24" width="18" height="18">
+                        <path fill="currentColor" d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/>
+                    </svg>
+                </div>
+                <button class="btn-offline-publish">Offline Publish</button>
+            </div>
+
+            <!-- 第三部分：应用表格 -->
+            <div class="all-apps-table-container">
+                <table class="all-apps-table">
+                    <thead>
+                        <tr>
+                            <th>App Name</th>
+                            <th>Who can access the application</th>
+                            <th>Who can manage the application</th>
+                            <th>Host Port</th>
+                            <th>Version</th>
+                            <th>Published</th>
+                            <th>Authentication</th>
+                            <th>Start/Stop</th>
+                            <th>Browse</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testappwithexternaldb</a></td>
+                            <td>All Users</td>
+                            <td>SuperAdmins, DBManagers</td>
+                            <td>80</td>
+                            <td>11.0.102.0</td>
+                            <td>2025-10-15 17:10:44</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">获取token网</a></td>
+                            <td>All Users</td>
+                            <td></td>
+                            <td>80</td>
+                            <td>11.0.102.0</td>
+                            <td>2025-10-10 10:16:48</td>
+                            <td>Windows</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testapp</a></td>
+                            <td>All Users</td>
+                            <td>Administrators</td>
+                            <td>80</td>
+                            <td>11.0.4.0</td>
+                            <td>2025-09-19 08:38:15</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testpermission1</a></td>
+                            <td>All Users</td>
+                            <td>AdminGroup1, AdminGroup2, Supervisors</td>
+                            <td>80</td>
+                            <td>11.0.3.0</td>
+                            <td>2025-08-18 17:54:40</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testpermission2</a></td>
+                            <td>All Users</td>
+                            <td></td>
+                            <td>80</td>
+                            <td>11.0.3.0</td>
+                            <td>2025-08-18 17:52:26</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testpermission</a></td>
+                            <td>All Users</td>
+                            <td>DevOps, SystemAdmins</td>
+                            <td>80</td>
+                            <td>11.0.3.0</td>
+                            <td>2025-08-18 17:39:40</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">test</a></td>
+                            <td>All Users</td>
+                            <td>Managers</td>
+                            <td>80</td>
+                            <td>11.0.3.0</td>
+                            <td>2025-07-16 17:28:55</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">testpm</a></td>
+                            <td>All Users</td>
+                            <td></td>
+                            <td>80</td>
+                            <td>11.0.3.0</td>
+                            <td>2025-07-16 16:13:22</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="app-name-link">app1</a></td>
+                            <td>All Users</td>
+                            <td>PowerUsers, Administrators</td>
+                            <td>80</td>
+                            <td>11.0.2.0</td>
+                            <td>2025-05-12 19:13:36</td>
+                            <td>Forms</td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Start/Stop">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="icon-cell">
+                                <button class="icon-btn-table" title="Browse">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 单个应用详情 -->
+        <div class="detail-panel" id="app-detail" style="display: none;">
+            <!-- 第一部分：返回图标和应用名 -->
+            <div class="app-detail-header">
+                <button class="back-btn" onclick="document.querySelector('[data-id=all-apps]').click()">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <h2 class="app-detail-title" id="appDetailName">testappwithexternaldb</h2>
+            </div>
+
+            <div class="app-detail-divider"></div>
+
+            <!-- 第二部分：选项卡 -->
+            <div class="app-detail-tabs">
+                <button class="app-tab active" data-tab="general">General</button>
+                <button class="app-tab" data-tab="server-commands">Server Commands</button>
+                <button class="app-tab" data-tab="scheduled-tasks">Scheduled Tasks</button>
+                <button class="app-tab" data-tab="reports">Reports</button>
+                <button class="app-tab" data-tab="business-process">Business Process</button>
+                <button class="app-tab" data-tab="global-variables">Global Variables</button>
+                <button class="app-tab" data-tab="application-history">Application History</button>
+                <button class="app-tab" data-tab="ai-config">AI Config</button>
+                <button class="app-tab" data-tab="advanced">Advanced</button>
+            </div>
+
+            <!-- General 选项卡内容 -->
+            <div class="app-tab-content active" id="general-content">
+                <div class="app-detail-scrollable">
+                    <div class="app-detail-section">
+                        <div class="info-list">
+                            <!-- Default App -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Default App</label>
+                                <div class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" id="defaultAppCheckbox">
+                                    <span>Set as default app</span>
+                                </div>
+                            </div>
+
+                            <!-- Who can access the application -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Who can access the application</label>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <span id="appAccessUsers">All Users</span>
+                                    <button class="btn-secondary">Edit</button>
+                                </div>
+                            </div>
+
+                            <!-- Backup & Restore -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Backup & Restore</label>
+                                <div style="display: flex; gap: 12px;">
+                                    <button class="btn-secondary">Backup</button>
+                                    <button class="btn-secondary">Restore</button>
+                                </div>
+                            </div>
+
+                            <!-- Delete App -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Delete App</label>
+                                <button class="btn-secondary" style="width: fit-content;">Remove</button>
+                            </div>
+
+                            <!-- Auto Backup Before Publishing -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Auto Backup Before Publishing</label>
+                                <div class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" id="autoBackupCheckbox">
+                                    <span>Application to automatically back up servers when overriding database releases</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+                                    <label style="min-width: 100px; font-weight: normal;">Backup Path:</label>
+                                    <input type="text" class="form-input" style="width: 600px;" placeholder="Enter backup path">
+                                    <svg class="info-icon-svg" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Set Domain -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Set Domain</label>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <input type="text" class="form-input" style="width: 750px; max-width: 100%;" placeholder="Enter domain">
+                                    <svg class="info-icon-svg" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="info-item app-config-section">
+                                <label class="section-title">Description</label>
+                                <textarea class="form-input" style="min-height: 100px; resize: vertical; font-family: inherit; width: 750px; max-width: 100%;" placeholder="Enter description"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="button-group" style="margin-top: 24px;">
+                            <button class="btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Commands 选项卡内容 -->
+            <div class="app-tab-content" id="server-commands-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Server commands configuration goes here...</p>
+                </div>
+            </div>
+
+            <!-- Other tab contents (initially empty) -->
+            <div class="app-tab-content" id="scheduled-tasks-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Scheduled tasks configuration goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="reports-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Reports configuration goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="business-process-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Business process configuration goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="global-variables-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Global variables configuration goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="application-history-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Application history goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="ai-config-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">AI configuration goes here...</p>
+                </div>
+            </div>
+            <div class="app-tab-content" id="advanced-content">
+                <div class="app-detail-scrollable">
+                    <p style="color: #666; padding: 24px;">Advanced configuration goes here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Additional styles for application management */
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: #fafafa;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.form-input,
+.form-select {
+    padding: 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus {
+    border-color: #1976d2;
+}
+
+.form-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: #e0e0e0;
+    color: #666;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: help;
+    flex-shrink: 0;
+}
+
+.info-icon-svg {
+    flex-shrink: 0;
+    color: #666;
+    cursor: help;
+}
+
+/* App配置分组样式 */
+.app-config-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-weight: 500;
+    font-size: 15px;
+    color: #333;
+    padding-left: 12px;
+    border-left: 2px solid #0D5398;
+}
+
+/* 按钮样式 */
+.btn-secondary {
+    background: #00A4E9;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    width: fit-content;
+}
+
+.btn-secondary:hover {
+    background: #0093D1;
+}
+
+.btn-primary {
+    background: #00A4E9;
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0093D1;
+}
+
+/* All Apps 页面样式 */
+.all-apps-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px 10px 10px;
+}
+
+.all-apps-icon {
+    color: #666;
+    flex-shrink: 0;
+}
+
+.all-apps-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.all-apps-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0;
+}
+
+.all-apps-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+    gap: 16px;
+}
+
+.all-apps-search {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.all-apps-search-input {
+    width: 100%;
+    padding: 8px 40px 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.all-apps-search-input:focus {
+    border-color: #1976d2;
+}
+
+.all-apps-search-input::placeholder {
+    color: #999;
+}
+
+.all-apps-search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    fill: #999;
+    pointer-events: none;
+}
+
+.btn-offline-publish {
+    padding: 8px 20px;
+    background: #00A7E1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn-offline-publish:hover {
+    background: #0096CC;
+}
+
+.all-apps-table-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px 10px 10px;
+}
+
+.all-apps-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.all-apps-table thead {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 10;
+}
+
+.all-apps-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+.all-apps-table td {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+}
+
+.all-apps-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.app-name-link {
+    color: #00A7E1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.app-name-link:hover {
+    text-decoration: underline;
+}
+
+.icon-cell {
+    text-align: center;
+}
+
+.icon-btn-table {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.icon-btn-table:hover {
+    opacity: 0.7;
+}
+
+.icon-btn-table svg {
+    color: #666;
+    fill: #666;
+}
+
+/* 详情面板显示控制 - 通过 JavaScript 控制 display */
+#all-apps-detail,
+#app-detail {
+    flex-direction: column;
+    height: 100%;
+}
+
+.app-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+    color: #666;
+}
+
+.back-btn:hover {
+    opacity: 0.7;
+}
+
+.back-btn svg {
+    fill: currentColor;
+}
+
+.app-detail-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.app-detail-divider {
+    display: none;
+}
+
+.app-detail-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: white;
+    padding: 0 24px;
+    overflow-x: auto;
+}
+
+.app-tab {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.app-tab:hover {
+    color: #1976d2;
+}
+
+.app-tab.active {
+    color: #1976d2;
+    border-bottom-color: #1976d2;
+    font-weight: 500;
+}
+
+.app-tab-content {
+    display: none;
+    flex: 1;
+    overflow: hidden;
+}
+
+.app-tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-detail-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 24px 24px 0px;
+}
+
+.app-detail-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 左侧标题和分割线样式 */
+.left-section-header {
+    height: 82px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+}
+
+.left-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.left-section-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0;
+}
+</style>

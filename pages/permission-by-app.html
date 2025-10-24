@@ -1,0 +1,866 @@
+<div class="permission-page">
+    <!-- 最左侧一级菜单 -->
+    <div class="primary-sidebar">
+        <div class="sidebar-title">Permission</div>
+        <div class="sidebar-divider"></div>
+        <div class="primary-menu-list">
+            <div class="primary-menu-item active">Server Manage Platform</div>
+            <div class="primary-menu-section">
+                <div class="primary-menu-item expandable expanded">
+                    <span>Forguncy App</span>
+                    <span class="expand-icon">∧</span>
+                </div>
+                <div class="primary-submenu">
+                    <div class="primary-submenu-search">
+                        <input type="text" class="primary-submenu-search-input" placeholder="Search apps...">
+                        <svg class="primary-search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+                    <div class="primary-submenu-item">testappwithexternaldb</div>
+                    <div class="primary-submenu-item">获取token网</div>
+                    <div class="primary-submenu-item">testapp</div>
+                    <div class="primary-submenu-item">testpermission1</div>
+                    <div class="primary-submenu-item">testpermission2</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区:左右两栏 -->
+    <div class="main-container">
+        <!-- 顶部标题 -->
+        <div class="page-header">
+            <h1 class="page-title">Admin Group Permission</h1>
+        </div>
+
+        <!-- 左右分栏内容 -->
+        <div class="split-layout">
+            <!-- 左侧:Tab + 列表 -->
+            <div class="left-section">
+                <div class="tab-bar">
+                    <div class="radio-group">
+                        <button class="radio-btn active" data-tab="admin">Admin</button>
+                        <button class="radio-btn" data-tab="group">Admin Group</button>
+                        <button class="radio-btn" data-tab="app">Application</button>
+                    </div>
+                </div>
+
+                <!-- 搜索栏 -->
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <input type="text" class="search-input" placeholder="Search...">
+                        <svg class="search-input-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+                    <button class="add-btn">+</button>
+                </div>
+
+                <!-- 管理员列表 -->
+                <div class="list-container active" id="admin-list">
+                    <div class="group-category">
+                        <div class="category-header">Super Admins</div>
+                        <div class="list-item active" data-type="admin" data-id="admin1">
+                            <span>Administrator</span>
+                        </div>
+                    </div>
+                    <div class="group-category">
+                        <div class="category-header">Sub Admins</div>
+                        <div class="list-item" data-type="admin" data-id="admin2">
+                            <span>gina</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 管理组树形列表 -->
+                <div class="list-container" id="group-list">
+                    <div class="tree-view">
+                        <div class="tree-node">
+                            <div class="tree-item expandable expanded" data-type="group" data-id="super-admin">
+                                <span class="tree-toggle">▼</span>
+                                <span class="tree-label">SuperAdmin</span>
+                            </div>
+                            <div class="tree-children">
+                                <div class="tree-node">
+                                    <div class="tree-item" data-type="group" data-id="group1">
+                                        <span class="tree-indent"></span>
+                                        <span class="tree-label">DD3 Admin Group</span>
+                                    </div>
+                                </div>
+                                <div class="tree-node">
+                                    <div class="tree-item" data-type="group" data-id="group2">
+                                        <span class="tree-indent"></span>
+                                        <span class="tree-label">Finance Admin Group</span>
+                                    </div>
+                                </div>
+                                <div class="tree-node">
+                                    <div class="tree-item" data-type="group" data-id="group3">
+                                        <span class="tree-indent"></span>
+                                        <span class="tree-label">HR Admin Group</span>
+                                    </div>
+                                </div>
+                                <div class="tree-node">
+                                    <div class="tree-item" data-type="group" data-id="group4">
+                                        <span class="tree-indent"></span>
+                                        <span class="tree-label">IT Admin Group</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 应用列表 -->
+                <div class="list-container" id="app-list">
+                    <div class="group-category">
+                        <div class="category-header">Configured</div>
+                        <div class="list-item active" data-type="app" data-id="app1">
+                            <span>testappwithexternaldb</span>
+                        </div>
+                        <div class="list-item" data-type="app" data-id="app2">
+                            <span>获取token网</span>
+                        </div>
+                        <div class="list-item" data-type="app" data-id="app3">
+                            <span>testapp</span>
+                        </div>
+                    </div>
+                    <div class="group-category">
+                        <div class="category-header">Not Configured</div>
+                        <div class="list-item" data-type="app" data-id="app4">
+                            <span>testpermission1</span>
+                        </div>
+                        <div class="list-item" data-type="app" data-id="app5">
+                            <span>testpermission2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧:详情面板 -->
+            <div class="right-section">
+                <!-- 管理员详情 -->
+                <div class="detail-panel active" id="admin-detail">
+                    <div class="detail-section">
+                        <h3 class="section-title">Base Info</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <label>Admin</label>
+                                <span>Administrator</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Manage Role</label>
+                                <span>Super Admins</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Belong Admin Group</label>
+                                <span>SuperAdmin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Permission</h3>
+                        <div class="permission-list">
+                            <div class="permission-block">
+                                <div class="perm-label">Organization Permission</div>
+                                <div class="perm-text">Have permission to view and manage all users</div>
+                            </div>
+
+                            <div class="permission-block">
+                                <div class="perm-label">Application Permission</div>
+                                <div class="perm-text">Have permission to publish new application and manage all applications</div>
+                                <div class="perm-sub">
+                                    <div class="perm-sub-label">New app default access scope</div>
+                                    <div class="perm-sub-value">All Users</div>
+                                </div>
+                            </div>
+
+                            <div class="permission-block">
+                                <div class="perm-label">Provider Permission</div>
+                                <div class="perm-text">Have permission to install new provider and manage all providers</div>
+                            </div>
+
+                            <div class="permission-block">
+                                <div class="perm-label">View permissions for Windows domain users who are not members of the organization <span class="help-icon">?</span></div>
+                                <div class="perm-text">Have permission to view all windows domain users</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SuperAdmin 详情 -->
+                <div class="detail-panel" id="super-admin-detail">
+                    <div class="detail-section">
+                        <h3 class="section-title">Base Info</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <label>Admin Group Name</label>
+                                <span>超级管理组</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Admin</h3>
+                        <div class="info-item">
+                            <label>Members</label>
+                            <div class="value-group">
+                                <span class="tag-item">Administrator</span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Permission</h3>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Organization Permission</span>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-text">Have permission to view and manage all users</div>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Application Permission</span>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-text">Have permission to publish new application and manage all applications</div>
+                                <div class="perm-sub">
+                                    <div class="perm-sub-label">New app default access scope</div>
+                                    <div class="perm-sub-value">All Users</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Provider Permission</span>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-text">Have permission to install new provider and manage all providers</div>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>View permissions for Windows domain users who are not members of the organization</span>
+                                <span class="help-icon">?</span>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-text">Have permission to view all windows domain users</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 子管理组详情 -->
+                <div class="detail-panel" id="group-detail">
+                    <div class="detail-section">
+                        <h3 class="section-title">Base Info</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <label>Admin Group Name</label>
+                                <span>DD3管理组</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Description</label>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary">Edit</button>
+                            <button class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Admin</h3>
+                        <div class="info-item">
+                            <label>Members</label>
+                            <div class="value-group">
+                                <span class="tag-item">gina</span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Permission</h3>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Organization Permission</span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-desc">Have management permission</div>
+                                <div class="tag-list">
+                                    <span class="tag-item">DD3</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Application Permission</span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="perm-content">
+                                <div class="perm-desc">Have management and upgrade permission</div>
+                                <div class="tag-list">
+                                    <span class="tag-item">testapp</span>
+                                    <span class="tag-item">testappwithexternaldb</span>
+                                    <span class="tag-item">获取token网</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>Provider Permission</span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="perm-section">
+                            <div class="perm-header">
+                                <span>View permissions for Windows domain users who are not members of the organization<span class="help-icon">?</span></span>
+                                <button class="icon-btn">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 应用详情 -->
+                <div class="detail-panel" id="app-detail">
+                    <div class="detail-section">
+                        <h3 class="section-title">Base Info</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <label>Application Name</label>
+                                <span id="app-name-display">testappwithexternaldb</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3 class="section-title">Permission</h3>
+                        <div class="info-item">
+                            <label>Admin Groups</label>
+                            <div class="value-group">
+                                <span class="tag-item">DD3 Admin Group</span>
+                                <span class="tag-item">Finance Admin Group</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Application Permission Dialog -->
+    <div class="dialog-overlay" id="editAppPermDialog">
+        <div class="dialog-container dialog-large">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Edit Application Permission</h3>
+                <button class="dialog-close-btn" onclick="closeEditAppPermDialog()">×</button>
+            </div>
+            <div class="dialog-body">
+                <!-- Publish New App Permission Section -->
+                <div class="dialog-section">
+                    <h4 class="section-subtitle">Publish New App Permission</h4>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="publishNewAppPerm" class="dialog-checkbox">
+                        <label for="publishNewAppPerm">Have publish new application permission</label>
+                    </div>
+                </div>
+
+                <!-- Manage And Upgrade Permission Section -->
+                <div class="dialog-section">
+                    <h4 class="section-subtitle">Manage And Upgrade Permission</h4>
+
+                    <!-- Selected Items -->
+                    <div class="selected-items-row">
+                        <label class="selected-label">Already Select 3 item:</label>
+                        <div class="selected-tags-inline">
+                            <span class="selected-tag">
+                                testapp
+                                <button class="tag-remove-btn" onclick="removeAppTag(this)">×</button>
+                            </span>
+                            <span class="selected-tag">
+                                testappwithexternaldb
+                                <button class="tag-remove-btn" onclick="removeAppTag(this)">×</button>
+                            </span>
+                            <span class="selected-tag">
+                                获取token网
+                                <button class="tag-remove-btn" onclick="removeAppTag(this)">×</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="dialog-search">
+                        <input type="text" class="dialog-search-input" placeholder="Search application" id="appSearchInput">
+                        <svg class="dialog-search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Application Tree -->
+                    <div class="app-tree-container">
+                        <!-- Header Row -->
+                        <div class="app-tree-header">
+                            <div class="app-tree-header-cell checkbox-col">
+                                <input type="checkbox" class="tree-header-checkbox" onclick="toggleAllApps(this)">
+                            </div>
+                            <div class="app-tree-header-cell app-name-col">App Name</div>
+                            <div class="app-tree-header-cell access-col">Who can access the application</div>
+                            <div class="app-tree-header-cell warning-col"></div>
+                        </div>
+
+                        <!-- Tree Items -->
+                        <div class="app-tree-list">
+                            <!-- App 1: testappwithexternaldb (selected, expanded) -->
+                            <div class="app-tree-node">
+                                <div class="app-tree-item app-parent selected-row" data-app-name="testappwithexternaldb">
+                                    <div class="app-tree-cell checkbox-col">
+                                        <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
+                                    </div>
+                                    <div class="app-tree-cell app-name-col">
+                                        <span class="tree-toggle expanded" onclick="toggleAppTreeNode(this)">▼</span>
+                                        <span class="app-name-text">testappwithexternaldb</span>
+                                    </div>
+                                    <div class="app-tree-cell access-col">All Users</div>
+                                    <div class="app-tree-cell warning-col"></div>
+                                </div>
+                                <div class="app-tree-children">
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">BasicSettings</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- App 2: 获取token网 (selected, collapsed) -->
+                            <div class="app-tree-node">
+                                <div class="app-tree-item app-parent selected-row" data-app-name="获取token网">
+                                    <div class="app-tree-cell checkbox-col">
+                                        <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
+                                    </div>
+                                    <div class="app-tree-cell app-name-col">
+                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
+                                        <span class="app-name-text">获取token网</span>
+                                    </div>
+                                    <div class="app-tree-cell access-col">All Users</div>
+                                    <div class="app-tree-cell warning-col"></div>
+                                </div>
+                                <div class="app-tree-children" style="display: none;">
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">BasicSettings</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- App 3: testapp (selected, collapsed, with warning) -->
+                            <div class="app-tree-node">
+                                <div class="app-tree-item app-parent selected-row" data-app-name="testapp">
+                                    <div class="app-tree-cell checkbox-col">
+                                        <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
+                                    </div>
+                                    <div class="app-tree-cell app-name-col">
+                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
+                                        <span class="app-name-text">testapp</span>
+                                    </div>
+                                    <div class="app-tree-cell access-col">All Users</div>
+                                    <div class="app-tree-cell warning-col">
+                                        <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="app-tree-children" style="display: none;">
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">BasicSettings</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- App 4: testpermission1 (not selected) -->
+                            <div class="app-tree-node">
+                                <div class="app-tree-item app-parent" data-app-name="testpermission1">
+                                    <div class="app-tree-cell checkbox-col">
+                                        <input type="checkbox" onclick="toggleAppNode(this)" class="app-checkbox">
+                                    </div>
+                                    <div class="app-tree-cell app-name-col">
+                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
+                                        <span class="app-name-text">testpermission1</span>
+                                    </div>
+                                    <div class="app-tree-cell access-col">All Users</div>
+                                    <div class="app-tree-cell warning-col">
+                                        <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="app-tree-children" style="display: none;">
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">BasicSettings</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- App 5: testpermission2 -->
+                            <div class="app-tree-node">
+                                <div class="app-tree-item app-parent" data-app-name="testpermission2">
+                                    <div class="app-tree-cell checkbox-col">
+                                        <input type="checkbox" onclick="toggleAppNode(this)" class="app-checkbox">
+                                    </div>
+                                    <div class="app-tree-cell app-name-col">
+                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
+                                        <span class="app-name-text">testpermission2</span>
+                                    </div>
+                                    <div class="app-tree-cell access-col">All Users</div>
+                                    <div class="app-tree-cell warning-col">
+                                        <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="app-tree-children" style="display: none;">
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">BasicSettings</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                    <div class="app-tree-item app-child">
+                                        <div class="app-tree-cell checkbox-col"></div>
+                                        <div class="app-tree-cell app-name-col">
+                                            <span class="tree-indent"></span>
+                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
+                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
+                                        </div>
+                                        <div class="app-tree-cell access-col"></div>
+                                        <div class="app-tree-cell warning-col"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="table-pagination">
+                        <button class="pagination-btn" disabled>&lt;</button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-primary" onclick="saveAppPermission()">OK</button>
+                <button class="btn btn-secondary" onclick="closeEditAppPermDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Admin Dialog -->
+    <div class="dialog-overlay" id="editAdminDialog">
+        <div class="dialog-container">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Edit Admin</h3>
+                <button class="dialog-close-btn" onclick="closeEditAdminDialog()">×</button>
+            </div>
+            <div class="dialog-body">
+                <div class="dialog-section">
+                    <div class="selected-items">
+                        <label class="dialog-label">Selected Items:</label>
+                        <div class="selected-tags">
+                            <span class="selected-tag">
+                                gina
+                                <button class="tag-remove-btn" onclick="removeSelectedTag(this)">×</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dialog-section">
+                    <div class="dialog-search">
+                        <input type="text" class="dialog-search-input" placeholder="Search organization or user" id="orgSearchInput">
+                        <svg class="dialog-search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="dialog-section">
+                    <div class="org-tree-container">
+                        <div class="org-tree-node">
+                            <div class="org-tree-item org-expandable org-expanded" data-level="0">
+                                <span class="org-toggle">▶</span>
+                                <input type="checkbox" class="org-checkbox" onclick="toggleOrgSelection(event, this)">
+                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                                </svg>
+                                <span class="org-label">Company</span>
+                            </div>
+                            <div class="org-tree-children">
+                                <div class="org-tree-node">
+                                    <div class="org-tree-item org-expandable org-expanded" data-level="1">
+                                        <span class="org-toggle">▶</span>
+                                        <input type="checkbox" class="org-checkbox" onclick="toggleOrgSelection(event, this)">
+                                        <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                                        </svg>
+                                        <span class="org-label">Xian</span>
+                                    </div>
+                                    <div class="org-tree-children">
+                                        <div class="org-tree-node">
+                                            <div class="org-tree-item org-expandable org-expanded" data-level="2">
+                                                <span class="org-toggle">▶</span>
+                                                <input type="checkbox" class="org-checkbox" onclick="toggleOrgSelection(event, this)">
+                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                                                </svg>
+                                                <span class="org-label">DD3</span>
+                                            </div>
+                                            <div class="org-tree-children">
+                                                <div class="org-tree-node">
+                                                    <div class="org-tree-item org-expandable org-expanded" data-level="3">
+                                                        <span class="org-toggle">▶</span>
+                                                        <input type="checkbox" class="org-checkbox" onclick="toggleOrgSelection(event, this)">
+                                                        <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                                                        </svg>
+                                                        <span class="org-label">Forguncy3332</span>
+                                                    </div>
+                                                    <div class="org-tree-children">
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">John Smith</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">Mary Johnson</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">David Lee</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">Sarah Williams</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="org-tree-node">
+                                                    <div class="org-tree-item org-user" data-level="3">
+                                                        <span class="org-indent"></span>
+                                                        <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                        <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                        </svg>
+                                                        <span class="org-label">andrew</span>
+                                                    </div>
+                                                </div>
+                                                <div class="org-tree-node">
+                                                    <div class="org-tree-item org-expandable org-expanded" data-level="3">
+                                                        <span class="org-toggle">▶</span>
+                                                        <input type="checkbox" class="org-checkbox" onclick="toggleOrgSelection(event, this)">
+                                                        <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+                                                        </svg>
+                                                        <span class="org-label">gc3</span>
+                                                    </div>
+                                                    <div class="org-tree-children">
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">James Brown</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="org-tree-node">
+                                                            <div class="org-tree-item org-user" data-level="4">
+                                                                <span class="org-indent"></span>
+                                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                                </svg>
+                                                                <span class="org-label">Lisa Davis</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="org-tree-node">
+                                            <div class="org-tree-item org-user org-disabled" data-level="2">
+                                                <span class="org-indent"></span>
+                                                <input type="checkbox" class="org-checkbox" disabled>
+                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                </svg>
+                                                <span class="org-label">Administrator</span>
+                                            </div>
+                                        </div>
+                                        <div class="org-tree-node">
+                                            <div class="org-tree-item org-user org-selected" data-level="2">
+                                                <span class="org-indent"></span>
+                                                <input type="checkbox" class="org-checkbox" checked onclick="toggleUserSelection(event, this)">
+                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                </svg>
+                                                <span class="org-label">gina</span>
+                                            </div>
+                                        </div>
+                                        <div class="org-tree-node">
+                                            <div class="org-tree-item org-user" data-level="2">
+                                                <span class="org-indent"></span>
+                                                <input type="checkbox" class="org-checkbox" onclick="toggleUserSelection(event, this)">
+                                                <svg class="org-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                </svg>
+                                                <span class="org-label">robert</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-primary" onclick="saveEditAdmin()">OK</button>
+                <button class="btn btn-secondary" onclick="closeEditAdminDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

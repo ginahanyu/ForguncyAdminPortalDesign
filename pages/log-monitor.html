@@ -1,0 +1,480 @@
+<div class="permission-page">
+    <!-- 最左侧一级菜单 -->
+    <div class="primary-sidebar">
+        <div class="sidebar-title">Log And Monitor</div>
+        <div class="sidebar-divider"></div>
+        <div class="primary-menu-list">
+            <div class="primary-menu-item">Monitor</div>
+            <div class="primary-menu-section">
+                <div class="primary-menu-item expandable expanded">
+                    <span>Log</span>
+                    <span class="expand-icon">∧</span>
+                </div>
+                <div class="primary-submenu" style="display: block;">
+                    <div class="primary-submenu-item active" data-log-section="audit">Audit Log</div>
+                    <div class="primary-submenu-item" data-log-section="diagnosis">Diagnosis Log</div>
+                    <div class="primary-submenu-item" data-log-section="collection">Log collection</div>
+                    <div class="primary-submenu-item" data-log-section="database">Log Database</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-container">
+        <!-- Audit Log 内容 -->
+        <div class="log-content-panel active" id="audit-panel">
+            <!-- 页面头部 -->
+            <div class="log-page-header">
+                <div class="log-header-content">
+                    <svg class="log-header-icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
+                    <h2 class="log-header-title">Audit Log</h2>
+                </div>
+                <p class="log-header-description">Record information such as operations and requests for accessing the server manager and applications.You can configure the modules that need to be logged for the server manager and applications in module settings.</p>
+            </div>
+
+            <!-- Tab 栏 -->
+            <div class="log-tabs">
+                <div class="log-tab active" data-tab="history">History</div>
+                <div class="log-tab" data-tab="module">Module Settings</div>
+                <div class="log-tab" data-tab="storage">Storage Settings</div>
+            </div>
+
+            <!-- History Tab Content -->
+            <div class="log-tab-content active" id="history-content">
+                <!-- 查询条件 -->
+                <div class="query-bar">
+                    <div class="query-row">
+                        <div class="query-item">
+                            <label>App：</label>
+                            <div class="searchable-select">
+                                <input type="text" class="searchable-input" value="Server Manager">
+                                <span class="select-arrow">▼</span>
+                                <div class="select-dropdown">
+                                    <div class="dropdown-options">
+                                        <div class="dropdown-option" data-value="Server Manager">Server Manager</div>
+                                        <div class="dropdown-option" data-value="App1">App1</div>
+                                        <div class="dropdown-option" data-value="App2">App2</div>
+                                        <div class="dropdown-option" data-value="TestApp">TestApp</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="query-item">
+                            <label>LogType：</label>
+                            <div class="searchable-select">
+                                <input type="text" class="searchable-input" placeholder="Please select LogType">
+                                <span class="select-arrow">▼</span>
+                                <div class="select-dropdown">
+                                    <div class="dropdown-options">
+                                        <div class="dropdown-option" data-value="ThirdPartOperationLog">ThirdPartOperationLog</div>
+                                        <div class="dropdown-option" data-value="UserOperationLog">UserOperationLog</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="query-item">
+                            <label>Start Date：</label>
+                            <input type="text" class="form-input query-input" value="2025-10-17 00:00:00">
+                        </div>
+                        <div class="query-item">
+                            <label>End Date：</label>
+                            <input type="text" class="form-input query-input" placeholder="Select date">
+                        </div>
+                        <div class="query-actions">
+                            <button class="btn-link">More</button>
+                            <button class="btn btn-secondary">Reset</button>
+                            <button class="btn btn-primary">Query</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数据表格 -->
+                <div class="log-table-container">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Row Number</th>
+                                <th>Time</th>
+                                <th>LogType</th>
+                                <th>UserName</th>
+                                <th>Duration</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2025-10-17 11:05:45.587</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序, isSuccess: Yes;</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2025-10-17 11:05:23.547</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">
+                                        <span class="error-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序 错误: "由于无法生成同同步失败. 下一次同步，会在20分钟后自动开始. One or more errors occurred. ({"errcode":60020,"errmsg":"not allow to access from your ip, hint: [1760670323660554011775398], from ip: 113.132.178.243, more info at https://open.work.weixin.qq.com/devtool/query?e=60020","department":"[]}}), isSuccess: No;</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>2025-10-17 10:45:23.663</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">
+                                        <span class="error-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序 错误: "由于无法生成同同步失败. 下一次同步，会在20分钟后自动开始. One or more errors occurred. ({"errcode":60020,"errmsg":"not allow to access from your ip, hint: [1760669123609110709842991], from ip: 113.132.179.191, more info at https://open.work.weixin.qq.com/devtool/query?e=60020","department":"[]}}), isSuccess: No;</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>2025-10-17 10:45:23.639</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">
+                                        <span class="error-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序 错误: "由于无法生成同同步失败. 下一次同步，会在20分钟后自动开始. One or more errors occurred. ({"errcode":60020,"errmsg":"not allow to access from your ip, hint: [1760669123501861443425574], from ip: 113.132.179.191, more info at https://open.work.weixin.qq.com/devtool/query?e=60020","department":"[]}}), isSuccess: No;</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>2025-10-17 10:25:23.438</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">
+                                        <span class="error-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序 错误: "由于无法生成同同步失败. 下一次同步，会在20分钟后自动开始. One or more errors occurred. ({"errcode":60020,"errmsg":"not allow to access from your ip, hint: [1760667923451821144249418], from ip: 113.132.178.243, more info at https://open.work.weixin.qq.com/devtool/query?e=60020","department":"[]}}), isSuccess: No;</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>2025-10-17 10:25:23.381</td>
+                                <td>ThirdPartOperationLog</td>
+                                <td></td>
+                                <td></td>
+                                <td class="detail-cell">
+                                    <div class="detail-text">
+                                        <span class="error-text">OperationName: 同步第三方用户信息; Message: 第三方提供安全程序: 企业微信安全提供程序 错误: "由于无法生成同同步失败. 下一次同步，会在20分钟后自动开始. One or more errors occurred. ({"errcode":60020,"errmsg":"not allow to access from your ip, hint: [1760667923333824314009], from ip: 113.132.178.243, more info at https://open.work.weixin.qq.com/devtool/query?e=60020","department":"[]}}), isSuccess: No;</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Module Settings Tab Content -->
+            <div class="log-tab-content" id="module-content">
+                <!-- 顶部区域 -->
+                <div class="module-settings-header">
+                    <div class="module-header-actions">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="module-header-description">
+                        <p>You can configure the modules that need to enabled logging for the Server Manager and all applications</p>
+                    </div>
+                </div>
+
+                <div class="module-settings-layout">
+                    <!-- 左侧应用列表 -->
+                    <div class="module-left-panel">
+                        <div class="module-app-item active" data-app="server-manager">
+                            <span>Server Manager</span>
+                        </div>
+                        <div class="module-app-item" data-app="testappwithexternaldb">
+                            <span>testappwithexternaldb</span>
+                        </div>
+                        <div class="module-app-item" data-app="token">
+                            <span>获取token网</span>
+                        </div>
+                        <div class="module-app-item" data-app="testapp">
+                            <span>testapp</span>
+                        </div>
+                        <div class="module-app-item" data-app="testpermission1">
+                            <span>testpermission1</span>
+                        </div>
+                        <div class="module-app-item" data-app="testpermission2">
+                            <span>testpermission2</span>
+                        </div>
+                        <div class="module-app-item" data-app="testpermission">
+                            <span>testpermission</span>
+                        </div>
+                        <div class="module-app-item" data-app="test">
+                            <span>test</span>
+                        </div>
+                        <div class="module-app-item" data-app="testpm">
+                            <span>testpm</span>
+                        </div>
+                        <div class="module-app-item" data-app="app1">
+                            <span>app1</span>
+                        </div>
+                    </div>
+
+                    <!-- 中间日志类型列表 -->
+                    <div class="module-middle-panel">
+                        <div class="module-category">
+                            <div class="module-category-header">
+                                <span>LicenseOperationLog</span>
+                                <span class="info-icon-circle">ⓘ</span>
+                            </div>
+                        </div>
+                        <div class="module-log-item active" data-log="LoginLog">
+                            <span>LoginLog</span>
+                        </div>
+                        <div class="module-log-item" data-log="UserOperationLog">
+                            <span>UserOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="SendMailLog">
+                            <span>SendMailLog</span>
+                        </div>
+                        <div class="module-log-item" data-log="SettingOperationLog">
+                            <span>SettingOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="LogoutLog">
+                            <span>LogoutLog</span>
+                        </div>
+                        <div class="module-log-item" data-log="PermissionOperationLog">
+                            <span>PermissionOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="AppOperationLog">
+                            <span>AppOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="ForgotPasswordLog">
+                            <span>ForgotPasswordLog</span>
+                        </div>
+                        <div class="module-log-item" data-log="ThirdPartOperationLog">
+                            <span>ThirdPartOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="LogAndMonitorOperationLog">
+                            <span>LogAndMonitorOperationLog</span>
+                            <span class="info-icon-circle">ⓘ</span>
+                        </div>
+                        <div class="module-log-item" data-log="HttpLog">
+                            <span>HttpLog</span>
+                        </div>
+                        <div class="module-log-item" data-log="PublishLog">
+                            <span>PublishLog</span>
+                        </div>
+                    </div>
+
+                    <!-- 右侧配置面板 -->
+                    <div class="module-right-panel">
+                        <div class="module-config-header">
+                            <button class="btn btn-primary">Save</button>
+                        </div>
+                        <div class="module-config-description">
+                            <p>记录管理控制台可操作的相关日志。比如，添加许可、删除许可、刷新许可等。</p>
+                        </div>
+                        <div class="module-config-content">
+                            <div class="config-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span>Enabled</span>
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span>OperationName</span>
+                                </label>
+                                <a href="#" class="filter-link">Filter...</a>
+                            </div>
+                            <div class="config-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span>Message</span>
+                                </label>
+                                <a href="#" class="filter-link">Filter...</a>
+                            </div>
+                            <div class="config-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span>IsSuccess</span>
+                                </label>
+                                <a href="#" class="filter-link">Filter...</a>
+                            </div>
+                            <div class="config-item">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span>UserName</span>
+                                </label>
+                                <a href="#" class="filter-link">Filter...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storage Settings Tab Content -->
+            <div class="log-tab-content" id="storage-content">
+                <!-- 顶部区域 -->
+                <div class="module-settings-header">
+                    <div class="module-header-actions">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="module-header-description">
+                        <p>Audit logs are stored by application database.Each application has one database so that you can configure log database storage and log file storage for each application.</p>
+                    </div>
+                </div>
+
+                <!-- 左右布局 -->
+                <div class="storage-settings-layout">
+                    <!-- 左侧应用列表 -->
+                    <div class="storage-left-panel">
+                        <div class="storage-search-bar">
+                            <input type="text" class="form-input storage-search-input" placeholder="Search...">
+                            <svg class="storage-search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </div>
+                        <div class="storage-app-list">
+                            <div class="storage-app-item active" data-app="server-manager">
+                                <span>Server Manager</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testappwithexternaldb">
+                                <span>testappwithexternaldb</span>
+                            </div>
+                            <div class="storage-app-item" data-app="token">
+                                <span>获取token网</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testapp">
+                                <span>testapp</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testpermission1">
+                                <span>testpermission1</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testpermission2">
+                                <span>testpermission2</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testpermission">
+                                <span>testpermission</span>
+                            </div>
+                            <div class="storage-app-item" data-app="test">
+                                <span>test</span>
+                            </div>
+                            <div class="storage-app-item" data-app="testpm">
+                                <span>testpm</span>
+                            </div>
+                            <div class="storage-app-item" data-app="app1">
+                                <span>app1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧配置面板 -->
+                    <div class="storage-right-panel">
+                        <!-- Log Database 部分 -->
+                        <div class="storage-section">
+                            <h3 class="storage-section-title">Log Database</h3>
+                            <div class="storage-config-row">
+                                <label class="storage-config-label">Maximum retention days of the log database</label>
+                                <div class="storage-input-wrapper">
+                                    <input type="number" class="form-input storage-input" data-config="logDbRetentionDays" data-app-value="">
+                                    <button class="config-reset-btn" title="Use global settings" style="display: none;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="config-source-hint"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Log File Configuration 部分 -->
+                        <div class="storage-section">
+                            <h3 class="storage-section-title">Log File Configuration</h3>
+                            <div class="storage-config-row">
+                                <label class="storage-config-label">Maximum number of reserved log files</label>
+                                <div class="storage-input-wrapper">
+                                    <input type="number" class="form-input storage-input" data-config="maxLogFiles" data-app-value="">
+                                    <button class="config-reset-btn" title="Use global settings" style="display: none;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="config-source-hint"></span>
+                                </div>
+                            </div>
+                            <div class="storage-config-row">
+                                <label class="storage-config-label">Maximum retention days of log files</label>
+                                <div class="storage-input-wrapper">
+                                    <input type="number" class="form-input storage-input" data-config="logFileRetentionDays" data-app-value="">
+                                    <button class="config-reset-btn" title="Use global settings" style="display: none;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="config-source-hint"></span>
+                                </div>
+                            </div>
+                            <div class="storage-config-row">
+                                <label class="storage-config-label">Single file size limit(MB)</label>
+                                <div class="storage-input-wrapper">
+                                    <input type="number" class="form-input storage-input" data-config="logFileSizeLimit" data-app-value="">
+                                    <button class="config-reset-btn" title="Use global settings" style="display: none;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                    </button>
+                                    <span class="config-source-hint"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnosis Log 内容 -->
+        <div class="log-content-panel" id="diagnosis-panel">
+            <div class="settings-content">
+                <div class="detail-section">
+                    <h3 class="section-title">Diagnosis Log</h3>
+                    <p>Diagnosis log content will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log collection 内容 -->
+        <div class="log-content-panel" id="collection-panel">
+            <div class="settings-content">
+                <div class="detail-section">
+                    <h3 class="section-title">Log Collection</h3>
+                    <p>Log collection settings will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Database 内容 -->
+        <div class="log-content-panel" id="database-panel">
+            <div class="settings-content">
+                <div class="detail-section">
+                    <h3 class="section-title">Log Database</h3>
+                    <p>Log database configuration will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

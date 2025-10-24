@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(dir:*)",
+      "Bash(npm start)",
+      "Bash(python:*)",
+      "Bash(cmd /c:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(npx http-server:*)",
+      "Bash(timeout:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "WebFetch(domain:xa-dd3-ginahan)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

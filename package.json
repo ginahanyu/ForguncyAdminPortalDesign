@@ -1,0 +1,12 @@
+{
+  "name": "huozige-prototype",
+  "version": "1.0.0",
+  "description": "活字格管理控制台原型设计",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3002"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
