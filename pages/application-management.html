@@ -65,7 +65,10 @@
                         <path fill="currentColor" d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/>
                     </svg>
                 </div>
-                <button class="btn-offline-publish">Offline Publish</button>
+                <div class="all-apps-actions">
+                    <button class="btn-view-settings" onclick="openViewSettingsDialog()">View Settings</button>
+                    <button class="btn-offline-publish">Offline Publish</button>
+                </div>
             </div>
 
             <!-- 第三部分：应用表格 -->
@@ -73,28 +76,28 @@
                 <table class="all-apps-table">
                     <thead>
                         <tr>
-                            <th>App Name</th>
-                            <th>Who can access the application</th>
-                            <th>Who can manage the application</th>
-                            <th>Host Port</th>
-                            <th>Version</th>
-                            <th>Published</th>
-                            <th>Authentication</th>
-                            <th>Start/Stop</th>
-                            <th>Browse</th>
-                            <th>Description</th>
+                            <th data-column="app-name">App Name</th>
+                            <th data-column="access">Who can access the application</th>
+                            <th data-column="manage">Who can manage the application</th>
+                            <th data-column="host-port">Host Port</th>
+                            <th data-column="version">Version</th>
+                            <th data-column="published">Published</th>
+                            <th data-column="authentication">Authentication</th>
+                            <th data-column="start-stop">Start/Stop</th>
+                            <th data-column="browse">Browse</th>
+                            <th data-column="description">Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="#" class="app-name-link">testappwithexternaldb</a></td>
-                            <td>All Users</td>
-                            <td>SuperAdmins, DBManagers</td>
-                            <td>80</td>
-                            <td>11.0.102.0</td>
-                            <td>2025-10-15 17:10:44</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testappwithexternaldb</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">SuperAdmins, DBManagers</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.102.0</td>
+                            <td data-column="published">2025-10-15 17:10:44</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -102,24 +105,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">获取token网</a></td>
-                            <td>All Users</td>
-                            <td></td>
-                            <td>80</td>
-                            <td>11.0.102.0</td>
-                            <td>2025-10-10 10:16:48</td>
-                            <td>Windows</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">获取token网</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage"></td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.102.0</td>
+                            <td data-column="published">2025-10-10 10:16:48</td>
+                            <td data-column="authentication">Windows</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -127,24 +130,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">testapp</a></td>
-                            <td>All Users</td>
-                            <td>Administrators</td>
-                            <td>80</td>
-                            <td>11.0.4.0</td>
-                            <td>2025-09-19 08:38:15</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testapp</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">Administrators</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.4.0</td>
+                            <td data-column="published">2025-09-19 08:38:15</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -152,24 +155,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">testpermission1</a></td>
-                            <td>All Users</td>
-                            <td>AdminGroup1, AdminGroup2, Supervisors</td>
-                            <td>80</td>
-                            <td>11.0.3.0</td>
-                            <td>2025-08-18 17:54:40</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testpermission1</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">AdminGroup1, AdminGroup2, Supervisors</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.3.0</td>
+                            <td data-column="published">2025-08-18 17:54:40</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -177,24 +180,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">testpermission2</a></td>
-                            <td>All Users</td>
-                            <td></td>
-                            <td>80</td>
-                            <td>11.0.3.0</td>
-                            <td>2025-08-18 17:52:26</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testpermission2</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage"></td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.3.0</td>
+                            <td data-column="published">2025-08-18 17:52:26</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -202,24 +205,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">testpermission</a></td>
-                            <td>All Users</td>
-                            <td>DevOps, SystemAdmins</td>
-                            <td>80</td>
-                            <td>11.0.3.0</td>
-                            <td>2025-08-18 17:39:40</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testpermission</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">DevOps, SystemAdmins</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.3.0</td>
+                            <td data-column="published">2025-08-18 17:39:40</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -227,24 +230,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">test</a></td>
-                            <td>All Users</td>
-                            <td>Managers</td>
-                            <td>80</td>
-                            <td>11.0.3.0</td>
-                            <td>2025-07-16 17:28:55</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">test</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">Managers</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.3.0</td>
+                            <td data-column="published">2025-07-16 17:28:55</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -252,24 +255,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">testpm</a></td>
-                            <td>All Users</td>
-                            <td></td>
-                            <td>80</td>
-                            <td>11.0.3.0</td>
-                            <td>2025-07-16 16:13:22</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">testpm</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage"></td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.3.0</td>
+                            <td data-column="published">2025-07-16 16:13:22</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -277,24 +280,24 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="app-name-link">app1</a></td>
-                            <td>All Users</td>
-                            <td>PowerUsers, Administrators</td>
-                            <td>80</td>
-                            <td>11.0.2.0</td>
-                            <td>2025-05-12 19:13:36</td>
-                            <td>Forms</td>
-                            <td class="icon-cell">
+                            <td data-column="app-name"><a href="#" class="app-name-link">app1</a></td>
+                            <td data-column="access">All Users</td>
+                            <td data-column="manage">PowerUsers, Administrators</td>
+                            <td data-column="host-port">80</td>
+                            <td data-column="version">11.0.2.0</td>
+                            <td data-column="published">2025-05-12 19:13:36</td>
+                            <td data-column="authentication">Forms</td>
+                            <td data-column="start-stop" class="icon-cell">
                                 <button class="icon-btn-table" title="Start/Stop">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -302,14 +305,14 @@
                                     </svg>
                                 </button>
                             </td>
-                            <td class="icon-cell">
+                            <td data-column="browse" class="icon-cell">
                                 <button class="icon-btn-table" title="Browse">
                                     <svg viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                     </svg>
                                 </button>
                             </td>
-                            <td></td>
+                            <td data-column="description"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -465,6 +468,67 @@
                 <div class="app-detail-scrollable">
                     <p style="color: #666; padding: 24px;">Advanced configuration goes here...</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Settings Dialog -->
+    <div class="dialog-overlay" id="viewSettingsDialog">
+        <div class="dialog-container">
+            <div class="dialog-header">
+                <h3 class="dialog-title">View Settings</h3>
+                <button class="dialog-close-btn" onclick="closeViewSettingsDialog()">×</button>
+            </div>
+            <div class="dialog-body">
+                <div class="dialog-section">
+                    <h4 class="section-subtitle">Select Columns to Display</h4>
+                    <div class="column-list">
+                        <div class="column-item">
+                            <input type="checkbox" id="col-app-name" class="column-checkbox" data-column="app-name" checked>
+                            <label for="col-app-name" class="column-label">App Name</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-access" class="column-checkbox" data-column="access" checked>
+                            <label for="col-access" class="column-label">Who can access the application</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-manage" class="column-checkbox" data-column="manage" checked>
+                            <label for="col-manage" class="column-label">Who can manage the application</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-host-port" class="column-checkbox" data-column="host-port" checked>
+                            <label for="col-host-port" class="column-label">Host Port</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-version" class="column-checkbox" data-column="version" checked>
+                            <label for="col-version" class="column-label">Version</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-published" class="column-checkbox" data-column="published" checked>
+                            <label for="col-published" class="column-label">Published</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-authentication" class="column-checkbox" data-column="authentication" checked>
+                            <label for="col-authentication" class="column-label">Authentication</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-start-stop" class="column-checkbox" data-column="start-stop" checked>
+                            <label for="col-start-stop" class="column-label">Start/Stop</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-browse" class="column-checkbox" data-column="browse" checked>
+                            <label for="col-browse" class="column-label">Browse</label>
+                        </div>
+                        <div class="column-item">
+                            <input type="checkbox" id="col-description" class="column-checkbox" data-column="description" checked>
+                            <label for="col-description" class="column-label">Description</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-primary" onclick="saveViewSettings()">OK</button>
+                <button class="btn btn-secondary" onclick="closeViewSettingsDialog()">Cancel</button>
             </div>
         </div>
     </div>
@@ -862,5 +926,180 @@
     height: 1px;
     background: #e0e0e0;
     margin: 0;
+}
+
+/* View Settings 按钮样式 */
+.all-apps-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-view-settings {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-view-settings:hover {
+    background: #e8e8e8;
+    border-color: #b0b0b0;
+}
+
+/* View Settings 对话框样式 */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.dialog-overlay.active {
+    display: flex;
+}
+
+.dialog-container {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dialog-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.dialog-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.dialog-close-btn:hover {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.dialog-body {
+    padding: 24px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.dialog-section {
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 16px 0;
+}
+
+.column-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.column-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.column-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.column-label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    user-select: none;
+}
+
+.column-label:hover {
+    color: #1976d2;
+}
+
+.dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid #e0e0e0;
+    background: #fafafa;
+}
+
+.dialog-footer .btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none;
+}
+
+.dialog-footer .btn-primary {
+    background: #00A4E9;
+    color: white;
+}
+
+.dialog-footer .btn-primary:hover {
+    background: #0093D1;
+}
+
+.dialog-footer .btn-secondary {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #d0d0d0;
+}
+
+.dialog-footer .btn-secondary:hover {
+    background: #e8e8e8;
+    border-color: #b0b0b0;
 }
 </style>

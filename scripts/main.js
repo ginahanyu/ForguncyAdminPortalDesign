@@ -105,11 +105,7 @@ function bindPageEvents() {
             // 控制添加按钮的显示/隐藏
             const addBtn = document.querySelector('.add-btn');
             if (addBtn) {
-                if (tab === 'app') {
-                    addBtn.style.display = 'none';
-                } else {
-                    addBtn.style.display = 'flex';
-                }
+                addBtn.style.display = 'flex';
             }
 
             // 切换左侧列表容器
@@ -146,12 +142,6 @@ function bindPageEvents() {
                 if (superAdminDetail) {
                     superAdminDetail.classList.add('active');
                 }
-            } else if (tab === 'app') {
-                // 应用tab，显示第一个应用的详情
-                const targetDetail = document.getElementById('app-detail');
-                if (targetDetail) {
-                    targetDetail.classList.add('active');
-                }
             } else {
                 // 管理员tab，显示对应的详情
                 const targetDetail = document.getElementById(tab + '-detail');
@@ -174,65 +164,7 @@ function bindPageEvents() {
         });
     });
 
-    // 绑定应用列表项点击
-    const appListItems = document.querySelectorAll('.list-item[data-type="app"]');
-    appListItems.forEach(item => {
-        item.addEventListener('click', function() {
-            appListItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-
-            const appId = this.getAttribute('data-id');
-            const appName = this.querySelector('span').textContent;
-            console.log('Selected app:', appId, appName);
-
-            // 更新右侧应用详情中的应用名
-            const appNameDisplay = document.getElementById('app-name-display');
-            if (appNameDisplay) {
-                appNameDisplay.textContent = appName;
-            }
-
-            // 检查应用是否已配置(通过查找父级category)
-            const categoryHeader = this.parentElement.querySelector('.category-header');
-            const isConfigured = categoryHeader && categoryHeader.textContent === 'Configured';
-
-            // 更新Admin Groups内容
-            const appDetail = document.getElementById('app-detail');
-            if (appDetail) {
-                const permissionSection = appDetail.querySelector('.detail-section:last-child');
-                if (permissionSection) {
-                    // 确保Permission部分始终显示
-                    permissionSection.style.display = 'block';
-
-                    // 找到Admin Groups的值容器
-                    const valueGroup = permissionSection.querySelector('.value-group');
-                    if (valueGroup) {
-                        if (isConfigured) {
-                            // 已配置的应用,显示Admin Groups标签
-                            // 根据不同的应用显示不同的管理组
-                            if (appName === 'testappwithexternaldb') {
-                                valueGroup.innerHTML = `
-                                    <span class="tag-item">DD3 Admin Group</span>
-                                    <span class="tag-item">Finance Admin Group</span>
-                                `;
-                            } else if (appName === '获取token网') {
-                                valueGroup.innerHTML = `
-                                    <span class="tag-item">DD3 Admin Group</span>
-                                `;
-                            } else if (appName === 'testapp') {
-                                valueGroup.innerHTML = `
-                                    <span class="tag-item">IT Admin Group</span>
-                                `;
-                            }
-                        } else {
-                            // 未配置的应用,清空Admin Groups
-                            valueGroup.innerHTML = '';
-                        }
-                    }
-                }
-            }
-        });
-    });
-
+  
     // 绑定应用管理页面的应用列表项点击
     const appMgmtItems = document.querySelectorAll('.app-mgmt-item');
     if (appMgmtItems.length > 0) {
@@ -457,6 +389,9 @@ function bindPageEvents() {
 
     // 绑定用户管理页面事件
     bindUserManagementEvents();
+
+    // 绑定View Settings对话框事件
+    bindViewSettingsEvents();
 }
 
 // 绑定全局配置保存按钮
@@ -720,6 +655,15 @@ function initSearchableSelects() {
 
 // 绑定Module Settings页面事件
 function bindModuleSettingsEvents() {
+    // 绑定Module Settings应用搜索功能
+    const moduleSearchInput = document.querySelector('.module-search-input');
+    if (moduleSearchInput) {
+        moduleSearchInput.addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            filterModuleApps(searchText);
+        });
+    }
+
     // 绑定左侧应用列表点击
     const appItems = document.querySelectorAll('.module-app-item');
     appItems.forEach(item => {
@@ -1581,6 +1525,23 @@ function toggleAllApps(checkbox) {
     updateSelectedCount();
 }
 
+// 绑定View Settings对话框事件
+function bindViewSettingsEvents() {
+    // 点击对话框外部关闭
+    document.addEventListener('click', function(event) {
+        const dialog = document.getElementById('viewSettingsDialog');
+        if (dialog && dialog.classList.contains('active') && event.target === dialog) {
+            closeViewSettingsDialog();
+        }
+    });
+
+    // 点击关闭按钮
+    const closeBtn = document.querySelector('.dialog-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeViewSettingsDialog);
+    }
+}
+
 // 绑定用户管理页面事件
 function bindUserManagementEvents() {
     // 绑定左侧菜单项点击
@@ -1748,6 +1709,81 @@ function filterUserTable(searchText) {
             row.style.display = 'none';
         }
     });
+}
+
+// 过滤Module Settings中的应用列表
+function filterModuleApps(searchText) {
+    const appItems = document.querySelectorAll('.module-app-item');
+
+    appItems.forEach(item => {
+        const appName = item.querySelector('span').textContent.toLowerCase();
+
+        if (appName.includes(searchText)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// View Settings 对话框相关函数
+function openViewSettingsDialog() {
+    const dialog = document.getElementById('viewSettingsDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+        // 同步当前表格列的显示状态到对话框
+        syncColumnStates();
+    }
+}
+
+// 关闭View Settings对话框
+function closeViewSettingsDialog() {
+    const dialog = document.getElementById('viewSettingsDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+// 同步列状态
+function syncColumnStates() {
+    const table = document.querySelector('.all-apps-table');
+    if (!table) return;
+
+    const checkboxes = document.querySelectorAll('.column-checkbox');
+    checkboxes.forEach(checkbox => {
+        const columnName = checkbox.getAttribute('data-column');
+        const th = table.querySelector(`th[data-column="${columnName}"]`);
+        const tds = table.querySelectorAll(`td[data-column="${columnName}"]`);
+
+        // 如果列当前是显示的，勾选复选框
+        const isVisible = th && th.style.display !== 'none';
+        checkbox.checked = isVisible;
+    });
+}
+
+// 保存View Settings
+function saveViewSettings() {
+    const table = document.querySelector('.all-apps-table');
+    if (!table) return;
+
+    const checkboxes = document.querySelectorAll('.column-checkbox');
+    checkboxes.forEach(checkbox => {
+        const columnName = checkbox.getAttribute('data-column');
+        const th = table.querySelector(`th[data-column="${columnName}"]`);
+        const tds = table.querySelectorAll(`td[data-column="${columnName}"]`);
+
+        if (checkbox.checked) {
+            // 显示列
+            if (th) th.style.display = '';
+            tds.forEach(td => td.style.display = '');
+        } else {
+            // 隐藏列
+            if (th) th.style.display = 'none';
+            tds.forEach(td => td.style.display = 'none');
+        }
+    });
+
+    closeViewSettingsDialog();
 }
 
 // 页面加载完成后初始化

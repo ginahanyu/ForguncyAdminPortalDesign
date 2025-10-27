@@ -15,7 +15,10 @@
       "WebFetch(domain:xa-dd3-ginahan)",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(start.bat)"
     ],
     "deny": [],
     "ask": []
