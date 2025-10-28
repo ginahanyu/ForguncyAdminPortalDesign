@@ -738,6 +738,8 @@ function bindModuleSettingsEvents() {
 
 // 全局配置(从Settings/LogSettings获取)
 const globalLogConfig = {
+    domain: '',
+    maxProjectFiles: 20,
     logDbRetentionDays: 28,
     maxLogFiles: null, // null表示无限制
     logFileRetentionDays: 28,
@@ -1829,6 +1831,78 @@ function bindAdvancedSettingPermCheckbox() {
             }
         });
     }
+}
+
+// 打开Application Init Settings对话框
+function openAppInitSettingsDialog() {
+    const dialog = document.getElementById('appInitSettingsDialog');
+    if (dialog) {
+        // 加载当前配置到对话框
+        loadAppConfigToDialog();
+        dialog.classList.add('active');
+    }
+}
+
+// 关闭Application Init Settings对话框
+function closeAppInitSettingsDialog() {
+    const dialog = document.getElementById('appInitSettingsDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+// 加载配置到对话框
+function loadAppConfigToDialog() {
+    const inputs = document.querySelectorAll('.app-config-input[data-config]');
+    inputs.forEach(input => {
+        const configKey = input.getAttribute('data-config');
+        const value = globalLogConfig[configKey];
+        if (value !== null && value !== undefined) {
+            input.value = value;
+        } else {
+            input.value = '';
+        }
+    });
+}
+
+// 保存Application Init Settings
+function saveAppInitSettings() {
+    const inputs = document.querySelectorAll('.app-config-input[data-config]');
+
+    inputs.forEach(input => {
+        const configKey = input.getAttribute('data-config');
+        const value = input.value;
+
+        // 更新全局配置对象
+        if (value === '' || value === null) {
+            globalLogConfig[configKey] = null;
+        } else {
+            if (input.type === 'number') {
+                globalLogConfig[configKey] = parseFloat(value);
+            } else {
+                globalLogConfig[configKey] = value;
+            }
+        }
+    });
+
+    // 保存到localStorage
+    try {
+        localStorage.setItem('globalLogConfig', JSON.stringify(globalLogConfig));
+        console.log('Application init settings saved:', globalLogConfig);
+        alert('Settings saved successfully!');
+    } catch (error) {
+        console.error('Failed to save settings:', error);
+        alert('Failed to save settings!');
+    }
+
+    closeAppInitSettingsDialog();
+}
+
+// 导出到Excel
+function exportToExcel() {
+    alert('Export to Excel functionality will be implemented here.');
+    // 这里可以实现实际的导出功能
+    console.log('Exporting all apps data to Excel...');
 }
 
 // 页面加载完成后初始化
