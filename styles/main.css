@@ -1971,7 +1971,7 @@ body {
     padding: 12px;
     max-height: 400px;
     overflow-y: auto;
-    background: #fafafa;
+    background: #fff;
 }
 
 .org-tree-node {
@@ -2009,8 +2009,23 @@ body {
 }
 
 .org-checkbox:indeterminate {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    position: relative;
+}
+
+.org-checkbox:indeterminate::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
     background-color: #1976d2;
-    border-color: #1976d2;
 }
 
 .org-toggle {
