@@ -289,6 +289,34 @@ function bindPageEvents() {
                             }
                         });
                     }
+                } else if (groupId === 'group1-1') {
+                    // 显示Forguncy详情面板
+                    const forguncyDetail = document.getElementById('forguncy-detail');
+                    if (forguncyDetail) {
+                        forguncyDetail.classList.add('active');
+                        // 更新Forguncy的组名
+                        const infoItems = forguncyDetail.querySelectorAll('.info-item');
+                        infoItems.forEach(item => {
+                            const label = item.querySelector('label');
+                            if (label && label.textContent === 'Admin Group Name') {
+                                const valueSpan = item.querySelector('span');
+                                if (valueSpan) {
+                                    valueSpan.textContent = groupName;
+                                }
+                            }
+                        });
+
+                        // 检查父节点的Advanced Setting permission状态
+                        const parentCheckbox = document.getElementById('advancedSettingPerm');
+                        const childCheckbox = document.getElementById('forguncyAdvancedSettingPerm');
+                        if (parentCheckbox && childCheckbox) {
+                            // 如果父节点未勾选，子节点应该disabled
+                            childCheckbox.disabled = !parentCheckbox.checked;
+                            if (childCheckbox.disabled) {
+                                childCheckbox.checked = false;
+                            }
+                        }
+                    }
                 } else {
                     // 显示子管理组详情面板
                     const groupDetail = document.getElementById('group-detail');
@@ -1786,5 +1814,25 @@ function saveViewSettings() {
     closeViewSettingsDialog();
 }
 
+// 绑定父节点Advanced Setting permission checkbox的change事件
+function bindAdvancedSettingPermCheckbox() {
+    const parentCheckbox = document.getElementById('advancedSettingPerm');
+    if (parentCheckbox) {
+        parentCheckbox.addEventListener('change', function() {
+            // 更新所有子节点的checkbox状态
+            const childCheckbox = document.getElementById('forguncyAdvancedSettingPerm');
+            if (childCheckbox) {
+                childCheckbox.disabled = !this.checked;
+                if (childCheckbox.disabled) {
+                    childCheckbox.checked = false;
+                }
+            }
+        });
+    }
+}
+
 // 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', function() {
+    initApp();
+    bindAdvancedSettingPermCheckbox();
+});
