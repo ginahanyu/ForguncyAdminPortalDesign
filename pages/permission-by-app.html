@@ -305,7 +305,7 @@
                         <div class="perm-section">
                             <div class="perm-header">
                                 <span>Application Permission</span>
-                                <button class="icon-btn">
+                                <button class="icon-btn" onclick="openEditAppPermDialog()">
                                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                                     </svg>
@@ -407,7 +407,7 @@
                         <div class="perm-section">
                             <div class="perm-header">
                                 <span>Application Permission</span>
-                                <button class="icon-btn">
+                                <button class="icon-btn" onclick="openEditAppPermDialog()">
                                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                                     </svg>
@@ -505,88 +505,41 @@
 
                         <!-- Tree Items -->
                         <div class="app-tree-list">
-                            <!-- App 1: testappwithexternaldb (selected, expanded) -->
+                            <!-- App 1: testappwithexternaldb (selected) -->
                             <div class="app-tree-node">
                                 <div class="app-tree-item app-parent selected-row" data-app-name="testappwithexternaldb">
                                     <div class="app-tree-cell checkbox-col">
                                         <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
                                     </div>
                                     <div class="app-tree-cell app-name-col">
-                                        <span class="tree-toggle expanded" onclick="toggleAppTreeNode(this)">▼</span>
                                         <span class="app-name-text">testappwithexternaldb</span>
                                     </div>
                                     <div class="app-tree-cell access-col">All Users</div>
                                     <div class="app-tree-cell warning-col"></div>
                                 </div>
-                                <div class="app-tree-children">
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">BasicSettings</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                </div>
                             </div>
 
-                            <!-- App 2: 获取token网 (selected, collapsed) -->
+                            <!-- App 2: 获取token网 (selected) -->
                             <div class="app-tree-node">
                                 <div class="app-tree-item app-parent selected-row" data-app-name="获取token网">
                                     <div class="app-tree-cell checkbox-col">
                                         <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
                                     </div>
                                     <div class="app-tree-cell app-name-col">
-                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
                                         <span class="app-name-text">获取token网</span>
                                     </div>
                                     <div class="app-tree-cell access-col">All Users</div>
                                     <div class="app-tree-cell warning-col"></div>
                                 </div>
-                                <div class="app-tree-children" style="display: none;">
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">BasicSettings</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                </div>
                             </div>
 
-                            <!-- App 3: testapp (selected, collapsed, with warning) -->
+                            <!-- App 3: testapp (selected, with warning) -->
                             <div class="app-tree-node">
                                 <div class="app-tree-item app-parent selected-row" data-app-name="testapp">
                                     <div class="app-tree-cell checkbox-col">
                                         <input type="checkbox" checked onclick="toggleAppNode(this)" class="app-checkbox">
                                     </div>
                                     <div class="app-tree-cell app-name-col">
-                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
                                         <span class="app-name-text">testapp</span>
                                     </div>
                                     <div class="app-tree-cell access-col">All Users</div>
@@ -594,28 +547,6 @@
                                         <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
                                         </svg>
-                                    </div>
-                                </div>
-                                <div class="app-tree-children" style="display: none;">
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">BasicSettings</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" checked onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
                                     </div>
                                 </div>
                             </div>
@@ -627,7 +558,6 @@
                                         <input type="checkbox" onclick="toggleAppNode(this)" class="app-checkbox">
                                     </div>
                                     <div class="app-tree-cell app-name-col">
-                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
                                         <span class="app-name-text">testpermission1</span>
                                     </div>
                                     <div class="app-tree-cell access-col">All Users</div>
@@ -635,28 +565,6 @@
                                         <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
                                         </svg>
-                                    </div>
-                                </div>
-                                <div class="app-tree-children" style="display: none;">
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">BasicSettings</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
                                     </div>
                                 </div>
                             </div>
@@ -668,7 +576,6 @@
                                         <input type="checkbox" onclick="toggleAppNode(this)" class="app-checkbox">
                                     </div>
                                     <div class="app-tree-cell app-name-col">
-                                        <span class="tree-toggle" onclick="toggleAppTreeNode(this)">▶</span>
                                         <span class="app-name-text">testpermission2</span>
                                     </div>
                                     <div class="app-tree-cell access-col">All Users</div>
@@ -676,28 +583,6 @@
                                         <svg class="warning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
                                         </svg>
-                                    </div>
-                                </div>
-                                <div class="app-tree-children" style="display: none;">
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">BasicSettings</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
-                                    </div>
-                                    <div class="app-tree-item app-child">
-                                        <div class="app-tree-cell checkbox-col"></div>
-                                        <div class="app-tree-cell app-name-col">
-                                            <span class="tree-indent"></span>
-                                            <input type="checkbox" onclick="toggleAppChildNode(this)" class="child-checkbox">
-                                            <span class="child-name-text">AdvancedSettings（PathSettings,DataBaseConnectionString,OtherSettings）</span>
-                                        </div>
-                                        <div class="app-tree-cell access-col"></div>
-                                        <div class="app-tree-cell warning-col"></div>
                                     </div>
                                 </div>
                             </div>

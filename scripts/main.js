@@ -1256,6 +1256,36 @@ function bindEditAppPermButtons() {
 function openEditAppPermDialog() {
     const dialog = document.getElementById('editAppPermDialog');
     if (dialog) {
+        // 从当前激活的详情面板的 Application Permission 部分读取已选中的应用
+        const activePanel = document.querySelector('.detail-panel.active');
+        const selectedAppNames = [];
+
+        if (activePanel) {
+            const appTags = activePanel.querySelectorAll('.perm-section .tag-list .tag-item');
+            appTags.forEach(tag => {
+                selectedAppNames.push(tag.textContent.trim());
+            });
+        }
+
+        // 更新对话框中的 checkbox 状态
+        const allCheckboxes = dialog.querySelectorAll('.app-checkbox');
+        allCheckboxes.forEach(checkbox => {
+            const parentItem = checkbox.closest('.app-tree-item.app-parent');
+            const appName = parentItem.querySelector('.app-name-text').textContent;
+
+            if (selectedAppNames.includes(appName)) {
+                checkbox.checked = true;
+                parentItem.classList.add('selected-row');
+            } else {
+                checkbox.checked = false;
+                parentItem.classList.remove('selected-row');
+            }
+        });
+
+        // 更新选中数量和标签
+        updateSelectedCount();
+        updateHeaderCheckbox();
+
         dialog.classList.add('active');
         // 初始化对话框中的表格事件
         bindAppPermTableEvents();
@@ -1263,37 +1293,67 @@ function openEditAppPermDialog() {
 }
 
 // 关闭Edit Application Permission对话框
-function closeEditAppPermDialog() {
+function closeEditAppPermDialog(skipSync = false) {
     const dialog = document.getElementById('editAppPermDialog');
     if (dialog) {
+        // 如果不是通过 OK 按钮关闭，也需要同步选中的应用
+        if (!skipSync) {
+            syncSelectedAppsToPermissionSection();
+        }
         dialog.classList.remove('active');
     }
 }
 
 // 保存Application Permission
 function saveAppPermission() {
-    // 获取复选框状态
-    const publishCheckbox = document.getElementById('publishNewAppPerm');
-    const hasPublishPerm = publishCheckbox ? publishCheckbox.checked : false;
+    // 同步选中的应用到 Application Permission 部分
+    syncSelectedAppsToPermissionSection();
 
-    // 获取所有选中的应用
+    // 关闭对话框（跳过同步，因为已经同步过了）
+    closeEditAppPermDialog(true);
+}
+
+// 同步选中的应用到 Application Permission 部分
+function syncSelectedAppsToPermissionSection() {
+    // 获取对话框中选中的应用
     const selectedApps = [];
-    const checkboxes = document.querySelectorAll('.app-permission-table tbody input[type="checkbox"]:checked');
-    checkboxes.forEach(checkbox => {
-        const row = checkbox.closest('tr');
-        const appName = row.querySelector('.app-name-col').textContent;
+    const checkedCheckboxes = document.querySelectorAll('#editAppPermDialog .app-checkbox:checked');
+    checkedCheckboxes.forEach(checkbox => {
+        const parentItem = checkbox.closest('.app-tree-item.app-parent');
+        const appName = parentItem.querySelector('.app-name-text').textContent;
         selectedApps.push(appName);
     });
 
-    console.log('Publish New App Permission:', hasPublishPerm);
-    console.log('Selected apps for management:', selectedApps);
+    // 获取当前激活的详情面板
+    const activePanel = document.querySelector('.detail-panel.active');
+    if (!activePanel) return;
 
-    // 这里应该发送到服务器保存
-    alert('Application permissions saved:\n' +
-        'Publish Permission: ' + (hasPublishPerm ? 'Yes' : 'No') + '\n' +
-        'Manage Apps: ' + selectedApps.join(', '));
+    // 找到该面板中 Application Permission 部分的 tag-list
+    const permSections = activePanel.querySelectorAll('.perm-section');
+    let appPermSection = null;
 
-    closeEditAppPermDialog();
+    permSections.forEach(section => {
+        const header = section.querySelector('.perm-header span');
+        if (header && header.textContent.trim() === 'Application Permission') {
+            appPermSection = section;
+        }
+    });
+
+    if (appPermSection) {
+        const tagList = appPermSection.querySelector('.tag-list');
+        if (tagList) {
+            // 清空现有的 tags
+            tagList.innerHTML = '';
+
+            // 添加新的 tags
+            selectedApps.forEach(appName => {
+                const tag = document.createElement('span');
+                tag.className = 'tag-item';
+                tag.textContent = appName;
+                tagList.appendChild(tag);
+            });
+        }
+    }
 }
 
 // 绑定Application Permission树形表格事件
@@ -1335,16 +1395,9 @@ function bindAppPermTableEvents() {
 
 // 更新选中数量显示
 function updateSelectedCount() {
-    // 统计有任意子节点被勾选的应用数量
-    const treeNodes = document.querySelectorAll('.app-tree-node');
-    let selectedCount = 0;
-    treeNodes.forEach(treeNode => {
-        const childCheckboxes = treeNode.querySelectorAll('.child-checkbox');
-        const anyChildChecked = Array.from(childCheckboxes).some(cb => cb.checked);
-        if (anyChildChecked) {
-            selectedCount++;
-        }
-    });
+    // 统计选中的应用数量
+    const checkedCheckboxes = document.querySelectorAll('.app-checkbox:checked');
+    const selectedCount = checkedCheckboxes.length;
 
     const countLabel = document.querySelector('.selected-label');
     if (countLabel) {
@@ -1363,26 +1416,19 @@ function updateSelectedTags() {
     // 清空现有标签
     selectedTagsContainer.innerHTML = '';
 
-    // 获取所有应用节点
-    const treeNodes = document.querySelectorAll('.app-tree-node');
-    treeNodes.forEach(treeNode => {
-        // 检查该应用是否有任何子节点被选中
-        const childCheckboxes = treeNode.querySelectorAll('.child-checkbox');
-        const anyChildChecked = Array.from(childCheckboxes).some(cb => cb.checked);
+    // 获取所有选中的应用
+    const checkedCheckboxes = document.querySelectorAll('.app-checkbox:checked');
+    checkedCheckboxes.forEach(checkbox => {
+        const parentItem = checkbox.closest('.app-tree-item.app-parent');
+        const appName = parentItem.querySelector('.app-name-text').textContent;
 
-        // 只要有任意一个子节点被勾选,就显示该应用名
-        if (anyChildChecked) {
-            const parentItem = treeNode.querySelector('.app-tree-item.app-parent');
-            const appName = parentItem.querySelector('.app-name-text').textContent;
-
-            const tag = document.createElement('span');
-            tag.className = 'selected-tag';
-            tag.innerHTML = `
-                ${appName}
-                <button class="tag-remove-btn" onclick="removeAppTag(this)">×</button>
-            `;
-            selectedTagsContainer.appendChild(tag);
-        }
+        const tag = document.createElement('span');
+        tag.className = 'selected-tag';
+        tag.innerHTML = `
+            ${appName}
+            <button class="tag-remove-btn" onclick="removeAppTag(this)">×</button>
+        `;
+        selectedTagsContainer.appendChild(tag);
     });
 }
 
@@ -1400,13 +1446,6 @@ function removeAppTag(btn) {
             if (checkbox) {
                 checkbox.checked = false;
                 item.classList.remove('selected-row');
-
-                // 取消所有子节点的选中状态
-                const treeNode = item.closest('.app-tree-node');
-                const childCheckboxes = treeNode.querySelectorAll('.child-checkbox');
-                childCheckboxes.forEach(childCb => {
-                    childCb.checked = false;
-                });
             }
         }
     });
@@ -1476,25 +1515,14 @@ function toggleAppTreeNode(toggleIcon) {
     }
 }
 
-// 切换应用节点(父节点)选中状态
+// 切换应用节点选中状态
 function toggleAppNode(checkbox) {
     const parentItem = checkbox.closest('.app-tree-item.app-parent');
-    const treeNode = parentItem.closest('.app-tree-node');
 
     if (checkbox.checked) {
         parentItem.classList.add('selected-row');
-        // 同时选中所有子节点
-        const childCheckboxes = treeNode.querySelectorAll('.child-checkbox');
-        childCheckboxes.forEach(childCb => {
-            childCb.checked = true;
-        });
     } else {
         parentItem.classList.remove('selected-row');
-        // 同时取消所有子节点的选中
-        const childCheckboxes = treeNode.querySelectorAll('.child-checkbox');
-        childCheckboxes.forEach(childCb => {
-            childCb.checked = false;
-        });
     }
 
     updateSelectedCount();
