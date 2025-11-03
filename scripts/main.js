@@ -1933,6 +1933,224 @@ function exportToExcel() {
     console.log('Exporting all apps data to Excel...');
 }
 
+// ==================== Language Management Functions ====================
+
+// 打开语言管理对话框
+function openLanguageManageDialog() {
+    const dialog = document.getElementById('languageManageDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+    }
+}
+
+// 关闭语言管理对话框
+function closeLanguageManageDialog() {
+    const dialog = document.getElementById('languageManageDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+// 打开添加语言对话框
+function openAddLanguageDialog() {
+    const dialog = document.getElementById('addLanguageDialog');
+    if (dialog) {
+        // 清空表单
+        document.getElementById('langName').value = '';
+        document.getElementById('langAttribute').value = '';
+        document.getElementById('langFontFamily').selectedIndex = 0;
+        document.getElementById('langDescription').value = '';
+        dialog.classList.add('active');
+    }
+}
+
+// 关闭添加语言对话框
+function closeAddLanguageDialog() {
+    const dialog = document.getElementById('addLanguageDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+// 编辑语言
+function editLanguage(langCode) {
+    const dialog = document.getElementById('addLanguageDialog');
+    if (dialog) {
+        // 这里应该根据 langCode 加载对应的语言数据
+        // 示例数据
+        if (langCode === 'en') {
+            document.getElementById('langName').value = 'en';
+            document.getElementById('langAttribute').value = 'en';
+            document.getElementById('langFontFamily').value = 'Calibri (Theme)';
+            document.getElementById('langDescription').value = 'Built-in English language, cannot be deleted';
+        } else if (langCode === 'jp') {
+            document.getElementById('langName').value = 'jp';
+            document.getElementById('langAttribute').value = 'jp';
+            document.getElementById('langFontFamily').value = 'Calibri (Theme)';
+            document.getElementById('langDescription').value = '';
+        }
+
+        // 修改对话框标题
+        const dialogTitle = dialog.querySelector('.dialog-title');
+        if (dialogTitle) {
+            dialogTitle.textContent = 'Edit Language';
+        }
+
+        dialog.classList.add('active');
+    }
+}
+
+// 删除语言
+function deleteLanguage(langCode) {
+    if (confirm(`Are you sure you want to delete language "${langCode}"?`)) {
+        console.log(`Deleting language: ${langCode}`);
+        // 这里实现删除逻辑
+        const tbody = document.getElementById('languageTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+            const firstCell = row.querySelector('td');
+            if (firstCell && firstCell.textContent === langCode) {
+                row.remove();
+            }
+        });
+    }
+}
+
+// 保存语言
+function saveLanguage() {
+    const langName = document.getElementById('langName').value.trim();
+    const langAttribute = document.getElementById('langAttribute').value.trim();
+    const langFontFamily = document.getElementById('langFontFamily').value;
+    const langDescription = document.getElementById('langDescription').value.trim();
+
+    if (!langName) {
+        alert('Please enter Language Name');
+        return;
+    }
+
+    console.log('Saving language:', {
+        name: langName,
+        attribute: langAttribute,
+        fontFamily: langFontFamily,
+        description: langDescription
+    });
+
+    // 这里实现保存逻辑
+    closeAddLanguageDialog();
+}
+
+// 打开资源管理对话框
+function openManageResourceDialog() {
+    const dialog = document.getElementById('manageResourceDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+    }
+}
+
+// 关闭资源管理对话框
+function closeManageResourceDialog() {
+    const dialog = document.getElementById('manageResourceDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+// 切换资源选项卡
+function switchResourceTab(tabName) {
+    // 移除所有 active 状态
+    document.querySelectorAll('.resource-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.resource-tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // 添加 active 状态到选中的选项卡
+    const tabs = document.querySelectorAll('.resource-tab');
+    if (tabName === 'app') {
+        tabs[0].classList.add('active');
+        document.getElementById('appResourceTab').classList.add('active');
+    } else if (tabName === 'system') {
+        tabs[1].classList.add('active');
+        document.getElementById('systemResourceTab').classList.add('active');
+    } else if (tabName === 'plugin') {
+        tabs[2].classList.add('active');
+        document.getElementById('pluginResourceTab').classList.add('active');
+    }
+}
+
+// 添加资源行
+function addResourceRow() {
+    console.log('Adding new resource row');
+    // 这里实现添加资源行的逻辑
+}
+
+// 删除资源行
+function deleteResourceRow() {
+    console.log('Deleting selected resource rows');
+    // 这里实现删除资源行的逻辑
+}
+
+// 导入资源 Excel
+function importResourceExcel() {
+    console.log('Importing resource from Excel');
+    // 这里实现导入功能
+}
+
+// 导出资源 Excel
+function exportResourceExcel() {
+    console.log('Exporting resource to Excel');
+    // 这里实现导出功能
+}
+
+// ==================== App Navigation Functions ====================
+
+// 切换到指定应用
+function switchToApp(appId) {
+    // 找到对应的左侧列表项并触发点击
+    const appItems = document.querySelectorAll('.app-mgmt-item');
+    appItems.forEach(item => {
+        if (item.getAttribute('data-id') === appId) {
+            item.click();
+        }
+    });
+}
+
+// ==================== Advanced Settings Functions ====================
+
+// 保存高级设置
+function saveAdvancedSettings() {
+    console.log('Saving advanced settings...');
+
+    // 这里可以收集所有设置项的值
+    const settings = {
+        webSecurity: {
+            httpReferers: document.querySelector('.settings-textarea[placeholder*="HTTP Referer"]')?.value || '',
+            iframeCorsPolicy: document.querySelector('.settings-select')?.value || '',
+            customHeaders: document.querySelectorAll('.settings-textarea')[1]?.value || '',
+            maxUploadBodySize: document.querySelectorAll('.settings-input[placeholder="Unlimited"]')[0]?.value || '',
+            maxRequestBodySize: document.querySelectorAll('.settings-input[placeholder="Unlimited"]')[1]?.value || '',
+            sameSite: document.querySelectorAll('.settings-select')[1]?.value || '',
+            allowUpdateUserInfos: document.querySelector('.settings-checkbox')?.checked || false
+        },
+        ipRestriction: {
+            whiteList: document.querySelectorAll('.settings-textarea')[2]?.value || '',
+            blackList: document.querySelectorAll('.settings-textarea')[3]?.value || '',
+            proxyAddresses: document.querySelectorAll('.settings-textarea')[4]?.value || ''
+        },
+        pathSettings: {
+            uploadFolderPath: document.querySelector('.settings-input:not([placeholder="Unlimited"])')?.value || ''
+        },
+        otherSettings: {
+            serverCommandLogDetail: document.querySelectorAll('.settings-select')[2]?.value || '',
+            applicationRunningMode: document.querySelectorAll('.settings-select')[3]?.value || ''
+        }
+    };
+
+    console.log('Advanced settings:', settings);
+    alert('Advanced settings saved successfully!');
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
