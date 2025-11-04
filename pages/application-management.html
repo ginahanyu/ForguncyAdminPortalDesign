@@ -12,6 +12,14 @@
         <div class="list-container active" id="app-list">
             <div class="list-item app-mgmt-item active" data-id="all-apps">
                 <span>All Apps</span>
+                <button class="app-more-btn" onclick="toggleAppMenu(event, 'all-apps')">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                </button>
+                <div class="app-dropdown-menu" id="menu-all-apps">
+                    <a href="javascript:void(0)" onclick="openAppInitSettingsDialog('all-apps')">Init Settings</a>
+                </div>
             </div>
             <div class="list-item app-mgmt-item" data-id="testappwithexternaldb">
                 <span>testappwithexternaldb</span>
@@ -66,24 +74,17 @@
                     </svg>
                 </div>
                 <div class="all-apps-actions">
-                    <button class="btn-icon-action" onclick="openLanguageManageDialog()" title="Language">
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="#666" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
-                        </svg>
-                    </button>
-                    <button class="btn-icon-action" onclick="openAppInitSettingsDialog()" title="Settings">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path fill="#666" d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-                        </svg>
-                    </button>
-                    <button class="btn-icon-action" onclick="exportToExcel()" title="Export to Excel">
-                        <svg viewBox="0 0 1280 1024" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M714.5728 150.5792L320 229.1968v565.6064l394.5728 78.6304V150.5792z m-202.2144 384.768l-40.9856 88.9216-47.296-3.3024 59.8656-108.7232-53.5552-118.4768 47.2576-3.3024 31.5392 88.8704h6.2592l34.688-95.4752 50.432-3.264-63.04 125.0816 63.0784 128.4352-50.432-3.3024-37.8112-95.4624z" fill="#23B08D"/>
-                            <path d="M714.5728 243.6608H960V817.792H714.5728z" fill="#E5E7E6"/>
-                            <path d="M714.5728 371.2512h173.4784v53.7216H714.5728zM714.5728 484.4288h173.4784v53.7216H714.5728zM714.5728 612.5056h173.4784v53.7216H714.5728z" fill="#FFFFFF"/>
-                        </svg>
-                    </button>
-                    <button class="btn-view-settings" onclick="openViewSettingsDialog()">View Settings</button>
+                    <div class="more-actions-wrapper">
+                        <button class="btn-more-actions" onclick="toggleMoreActionsMenu(event)">
+                            More
+                        </button>
+                        <div class="more-actions-menu" id="moreActionsMenu">
+                            <a href="javascript:void(0)" onclick="openViewSettingsDialog()">View Settings</a>
+                            <a href="javascript:void(0)" onclick="exportToExcel()">Export to Excel</a>
+                            <a href="javascript:void(0)" onclick="openManageResourceDialog()">System Resource</a>
+                            <a href="javascript:void(0)" onclick="openAppInitSettingsDialog()">Forguncy Init Settings</a>
+                        </div>
+                    </div>
                     <button class="btn-offline-publish">Offline Publish</button>
                 </div>
             </div>
@@ -721,7 +722,13 @@
                     <div class="info-grid">
                         <div class="info-row" style="align-items: center;">
                             <div class="info-value" style="width: 650px;">
-                                <input type="text" class="form-input app-config-input" data-config="domain" placeholder="">
+                                <input type="text" class="form-input app-config-input" id="basicDomainInput" data-config="domain" placeholder="">
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-value" style="width: 650px;">
+                                <p class="domain-hint-text">The init value of Set Domain property of new application will be like :</p>
+                                <p class="domain-example-text" id="domainExampleText">/appname</p>
                             </div>
                         </div>
                     </div>
@@ -792,7 +799,7 @@
                 <h3 class="dialog-title">Language</h3>
                 <button class="dialog-close-btn" onclick="closeLanguageManageDialog()">×</button>
             </div>
-            <div class="dialog-body" style="padding: 20px;">
+            <div class="dialog-body" style="padding: 8px 24px;">
                 <div class="lang-actions-bar">
                     <a href="javascript:void(0)" class="lang-add-link" onclick="openAddLanguageDialog()">Add Language...</a>
                     <button class="btn btn-secondary" onclick="openManageResourceDialog()">Manage Resources...</button>
@@ -803,7 +810,6 @@
                             <th>Language Name</th>
                             <th>Description</th>
                             <th>Language Attribute</th>
-                            <th>Font Family</th>
                             <th>Operation</th>
                         </tr>
                     </thead>
@@ -812,7 +818,6 @@
                             <td>en</td>
                             <td>Built-in English language, cannot be deleted</td>
                             <td>en</td>
-                            <td>Calibri (Theme)</td>
                             <td>
                                 <a href="javascript:void(0)" class="table-link" onclick="editLanguage('en')">Edit</a>
                             </td>
@@ -821,7 +826,6 @@
                             <td>jp</td>
                             <td></td>
                             <td>jp</td>
-                            <td>Calibri (Theme)</td>
                             <td>
                                 <a href="javascript:void(0)" class="table-link" onclick="editLanguage('jp')">Edit</a>
                                 <a href="javascript:void(0)" class="table-link table-link-delete" onclick="deleteLanguage('jp')">Delete</a>
@@ -877,114 +881,251 @@
 
     <!-- Manage Resource Dialog -->
     <div class="dialog-overlay" id="manageResourceDialog">
-        <div class="dialog-container" style="width: 800px !important; height: 700px !important;">
+        <div class="dialog-container" style="width: 900px !important; height: 700px !important;">
             <div class="dialog-header">
                 <h3 class="dialog-title">Resource</h3>
                 <button class="dialog-close-btn" onclick="closeManageResourceDialog()">×</button>
             </div>
-            <div class="dialog-body" style="padding: 0;">
-                <div class="resource-tabs">
-                    <button class="resource-tab active" onclick="switchResourceTab('app')">Application Resource</button>
-                    <button class="resource-tab" onclick="switchResourceTab('system')">System Resource</button>
-                    <button class="resource-tab" onclick="switchResourceTab('plugin')">Plug-In Resource</button>
+            <div class="dialog-body" style="padding: 8px 24px;">
+                <p class="resource-desc">System Resources, resources used by the system.</p>
+                <div class="resource-actions-bar">
+                    <div class="resource-actions-left">
+                        <div class="resource-search-wrapper">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="#999" d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/>
+                            </svg>
+                            <input type="text" class="resource-search" placeholder="Input search keywords">
+                        </div>
+                    </div>
+                    <div class="resource-actions-right">
+                        <button class="btn btn-secondary btn-sm" onclick="importResourceExcel()">Import Excel</button>
+                        <button class="btn btn-secondary btn-sm" onclick="exportResourceExcel()">Export Excel</button>
+                    </div>
                 </div>
-                <div class="resource-content" style="padding: 20px;">
-                    <div class="resource-tab-content active" id="appResourceTab">
-                        <p class="resource-desc">Application Resources, resources commonly used in user projects, such as OK and Cancel.</p>
-                        <div class="resource-actions-bar">
-                            <div class="resource-actions-left">
-                                <button class="btn btn-secondary btn-sm" onclick="addResourceRow()">Add</button>
-                                <button class="btn btn-secondary btn-sm" onclick="deleteResourceRow()">Delete</button>
-                            </div>
-                            <div class="resource-actions-right">
-                                <button class="btn btn-secondary btn-sm" onclick="importResourceExcel()">Import Excel</button>
-                                <button class="btn btn-secondary btn-sm" onclick="exportResourceExcel()">Export Excel</button>
-                                <input type="text" class="resource-search" placeholder="Input search keywords">
-                            </div>
-                        </div>
-                        <div class="resource-table-wrapper">
-                            <table class="resource-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40px;"></th>
-                                        <th>Key</th>
-                                        <th>en</th>
-                                        <th>jp</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="appResourceTableBody">
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>OK</td>
-                                        <td>OK</td>
-                                        <td>OK</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>Cancel</td>
-                                        <td>Cancel</td>
-                                        <td>キャンセル</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="resource-tab-content" id="systemResourceTab">
-                        <p class="resource-desc">System Resources, resources used by the system.</p>
-                        <div class="resource-actions-bar">
-                            <div class="resource-actions-left">
-                                <button class="btn btn-secondary btn-sm" onclick="addResourceRow()">Add</button>
-                                <button class="btn btn-secondary btn-sm" onclick="deleteResourceRow()">Delete</button>
-                            </div>
-                            <div class="resource-actions-right">
-                                <button class="btn btn-secondary btn-sm" onclick="importResourceExcel()">Import Excel</button>
-                                <button class="btn btn-secondary btn-sm" onclick="exportResourceExcel()">Export Excel</button>
-                                <input type="text" class="resource-search" placeholder="Input search keywords">
-                            </div>
-                        </div>
-                        <div class="resource-table-wrapper">
-                            <table class="resource-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40px;"></th>
-                                        <th>Key</th>
-                                        <th>en</th>
-                                        <th>jp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="resource-tab-content" id="pluginResourceTab">
-                        <p class="resource-desc">Plug-In Resources, resources used by plug-ins.</p>
-                        <div class="resource-actions-bar">
-                            <div class="resource-actions-left">
-                                <button class="btn btn-secondary btn-sm" onclick="addResourceRow()">Add</button>
-                                <button class="btn btn-secondary btn-sm" onclick="deleteResourceRow()">Delete</button>
-                            </div>
-                            <div class="resource-actions-right">
-                                <button class="btn btn-secondary btn-sm" onclick="importResourceExcel()">Import Excel</button>
-                                <button class="btn btn-secondary btn-sm" onclick="exportResourceExcel()">Export Excel</button>
-                                <input type="text" class="resource-search" placeholder="Input search keywords">
-                            </div>
-                        </div>
-                        <div class="resource-table-wrapper">
-                            <table class="resource-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40px;"></th>
-                                        <th>Key</th>
-                                        <th>en</th>
-                                        <th>jp</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="resource-table-wrapper">
+                    <table class="resource-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th>
+                                <th>Key</th>
+                                <th>en</th>
+                                <th>jp</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Listview_RowHeaderContextMenu_Insert</td>
+                                <td>Insert</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Listview_RowHeaderContextMenu_Delete</td>
+                                <td>Delete</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Listview_RowHeaderContextMenu_Duplicate</td>
+                                <td>Duplicate</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>NeedChangeOriginPassword</td>
+                                <td>The current password is the initial password, please</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>PasswordNotChange</td>
+                                <td>The new password cannot be the same as the old pa</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>UserNameOrPasswordIsIncorrect</td>
+                                <td>User name or password is incorrect, or the user is di</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>PasswordIsNotSame</td>
+                                <td>The passwords do not match.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>ForSafetyReasonPleaseChangeYourPassword</td>
+                                <td>You are successfully signed in. Change your default p</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>TokenIsInvalid</td>
+                                <td>Invalid token</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>ResetPasswordSuccess</td>
+                                <td>The password has been reset successfully!</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Failed</td>
+                                <td>Failed</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>UserName</td>
+                                <td>User Name</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>None</td>
+                                <td>&lt;None&gt;</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>deleteStr</td>
+                                <td>Delete</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>addStr</td>
+                                <td>Add</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>listviewNotExisted</td>
+                                <td>The listview does not exist.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>ListviewNotExistedWithListViewName</td>
+                                <td>The listview '{0}' does not exist.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>FullName</td>
+                                <td>Full Name</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Email</td>
+                                <td>Email</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Role</td>
+                                <td>Role</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>OrganizationSuperior</td>
+                                <td>Supervisor</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Success</td>
+                                <td>Successful!</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>ConfirmDelete</td>
+                                <td>Are you sure you want to delete?</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Year</td>
+                                <td>Year</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Month</td>
+                                <td>Month</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Day</td>
+                                <td>Day</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>Quarter</td>
+                                <td>Quarter</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>noFieldErrorInfo</td>
+                                <td>There are no data binding settings required to updat</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>unique</td>
+                                <td>The value already exists. Specify different value.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="resource-checkbox"></td>
+                                <td>login</td>
+                                <td>Sign in</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="dialog-footer">
@@ -1175,6 +1316,72 @@
     color: #999;
     fill: #999;
     pointer-events: none;
+}
+
+.more-actions-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-more-actions {
+    padding: 0;
+    background: white;
+    color: #666;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+    width: 64px;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.btn-more-actions:hover {
+    background: #f5f5f5;
+    border-color: #b0b0b0;
+}
+
+.more-actions-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    z-index: 1000;
+}
+
+.more-actions-menu.show {
+    display: block;
+}
+
+.more-actions-menu a {
+    display: block;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.more-actions-menu a:hover {
+    background: #f5f5f5;
+}
+
+.more-actions-menu a:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.more-actions-menu a:last-child {
+    border-radius: 0 0 4px 4px;
 }
 
 .btn-offline-publish {
@@ -1462,6 +1669,19 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
+#manageResourceDialog .dialog-container {
+    max-width: 900px;
+}
+
+#languageManageDialog .dialog-container {
+    max-width: 700px;
+}
+
+#languageManageDialog .dialog-body,
+#manageResourceDialog .dialog-body {
+    padding: 8px 24px;
+}
+
 .dialog-container.dialog-large {
     width: 750px;
     max-width: 750px;
@@ -1473,8 +1693,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 12px 24px;
 }
 
 .dialog-title {
@@ -1506,7 +1725,7 @@
 }
 
 .dialog-body {
-    padding: 24px;
+    padding: 16px 24px;
     max-height: 60vh;
     overflow-y: auto;
 }
@@ -1564,9 +1783,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: 12px;
-    padding: 16px 24px;
-    border-top: 1px solid #e0e0e0;
-    background: #fafafa;
+    padding: 12px 24px 16px 24px;
 }
 
 .dialog-footer .btn {
@@ -1627,13 +1844,28 @@
 .lang-table td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.lang-table th:first-child,
+.lang-table td:first-child {
+    border-left: none;
+}
+
+.lang-table th:last-child,
+.lang-table td:last-child {
+    border-right: none;
+}
+
+.lang-table thead tr th {
+    border-top: none;
 }
 
 .lang-table th {
-    background: #f5f5f5;
+    background: #FAFAFA;
     font-weight: 500;
     color: #666;
+    height: 40px;
 }
 
 .lang-table td {
@@ -1712,7 +1944,6 @@
 /* Resource Management Styles */
 .resource-tabs {
     display: flex;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 .resource-tab {
@@ -1766,15 +1997,32 @@
 .btn-sm {
     padding: 6px 12px;
     font-size: 13px;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.resource-search-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.resource-search-wrapper svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .resource-search {
-    padding: 6px 12px;
+    padding: 6px 32px 6px 12px;
     border: 1px solid #d0d0d0;
     border-radius: 4px;
     font-size: 13px;
     width: 200px;
+    height: 32px;
     outline: none;
+    box-sizing: border-box;
 }
 
 .resource-search:focus {
@@ -1802,12 +2050,13 @@
 }
 
 .resource-table th {
-    background: #f5f5f5;
+    background: #FAFAFA;
     font-weight: 500;
     color: #666;
     position: sticky;
     top: 0;
     z-index: 10;
+    height: 40px;
 }
 
 .resource-table td {
@@ -1927,5 +2176,20 @@
 
 .settings-footer .btn {
     min-width: 100px;
+}
+
+/* Domain hint text styles */
+.domain-hint-text {
+    color: #999;
+    font-size: 13px;
+    margin: 0px 0 4px 0;
+    line-height: 1.5;
+}
+
+.domain-example-text {
+    color: #999;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
 }
 </style>

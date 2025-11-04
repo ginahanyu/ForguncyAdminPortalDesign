@@ -420,6 +420,9 @@ function bindPageEvents() {
 
     // 绑定View Settings对话框事件
     bindViewSettingsEvents();
+
+    // 绑定Basic Domain输入框事件
+    bindBasicDomainInput();
 }
 
 // 绑定全局配置保存按钮
@@ -2151,8 +2154,79 @@ function saveAdvancedSettings() {
     alert('Advanced settings saved successfully!');
 }
 
+// App dropdown menu functions
+function toggleAppMenu(event, appId) {
+    event.stopPropagation();
+
+    // Close all other menus
+    document.querySelectorAll('.app-dropdown-menu').forEach(menu => {
+        if (menu.id !== 'menu-' + appId) {
+            menu.classList.remove('show');
+        }
+    });
+
+    // Toggle current menu
+    const menu = document.getElementById('menu-' + appId);
+    if (menu) {
+        menu.classList.toggle('show');
+    }
+}
+
+// Close dropdown menus when clicking outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.app-more-btn')) {
+        document.querySelectorAll('.app-dropdown-menu').forEach(menu => {
+            menu.classList.remove('show');
+        });
+    }
+
+    // Close more actions menu when clicking outside
+    if (!event.target.closest('.more-actions-wrapper')) {
+        const moreMenu = document.getElementById('moreActionsMenu');
+        if (moreMenu) {
+            moreMenu.classList.remove('show');
+        }
+    }
+});
+
+// Toggle more actions menu
+function toggleMoreActionsMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('moreActionsMenu');
+    if (menu) {
+        menu.classList.toggle('show');
+    }
+}
+
+// 更新Basic Domain示例文本
+function updateBasicDomainExample() {
+    const input = document.getElementById('basicDomainInput');
+    const exampleText = document.getElementById('domainExampleText');
+
+    if (input && exampleText) {
+        const value = input.value.trim();
+        if (value) {
+            exampleText.textContent = value + '/appname';
+        } else {
+            exampleText.textContent = '';
+        }
+    }
+}
+
+// 绑定Basic Domain输入框事件
+function bindBasicDomainInput() {
+    const input = document.getElementById('basicDomainInput');
+    if (input) {
+        // 监听输入事件
+        input.addEventListener('input', updateBasicDomainExample);
+        // 初始化显示
+        updateBasicDomainExample();
+    }
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
     bindAdvancedSettingPermCheckbox();
+    bindBasicDomainInput();
 });

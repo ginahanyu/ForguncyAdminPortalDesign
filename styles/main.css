@@ -289,7 +289,7 @@ body {
 
 /* 左侧选择区 */
 .left-section {
-    width: 320px;
+    width: 260px;
     border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
@@ -2410,4 +2410,76 @@ body {
     height: 16px;
     fill: #999;
     pointer-events: none;
+}
+
+/* App list item with dropdown menu */
+.list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.app-more-btn {
+    visibility: hidden;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-more-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.list-item.active .app-more-btn,
+.list-item:hover .app-more-btn {
+    visibility: visible;
+}
+
+.app-more-btn svg {
+    display: block;
+}
+
+.app-more-btn svg path {
+    fill: #999;
+}
+
+.app-dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 100%;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    min-width: 150px;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.app-dropdown-menu.show {
+    display: block;
+}
+
+.app-dropdown-menu a {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.app-dropdown-menu a:hover {
+    background: #f5f5f5;
 }
