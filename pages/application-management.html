@@ -12,14 +12,6 @@
         <div class="list-container active" id="app-list">
             <div class="list-item app-mgmt-item active" data-id="all-apps">
                 <span>All Apps</span>
-                <button class="app-more-btn" onclick="toggleAppMenu(event, 'all-apps')">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path fill="currentColor" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                    </svg>
-                </button>
-                <div class="app-dropdown-menu" id="menu-all-apps">
-                    <a href="javascript:void(0)" onclick="openAppInitSettingsDialog('all-apps')">Init Settings</a>
-                </div>
             </div>
             <div class="list-item app-mgmt-item" data-id="testappwithexternaldb">
                 <span>testappwithexternaldb</span>
@@ -74,17 +66,8 @@
                     </svg>
                 </div>
                 <div class="all-apps-actions">
-                    <div class="more-actions-wrapper">
-                        <button class="btn-more-actions" onclick="toggleMoreActionsMenu(event)">
-                            More
-                        </button>
-                        <div class="more-actions-menu" id="moreActionsMenu">
-                            <a href="javascript:void(0)" onclick="openViewSettingsDialog()">View Settings</a>
-                            <a href="javascript:void(0)" onclick="exportToExcel()">Export to Excel</a>
-                            <a href="javascript:void(0)" onclick="openManageResourceDialog()">System Resource</a>
-                            <a href="javascript:void(0)" onclick="openAppInitSettingsDialog()">Forguncy Init Settings</a>
-                        </div>
-                    </div>
+                    <button class="btn-secondary" onclick="openViewSettingsDialog()">View Settings</button>
+                    <button class="btn-secondary" onclick="exportToExcel()">Export to Excel</button>
                     <button class="btn-offline-publish">Offline Publish</button>
                 </div>
             </div>
@@ -1219,19 +1202,20 @@
 
 /* 按钮样式 */
 .btn-secondary {
-    background: #00A4E9;
-    color: white;
-    border: none;
+    background: white;
+    color: #666;
+    border: 1px solid #d0d0d0;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     width: fit-content;
 }
 
 .btn-secondary:hover {
-    background: #0093D1;
+    background: #f5f5f5;
+    border-color: #b0b0b0;
 }
 
 .btn-primary {
