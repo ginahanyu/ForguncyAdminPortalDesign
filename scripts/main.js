@@ -2200,25 +2200,63 @@ function toggleMoreActionsMenu(event) {
 
 // 更新Basic Domain示例文本
 function updateBasicDomainExample() {
+    // 支持application-management.html页面
     const input = document.getElementById('basicDomainInput');
     const exampleText = document.getElementById('domainExampleText');
+    const hintText = document.getElementById('domainHintText');
 
     if (input && exampleText) {
         const value = input.value.trim();
         if (value) {
             exampleText.textContent = value + '/appname';
+            if (hintText) {
+                hintText.style.display = '';
+            }
         } else {
             exampleText.textContent = '';
+            if (hintText) {
+                hintText.style.display = 'none';
+            }
+        }
+    }
+
+    // 支持settings.html页面
+    const settingsInput = document.getElementById('settingsBasicDomainInput');
+    const settingsExampleText = document.getElementById('settingsDomainExampleText');
+    const settingsHintText = document.getElementById('settingsDomainHintText');
+
+    if (settingsInput && settingsExampleText) {
+        const value = settingsInput.value.trim();
+        if (value) {
+            settingsExampleText.textContent = value + '/appname';
+            if (settingsHintText) {
+                settingsHintText.style.display = '';
+            }
+        } else {
+            settingsExampleText.textContent = '';
+            if (settingsHintText) {
+                settingsHintText.style.display = 'none';
+            }
         }
     }
 }
 
 // 绑定Basic Domain输入框事件
 function bindBasicDomainInput() {
+    // 绑定application-management.html页面的输入框
     const input = document.getElementById('basicDomainInput');
     if (input) {
         // 监听输入事件
         input.addEventListener('input', updateBasicDomainExample);
+        // 初始化显示
+        updateBasicDomainExample();
+    }
+
+    // 绑定settings.html页面的输入框
+    const settingsInput = document.getElementById('settingsBasicDomainInput');
+    if (settingsInput) {
+        // 监听输入事件
+        settingsInput.addEventListener('input', updateBasicDomainExample);
         // 初始化显示
         updateBasicDomainExample();
     }
