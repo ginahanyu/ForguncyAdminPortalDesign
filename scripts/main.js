@@ -2262,9 +2262,237 @@ function bindBasicDomainInput() {
     }
 }
 
+// Language Management functions
+function openLanguageManagementDialog() {
+    const dialog = document.getElementById('languageManagementDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+    }
+}
+
+function closeLanguageManagementDialog() {
+    const dialog = document.getElementById('languageManagementDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+function openAddLanguageDialog() {
+    const dialog = document.getElementById('addLanguageDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+        // Clear input fields
+        document.getElementById('newLanguageName').value = '';
+        document.getElementById('newLanguageDescription').value = '';
+    }
+}
+
+function closeAddLanguageDialog() {
+    const dialog = document.getElementById('addLanguageDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+function addLanguage() {
+    const nameInput = document.getElementById('newLanguageName');
+    const descInput = document.getElementById('newLanguageDescription');
+
+    const name = nameInput.value.trim();
+    const description = descInput.value.trim();
+
+    if (!name) {
+        alert('Please enter a language name');
+        return;
+    }
+
+    // Check if language already exists
+    const tbody = document.getElementById('languageTableBody');
+    const existingRows = tbody.querySelectorAll('tr');
+    for (let row of existingRows) {
+        const firstCell = row.querySelector('td:first-child');
+        if (firstCell && firstCell.textContent.trim() === name) {
+            alert('This language already exists');
+            return;
+        }
+    }
+
+    // Add new language to table
+    const newRow = document.createElement('tr');
+    newRow.style.borderBottom = '1px solid #e0e0e0';
+    newRow.innerHTML = `
+        <td style="padding: 10px 12px; color: #333;">${name}</td>
+        <td style="padding: 10px 12px; color: #333;">${description}</td>
+        <td style="padding: 10px 12px; color: #333;">
+            <a href="javascript:void(0)" onclick="deleteLanguage(this)" style="color: #1976d2; text-decoration: none;">Delete</a>
+        </td>
+    `;
+    tbody.appendChild(newRow);
+
+    // Add column to resource table
+    addResourceLanguageColumn(name);
+
+    // Close dialog
+    closeAddLanguageDialog();
+}
+
+function deleteLanguage(element) {
+    if (confirm('Are you sure you want to delete this language?')) {
+        const row = element.closest('tr');
+        const langName = row.querySelector('td:first-child').textContent.trim();
+        row.remove();
+
+        // Remove column from resource table
+        removeResourceLanguageColumn(langName);
+    }
+}
+
+// Add language column to resource table
+function addResourceLanguageColumn(langName) {
+    const header = document.getElementById('resourceTableHeader');
+    const tbody = document.getElementById('resourceTableBody');
+
+    if (!header || !tbody) return;
+
+    // Add header cell (insert before Comment column)
+    const commentHeader = header.querySelector('th:last-child');
+    const newHeader = document.createElement('th');
+    newHeader.textContent = langName;
+    newHeader.setAttribute('data-lang', langName);
+    newHeader.style.cssText = 'padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;';
+    header.insertBefore(newHeader, commentHeader);
+
+    // Add cells to all data rows (insert before Comment column)
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        const commentCell = row.querySelector('td:last-child');
+        const newCell = document.createElement('td');
+        newCell.style.cssText = 'padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;';
+        newCell.setAttribute('data-lang', langName);
+        row.insertBefore(newCell, commentCell);
+    });
+
+    // Update column widths to be equal
+    updateResourceTableColumnWidths();
+}
+
+// Remove language column from resource table
+function removeResourceLanguageColumn(langName) {
+    const header = document.getElementById('resourceTableHeader');
+    const tbody = document.getElementById('resourceTableBody');
+
+    if (!header || !tbody) return;
+
+    // Remove header cell
+    const headerCell = header.querySelector(`th[data-lang="${langName}"]`);
+    if (headerCell) {
+        headerCell.remove();
+    }
+
+    // Remove cells from all data rows
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        const cell = row.querySelector(`td[data-lang="${langName}"]`);
+        if (cell) {
+            cell.remove();
+        }
+    });
+
+    // Update column widths to be equal
+    updateResourceTableColumnWidths();
+}
+
+// Update resource table column widths to be equal
+function updateResourceTableColumnWidths() {
+    const header = document.getElementById('resourceTableHeader');
+    if (!header) return;
+
+    const allHeaders = header.querySelectorAll('th');
+    const columnCount = allHeaders.length;
+
+    if (columnCount === 0) return;
+
+    // Calculate equal width for all columns
+    const equalWidth = (100 / columnCount).toFixed(2) + '%';
+
+    // Apply width to all header cells
+    allHeaders.forEach(th => {
+        th.style.width = equalWidth;
+    });
+}
+
+// Make resource table cells editable (except Key and en columns)
+function makeResourceCellEditable(cell) {
+    // Get the cell's position in the row
+    const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
+
+    // Don't allow editing Key (index 0) or en (index 1) columns
+    if (cellIndex === 0 || cellIndex === 1) {
+        return;
+    }
+
+    const originalValue = cell.textContent;
+    const originalPadding = cell.style.padding || '10px 12px';
+
+    // Create input element
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = originalValue;
+    input.style.cssText = 'width: 100%; border: 1px solid #1976d2; outline: none; padding: 8px; font-size: 14px; font-family: inherit; box-sizing: border-box;';
+
+    // Replace cell content with input
+    cell.textContent = '';
+    cell.style.padding = '0';
+    cell.appendChild(input);
+    input.focus();
+    input.select();
+
+    // Function to save changes
+    function saveEdit() {
+        const newValue = input.value;
+        cell.textContent = newValue;
+        cell.style.padding = originalPadding;
+    }
+
+    // Function to cancel changes
+    function cancelEdit() {
+        cell.textContent = originalValue;
+        cell.style.padding = originalPadding;
+    }
+
+    // Save on Enter, cancel on Escape
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            saveEdit();
+        } else if (e.key === 'Escape') {
+            cancelEdit();
+        }
+    });
+
+    // Save on blur (click outside)
+    input.addEventListener('blur', function() {
+        saveEdit();
+    });
+}
+
+// Bind double-click events to resource table cells
+function bindResourceTableEditEvents() {
+    const tbody = document.getElementById('resourceTableBody');
+    if (!tbody) return;
+
+    // Use event delegation for better performance and to handle dynamically added columns
+    tbody.addEventListener('dblclick', function(e) {
+        const cell = e.target.closest('td');
+        if (cell && cell.parentElement.tagName === 'TR') {
+            makeResourceCellEditable(cell);
+        }
+    });
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
     bindAdvancedSettingPermCheckbox();
     bindBasicDomainInput();
+    bindResourceTableEditEvents();
 });
