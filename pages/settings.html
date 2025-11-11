@@ -1,4 +1,12 @@
 <!-- 设置页面 -->
+<style>
+.tab-panel {
+    display: none;
+}
+.tab-panel.active {
+    display: block;
+}
+</style>
 <div class="permission-page">
     <!-- 左侧菜单栏 -->
     <div class="primary-sidebar">
@@ -300,8 +308,19 @@
             </div>
 
             <div class="settings-content-scrollable">
-                <p class="resource-desc" style="color: #999; font-size: 14px; margin-bottom: 16px;">System resources are common resources for all applications. The "key" and "en" columns are not editable, other columns are editable.</p>
-                <div class="resource-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <p class="resource-desc" style="color: #999; font-size: 14px; margin-bottom: 16px;">System resources are common resources for all applications. The "key", "ja", and "en" columns are not editable, other columns are editable.</p>
+
+                <!-- Tabs Navigation -->
+                <div class="tabs-nav" style="display: flex; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px;">
+                    <button class="tab-button active" data-tab="system-resource" style="padding: 12px 20px; border: none; background: none; cursor: pointer; font-size: 14px; color: #1976d2; border-bottom: 2px solid #1976d2; margin-bottom: -1px;">System Resource</button>
+                    <button class="tab-button" data-tab="language-management" style="padding: 12px 20px; border: none; background: none; cursor: pointer; font-size: 14px; color: #666; border-bottom: 2px solid transparent; margin-bottom: -1px;">Language Management</button>
+                </div>
+
+                <!-- Tab Panels -->
+                <div class="tab-content">
+                    <!-- System Resource Tab Panel -->
+                    <div class="tab-panel active" id="system-resource-panel">
+                        <div class="resource-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <div class="resource-actions-left">
                         <div class="resource-search-wrapper" style="position: relative; display: inline-block;">
                             <svg viewBox="0 0 24 24" width="16" height="16" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;">
@@ -313,7 +332,6 @@
                     <div class="resource-actions-right" style="display: flex; gap: 8px;">
                         <button class="btn btn-secondary btn-sm" style="padding: 6px 12px; font-size: 13px; height: 32px;">Import Excel</button>
                         <button class="btn btn-secondary btn-sm" style="padding: 6px 12px; font-size: 13px; height: 32px;">Export Excel</button>
-                        <button class="btn-primary" style="padding: 6px 16px; font-size: 13px; height: 32px;" onclick="openLanguageManagementDialog()">Language Management</button>
                     </div>
                 </div>
                 <div class="resource-table-wrapper" style="max-height: calc(100vh - 320px); overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 4px;">
@@ -321,163 +339,234 @@
                         <thead>
                             <tr id="resourceTableHeader">
                                 <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;">Key</th>
-                                <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;">en</th>
+                                <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;" data-lang="ja">ja</th>
+                                <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;" data-lang="en">en</th>
                                 <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0;">Comment</th>
                             </tr>
                         </thead>
                         <tbody id="resourceTableBody">
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Listview_RowHeaderContextMenu_Insert</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Insert</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Insert</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Listview_RowHeaderContextMenu_Delete</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Delete</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Delete</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Listview_RowHeaderContextMenu_Duplicate</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Duplicate</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Duplicate</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">NeedChangeOriginPassword</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The current password is the initial password, please</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The current password is the initial password, please</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">PasswordNotChange</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The new password cannot be the same as the old pa</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The new password cannot be the same as the old pa</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">UserNameOrPasswordIsIncorrect</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">User name or password is incorrect, or the user is di</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">User name or password is incorrect, or the user is di</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">PasswordIsNotSame</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The passwords do not match.</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The passwords do not match.</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">ForSafetyReasonPleaseChangeYourPassword</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">You are successfully signed in. Change your default p</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">You are successfully signed in. Change your default p</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">TokenIsInvalid</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Invalid token</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Invalid token</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">ResetPasswordSuccess</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The password has been reset successfully!</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The password has been reset successfully!</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Failed</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Failed</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Failed</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">UserName</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">User Name</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">User Name</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">None</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">&lt;None&gt;</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">&lt;None&gt;</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">deleteStr</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Delete</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Delete</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">addStr</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Add</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Add</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">listviewNotExisted</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The listview does not exist.</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The listview does not exist.</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">ListviewNotExistedWithListViewName</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The listview '{0}' does not exist.</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The listview '{0}' does not exist.</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">FullName</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Full Name</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Full Name</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Email</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Email</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Email</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Role</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Role</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Role</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">OrganizationSuperior</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Supervisor</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Supervisor</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Success</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Successful!</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Successful!</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">ConfirmDelete</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Are you sure you want to delete?</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Are you sure you want to delete?</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Year</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Year</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Year</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Month</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Month</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Month</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Day</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Day</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Day</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Quarter</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Quarter</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Quarter</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">noFieldErrorInfo</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">There are no data binding settings required to updat</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">There are no data binding settings required to updat</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">unique</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">The value already exists. Specify different value.</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">The value already exists. Specify different value.</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
                                 <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">login</td>
-                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;">Sign in</td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="ja"></td>
+                                <td style="padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;" data-lang="en">Sign in</td>
                                 <td style="padding: 10px 12px; color: #333;"></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Management Tab Panel -->
+                    <div class="tab-panel" id="language-management-panel">
+                        <!-- Action Bar -->
+                        <div style="margin-bottom: 16px;">
+                            <button class="btn-primary" onclick="openAddLanguageDialog()">Add Language...</button>
+                        </div>
+
+                        <!-- Language Table -->
+                        <div style="border: 1px solid #e0e0e0; border-radius: 4px; height: 320px; overflow-y: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">Language Name</th>
+                                        <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">Description</th>
+                                        <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; width: 100px; position: sticky; top: 0; z-index: 10;">Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="languageTableBody">
+                                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                                        <td style="padding: 10px 12px; color: #333;">ja</td>
+                                        <td style="padding: 10px 12px; color: #333;">Built-in Japanese language,cannot be deleted</td>
+                                        <td style="padding: 10px 12px;">
+                                            <!-- No edit/delete button for the built-in Japanese language -->
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                                        <td style="padding: 10px 12px; color: #333;">en</td>
+                                        <td style="padding: 10px 12px; color: #333;">Built-in English language,cannot be deleted</td>
+                                        <td style="padding: 10px 12px;">
+                                            <!-- No edit/delete button for the built-in English language -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -578,44 +667,6 @@
 </div>
 
 <!-- Language Management Dialog -->
-<div class="dialog-overlay" id="languageManagementDialog">
-    <div class="dialog-container" style="width: 600px; max-height: 80vh;">
-        <div class="dialog-header">
-            <h3 class="dialog-title">Language Management</h3>
-            <button class="dialog-close-btn" onclick="closeLanguageManagementDialog()">&times;</button>
-        </div>
-        <div class="dialog-body" style="padding: 20px; max-height: calc(80vh - 140px); overflow-y: auto;">
-            <!-- Action Bar -->
-            <div style="margin-bottom: 16px;">
-                <button class="btn-primary" onclick="openAddLanguageDialog()">Add Language...</button>
-            </div>
-
-            <!-- Language Table -->
-            <div style="border: 1px solid #e0e0e0; border-radius: 4px; height: 320px; overflow-y: auto;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                    <thead>
-                        <tr>
-                            <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">Language Name</th>
-                            <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">Description</th>
-                            <th style="padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; border-bottom: 1px solid #e0e0e0; width: 100px; position: sticky; top: 0; z-index: 10;">Operation</th>
-                        </tr>
-                    </thead>
-                    <tbody id="languageTableBody">
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px 12px; color: #333;">en</td>
-                            <td style="padding: 10px 12px; color: #333;">Built-in English language, cannot be deleted</td>
-                            <td style="padding: 10px 12px; color: #333;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="dialog-footer">
-            <button class="btn btn-primary" onclick="closeLanguageManagementDialog()">OK</button>
-            <button class="btn btn-secondary" onclick="closeLanguageManagementDialog()">Cancel</button>
-        </div>
-    </div>
-</div>
 
 <!-- Add Language Dialog -->
 <div class="dialog-overlay" id="addLanguageDialog">
@@ -630,7 +681,7 @@
                     <div class="info-row" style="align-items: flex-start; margin-bottom: 0;">
                         <div class="info-label" style="width: 120px; flex: 0 0 120px; padding-top: 6px;">Language Name:</div>
                         <div class="info-value">
-                            <input type="text" class="form-input" id="newLanguageName" placeholder="e.g., jp, cn" style="width: 340px; height: 32px;">
+                            <input type="text" class="form-input" id="newLanguageName" style="width: 340px; height: 32px;">
                         </div>
                     </div>
                     <div class="info-row" style="align-items: flex-start; margin-top: 0;">

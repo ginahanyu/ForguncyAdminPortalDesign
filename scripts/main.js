@@ -402,6 +402,13 @@ function bindPageEvents() {
             const targetPanel = document.getElementById(settingType + '-panel');
             if (targetPanel) {
                 targetPanel.classList.add('active');
+
+                // If System Resource panel is activated, initialize tabs
+                if (settingType === 'resource') {
+                    setTimeout(() => {
+                        initResourcePanelTabs();
+                    }, 50); // Small delay to ensure DOM is ready
+                }
             }
         });
     });
@@ -2082,6 +2089,85 @@ function switchResourceTab(tabName) {
     }
 }
 
+// System Resource tab switching functionality
+function initSystemResourceTabs() {
+    console.log('Initializing System Resource tabs...');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    console.log('Found tab buttons:', tabButtons.length);
+    console.log('Found tab panels:', tabPanels.length);
+
+    if (tabButtons.length === 0) {
+        console.log('No tab buttons found');
+        return;
+    }
+
+    // Remove existing event listeners by cloning
+    tabButtons.forEach(button => {
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+    });
+
+    // Re-select buttons after cloning
+    const newTabButtons = document.querySelectorAll('.tab-button');
+
+    newTabButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Tab button clicked:', button.getAttribute('data-tab'));
+            const tabName = button.getAttribute('data-tab');
+
+            // Remove active class from all buttons and panels
+            newTabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.color = '#666';
+                btn.style.borderBottom = '2px solid transparent';
+            });
+            tabPanels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Add active class to clicked button and corresponding panel
+            button.classList.add('active');
+            button.style.color = '#1976d2';
+            button.style.borderBottom = '2px solid #1976d2';
+
+            const targetPanel = document.getElementById(`${tabName}-panel`);
+            console.log('Target panel:', targetPanel);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                console.log('Tab switched to:', tabName);
+            }
+        });
+    });
+
+    console.log('Tab event listeners attached successfully');
+}
+
+// Initialize tabs when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize System Resource tabs if they exist
+    if (document.querySelector('.tab-button')) {
+        initSystemResourceTabs();
+        // Initialize equal column widths
+        setTimeout(() => {
+            updateResourceTableColumnWidths();
+        }, 100);
+    }
+});
+
+// Re-initialize tabs when System Resource panel is activated
+function initResourcePanelTabs() {
+    if (document.querySelector('.tab-button')) {
+        initSystemResourceTabs();
+        // Initialize equal column widths
+        setTimeout(() => {
+            updateResourceTableColumnWidths();
+        }, 100);
+    }
+}
+
 // 添加资源行
 function addResourceRow() {
     console.log('Adding new resource row');
@@ -2322,8 +2408,9 @@ function addLanguage() {
     newRow.style.borderBottom = '1px solid #e0e0e0';
     newRow.innerHTML = `
         <td style="padding: 10px 12px; color: #333;">${name}</td>
-        <td style="padding: 10px 12px; color: #333;">${description}</td>
+        <td style="padding: 10px 12px; color: #333;" onclick="editLanguageDescription(this)" title="Click to edit description">${description}</td>
         <td style="padding: 10px 12px; color: #333;">
+            <a href="javascript:void(0)" onclick="editLanguageName(this)" style="color: #1976d2; text-decoration: none; margin-right: 8px;">Edit</a>
             <a href="javascript:void(0)" onclick="deleteLanguage(this)" style="color: #1976d2; text-decoration: none;">Delete</a>
         </td>
     `;
@@ -2337,13 +2424,147 @@ function addLanguage() {
 }
 
 function deleteLanguage(element) {
+    const row = element.closest('tr');
+    const langName = row.querySelector('td:first-child').textContent.trim();
+
+    // Prevent deletion of built-in languages
+    if (langName === 'ja' || langName === 'en') {
+        alert('Built-in languages cannot be deleted.');
+        return;
+    }
+
     if (confirm('Are you sure you want to delete this language?')) {
-        const row = element.closest('tr');
-        const langName = row.querySelector('td:first-child').textContent.trim();
         row.remove();
 
         // Remove column from resource table
         removeResourceLanguageColumn(langName);
+    }
+}
+
+// Edit language name
+function editLanguageName(element) {
+    const row = element.closest('tr');
+    const nameCell = row.querySelector('td:first-child');
+    const langName = nameCell.textContent.trim();
+
+    // Prevent editing of built-in languages
+    if (langName === 'ja' || langName === 'en') {
+        alert('Built-in languages cannot be edited.');
+        return;
+    }
+
+    const originalName = nameCell.textContent;
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = originalName;
+    input.style.cssText = 'width: 100%; border: 1px solid #1976d2; outline: none; padding: 4px; font-size: 14px; font-family: inherit; box-sizing: border-box;';
+
+    nameCell.textContent = '';
+    nameCell.appendChild(input);
+    input.focus();
+    input.select();
+
+    function saveEdit() {
+        const newName = input.value.trim();
+        if (newName && newName !== originalName) {
+            // Check if language already exists
+            const tbody = document.getElementById('languageTableBody');
+            const existingRows = tbody.querySelectorAll('tr');
+            for (let row of existingRows) {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell && firstCell.textContent.trim() === newName && row !== nameCell.parentElement) {
+                    alert('This language already exists');
+                    cancelEdit();
+                    return;
+                }
+            }
+
+            // Update language name in table
+            nameCell.textContent = newName;
+
+            // Update language column in resource table
+            updateResourceLanguageColumnName(originalName, newName);
+        } else {
+            cancelEdit();
+        }
+    }
+
+    function cancelEdit() {
+        nameCell.textContent = originalName;
+    }
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            saveEdit();
+        } else if (e.key === 'Escape') {
+            cancelEdit();
+        }
+    });
+
+    input.addEventListener('blur', function() {
+        saveEdit();
+    });
+}
+
+// Edit language description
+function editLanguageDescription(element) {
+    const originalDescription = element.textContent.trim();
+    const input = document.createElement('textarea');
+    input.value = originalDescription;
+    input.style.cssText = 'width: 100%; border: 1px solid #1976d2; outline: none; padding: 4px; font-size: 14px; font-family: inherit; box-sizing: border-box; resize: vertical; min-height: 60px;';
+
+    element.textContent = '';
+    element.appendChild(input);
+    input.focus();
+    input.select();
+
+    function saveEdit() {
+        const newDescription = input.value.trim();
+        element.textContent = newDescription;
+        element.setAttribute('title', 'Click to edit description');
+    }
+
+    function cancelEdit() {
+        element.textContent = originalDescription;
+        element.setAttribute('title', 'Click to edit description');
+    }
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            saveEdit();
+        } else if (e.key === 'Escape') {
+            cancelEdit();
+        }
+    });
+
+    input.addEventListener('blur', function() {
+        saveEdit();
+    });
+}
+
+// Update language column name in resource table
+function updateResourceLanguageColumnName(oldName, newName) {
+    const header = document.getElementById('resourceTableHeader');
+    if (!header) return;
+
+    // Update header cell
+    const headerCell = header.querySelector(`th[data-lang="${oldName}"]`);
+    if (headerCell) {
+        headerCell.textContent = newName;
+        headerCell.setAttribute('data-lang', newName);
+    }
+
+    // Update all data cells
+    const tbody = document.getElementById('resourceTableBody');
+    if (tbody) {
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+            const cell = row.querySelector(`td[data-lang="${oldName}"]`);
+            if (cell) {
+                cell.setAttribute('data-lang', newName);
+            }
+        });
     }
 }
 
@@ -2354,22 +2575,27 @@ function addResourceLanguageColumn(langName) {
 
     if (!header || !tbody) return;
 
-    // Add header cell (insert before Comment column)
-    const commentHeader = header.querySelector('th:last-child');
+    // Find the en column to insert before it
+    const enHeader = header.querySelector('th:nth-child(3)'); // en is now the 3rd column (Key, ja, en, Comment)
+    if (!enHeader) return;
+
+    // Add header cell (insert before en column)
     const newHeader = document.createElement('th');
     newHeader.textContent = langName;
     newHeader.setAttribute('data-lang', langName);
     newHeader.style.cssText = 'padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;';
-    header.insertBefore(newHeader, commentHeader);
+    header.insertBefore(newHeader, enHeader);
 
-    // Add cells to all data rows (insert before Comment column)
+    // Add cells to all data rows (insert before en column)
     const rows = tbody.querySelectorAll('tr');
     rows.forEach(row => {
-        const commentCell = row.querySelector('td:last-child');
-        const newCell = document.createElement('td');
-        newCell.style.cssText = 'padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;';
-        newCell.setAttribute('data-lang', langName);
-        row.insertBefore(newCell, commentCell);
+        const enCell = row.querySelector('td:nth-child(3)'); // en is now the 3rd column
+        if (enCell) {
+            const newCell = document.createElement('td');
+            newCell.style.cssText = 'padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;';
+            newCell.setAttribute('data-lang', langName);
+            row.insertBefore(newCell, enCell);
+        }
     });
 
     // Update column widths to be equal
@@ -2419,15 +2645,29 @@ function updateResourceTableColumnWidths() {
     allHeaders.forEach(th => {
         th.style.width = equalWidth;
     });
+
+    // Also apply the same width to all data cells in the table
+    const tbody = document.getElementById('resourceTableBody');
+    if (tbody) {
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            cells.forEach((cell, index) => {
+                if (index < columnCount) {
+                    cell.style.width = equalWidth;
+                }
+            });
+        });
+    }
 }
 
-// Make resource table cells editable (except Key and en columns)
+// Make resource table cells editable (except Key, ja, and en columns)
 function makeResourceCellEditable(cell) {
     // Get the cell's position in the row
     const cellIndex = Array.from(cell.parentElement.children).indexOf(cell);
 
-    // Don't allow editing Key (index 0) or en (index 1) columns
-    if (cellIndex === 0 || cellIndex === 1) {
+    // Don't allow editing Key (index 0), ja (index 1), or en (index 2) columns
+    if (cellIndex === 0 || cellIndex === 1 || cellIndex === 2) {
         return;
     }
 
