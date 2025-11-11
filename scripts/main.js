@@ -2445,7 +2445,9 @@ function deleteLanguage(element) {
 function editLanguageName(element) {
     const row = element.closest('tr');
     const nameCell = row.querySelector('td:first-child');
+    const descCell = row.querySelector('td:nth-child(2)');
     const langName = nameCell.textContent.trim();
+    const description = descCell.textContent.trim();
 
     // Prevent editing of built-in languages
     if (langName === 'ja' || langName === 'en') {
@@ -2453,94 +2455,100 @@ function editLanguageName(element) {
         return;
     }
 
-    const originalName = nameCell.textContent;
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = originalName;
-    input.style.cssText = 'width: 100%; border: 1px solid #1976d2; outline: none; padding: 4px; font-size: 14px; font-family: inherit; box-sizing: border-box;';
+    // Populate edit dialog with current data
+    document.getElementById('editLanguageOriginalName').value = langName;
+    document.getElementById('editLanguageName').value = langName;
+    document.getElementById('editLanguageDescription').value = description;
 
-    nameCell.textContent = '';
-    nameCell.appendChild(input);
-    input.focus();
-    input.select();
+    // Store reference to the current row being edited
+    window.currentEditingRow = row;
 
-    function saveEdit() {
-        const newName = input.value.trim();
-        if (newName && newName !== originalName) {
-            // Check if language already exists
-            const tbody = document.getElementById('languageTableBody');
-            const existingRows = tbody.querySelectorAll('tr');
-            for (let row of existingRows) {
-                const firstCell = row.querySelector('td:first-child');
-                if (firstCell && firstCell.textContent.trim() === newName && row !== nameCell.parentElement) {
-                    alert('This language already exists');
-                    cancelEdit();
-                    return;
-                }
+    // Open edit dialog
+    const dialog = document.getElementById('editLanguageDialog');
+    if (dialog) {
+        dialog.classList.add('active');
+    }
+}
+
+// Close edit language dialog
+function closeEditLanguageDialog() {
+    const dialog = document.getElementById('editLanguageDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+        window.currentEditingRow = null;
+    }
+}
+
+// Save edited language
+function saveEditLanguage() {
+    const originalName = document.getElementById('editLanguageOriginalName').value;
+    const newName = document.getElementById('editLanguageName').value.trim();
+    const newDescription = document.getElementById('editLanguageDescription').value.trim();
+
+    if (!newName) {
+        alert('Please enter a language name');
+        return;
+    }
+
+    // Check if language already exists (excluding current row)
+    const tbody = document.getElementById('languageTableBody');
+    const existingRows = tbody.querySelectorAll('tr');
+    for (let row of existingRows) {
+        if (row !== window.currentEditingRow) {
+            const firstCell = row.querySelector('td:first-child');
+            if (firstCell && firstCell.textContent.trim() === newName) {
+                alert('This language already exists');
+                return;
             }
+        }
+    }
 
-            // Update language name in table
-            nameCell.textContent = newName;
+    // Update language in table
+    if (window.currentEditingRow) {
+        const nameCell = window.currentEditingRow.querySelector('td:first-child');
+        const descCell = window.currentEditingRow.querySelector('td:nth-child(2)');
 
-            // Update language column in resource table
+        nameCell.textContent = newName;
+        descCell.textContent = newDescription;
+        descCell.setAttribute('title', 'Click to edit description');
+
+        // Update language column in resource table if name changed
+        if (newName !== originalName) {
             updateResourceLanguageColumnName(originalName, newName);
-        } else {
-            cancelEdit();
         }
     }
 
-    function cancelEdit() {
-        nameCell.textContent = originalName;
-    }
-
-    input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            saveEdit();
-        } else if (e.key === 'Escape') {
-            cancelEdit();
-        }
-    });
-
-    input.addEventListener('blur', function() {
-        saveEdit();
-    });
+    // Close dialog
+    closeEditLanguageDialog();
 }
 
 // Edit language description
 function editLanguageDescription(element) {
-    const originalDescription = element.textContent.trim();
-    const input = document.createElement('textarea');
-    input.value = originalDescription;
-    input.style.cssText = 'width: 100%; border: 1px solid #1976d2; outline: none; padding: 4px; font-size: 14px; font-family: inherit; box-sizing: border-box; resize: vertical; min-height: 60px;';
+    const row = element.closest('tr');
+    const nameCell = row.querySelector('td:first-child');
+    const descCell = row.querySelector('td:nth-child(2)');
+    const langName = nameCell.textContent.trim();
+    const description = descCell.textContent.trim();
 
-    element.textContent = '';
-    element.appendChild(input);
-    input.focus();
-    input.select();
-
-    function saveEdit() {
-        const newDescription = input.value.trim();
-        element.textContent = newDescription;
-        element.setAttribute('title', 'Click to edit description');
+    // Prevent editing of built-in languages
+    if (langName === 'ja' || langName === 'en') {
+        alert('Built-in languages cannot be edited.');
+        return;
     }
 
-    function cancelEdit() {
-        element.textContent = originalDescription;
-        element.setAttribute('title', 'Click to edit description');
+    // Populate edit dialog with current data
+    document.getElementById('editLanguageOriginalName').value = langName;
+    document.getElementById('editLanguageName').value = langName;
+    document.getElementById('editLanguageDescription').value = description;
+
+    // Store reference to the current row being edited
+    window.currentEditingRow = row;
+
+    // Open edit dialog
+    const dialog = document.getElementById('editLanguageDialog');
+    if (dialog) {
+        dialog.classList.add('active');
     }
-
-    input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            saveEdit();
-        } else if (e.key === 'Escape') {
-            cancelEdit();
-        }
-    });
-
-    input.addEventListener('blur', function() {
-        saveEdit();
-    });
 }
 
 // Update language column name in resource table

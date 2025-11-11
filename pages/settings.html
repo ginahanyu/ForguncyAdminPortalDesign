@@ -535,7 +535,7 @@
                     <div class="tab-panel" id="language-management-panel">
                         <!-- Action Bar -->
                         <div style="margin-bottom: 16px;">
-                            <button class="btn-primary" onclick="openAddLanguageDialog()">Add Language...</button>
+                            <button class="btn-primary" onclick="openAddLanguageDialog()">Add Language</button>
                         </div>
 
                         <!-- Language Table -->
@@ -696,6 +696,39 @@
         <div class="dialog-footer">
             <button class="btn btn-primary" onclick="addLanguage()">OK</button>
             <button class="btn btn-secondary" onclick="closeAddLanguageDialog()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Language Dialog -->
+<div class="dialog-overlay" id="editLanguageDialog">
+    <div class="dialog-container" style="width: 500px;">
+        <div class="dialog-header">
+            <h3 class="dialog-title">Edit Language</h3>
+            <button class="dialog-close-btn" onclick="closeEditLanguageDialog()">&times;</button>
+        </div>
+        <div class="dialog-body" style="padding: 20px;">
+            <div class="dialog-section">
+                <div class="info-grid">
+                    <input type="hidden" id="editLanguageOriginalName">
+                    <div class="info-row" style="align-items: flex-start; margin-bottom: 0;">
+                        <div class="info-label" style="width: 120px; flex: 0 0 120px; padding-top: 6px;">Language Name:</div>
+                        <div class="info-value">
+                            <input type="text" class="form-input" id="editLanguageName" style="width: 340px; height: 32px;">
+                        </div>
+                    </div>
+                    <div class="info-row" style="align-items: flex-start; margin-top: 0;">
+                        <div class="info-label" style="width: 120px; flex: 0 0 120px; padding-top: 6px;">Description:</div>
+                        <div class="info-value">
+                            <textarea class="form-input" id="editLanguageDescription" style="width: 340px; height: 200px; resize: none; font-family: inherit; padding: 8px 12px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialog-footer">
+            <button class="btn btn-primary" onclick="saveEditLanguage()">OK</button>
+            <button class="btn btn-secondary" onclick="closeEditLanguageDialog()">Cancel</button>
         </div>
     </div>
 </div>
