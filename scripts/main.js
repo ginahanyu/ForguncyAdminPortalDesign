@@ -2583,26 +2583,26 @@ function addResourceLanguageColumn(langName) {
 
     if (!header || !tbody) return;
 
-    // Find the en column to insert before it
-    const enHeader = header.querySelector('th:nth-child(3)'); // en is now the 3rd column (Key, ja, en, Comment)
-    if (!enHeader) return;
+    // Find the comment column (last column) to insert before it
+    const commentHeader = header.querySelector('th:last-child'); // Comment is the last column
+    if (!commentHeader) return;
 
-    // Add header cell (insert before en column)
+    // Add header cell (insert before comment column)
     const newHeader = document.createElement('th');
     newHeader.textContent = langName;
     newHeader.setAttribute('data-lang', langName);
     newHeader.style.cssText = 'padding: 10px 12px; text-align: left; background: #FAFAFA; font-weight: 500; color: #666; position: sticky; top: 0; z-index: 10; height: 40px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;';
-    header.insertBefore(newHeader, enHeader);
+    header.insertBefore(newHeader, commentHeader);
 
-    // Add cells to all data rows (insert before en column)
+    // Add cells to all data rows (insert before comment column)
     const rows = tbody.querySelectorAll('tr');
     rows.forEach(row => {
-        const enCell = row.querySelector('td:nth-child(3)'); // en is now the 3rd column
-        if (enCell) {
+        const commentCell = row.querySelector('td:last-child'); // Comment is the last column
+        if (commentCell) {
             const newCell = document.createElement('td');
             newCell.style.cssText = 'padding: 10px 12px; color: #333; border-right: 1px solid #e0e0e0;';
             newCell.setAttribute('data-lang', langName);
-            row.insertBefore(newCell, enCell);
+            row.insertBefore(newCell, commentCell);
         }
     });
 
