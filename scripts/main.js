@@ -2380,6 +2380,73 @@ function closeAddLanguageDialog() {
     }
 }
 
+// Custom Confirmation Dialog Functions
+function showCustomConfirmDialog(message) {
+    return new Promise((resolve) => {
+        // Set the message
+        const messageElement = document.getElementById('confirmMessage');
+        if (messageElement) {
+            messageElement.textContent = message;
+        }
+
+        // Get the dialog and OK button
+        const dialog = document.getElementById('customConfirmDialog');
+        const okButton = document.getElementById('confirmDialogOK');
+        const cancelButton = dialog.querySelector('.btn-secondary');
+
+        if (dialog && okButton) {
+            // Show the dialog
+            dialog.classList.add('active');
+
+            // Remove any existing event listeners
+            const newOkButton = okButton.cloneNode(true);
+            const newCancelButton = cancelButton.cloneNode(true);
+            okButton.parentNode.replaceChild(newOkButton, okButton);
+            cancelButton.parentNode.replaceChild(newCancelButton, cancelButton);
+
+            // Add event listener to the new OK button
+            newOkButton.addEventListener('click', function() {
+                dialog.classList.remove('active');
+                resolve(true);
+            });
+
+            // Add event listener to the new Cancel button
+            newCancelButton.addEventListener('click', function() {
+                dialog.classList.remove('active');
+                resolve(false);
+            });
+
+            // Handle close on outside click
+            dialog.addEventListener('click', function(e) {
+                if (e.target === dialog) {
+                    dialog.classList.remove('active');
+                    resolve(false);
+                }
+            });
+
+            // Handle escape key
+            function handleEscapeKey(e) {
+                if (e.key === 'Escape') {
+                    dialog.classList.remove('active');
+                    document.removeEventListener('keydown', handleEscapeKey);
+                    resolve(false);
+                }
+            }
+            document.addEventListener('keydown', handleEscapeKey);
+        } else {
+            // Fallback to system confirm if dialog elements not found
+            resolve(confirm(message));
+        }
+    });
+}
+
+function closeCustomConfirmDialog() {
+    const dialog = document.getElementById('customConfirmDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
 function addLanguage() {
     const nameInput = document.getElementById('newLanguageName');
     const descInput = document.getElementById('newLanguageDescription');
@@ -2423,7 +2490,7 @@ function addLanguage() {
     closeAddLanguageDialog();
 }
 
-function deleteLanguage(element) {
+async function deleteLanguage(element) {
     const row = element.closest('tr');
     const langName = row.querySelector('td:first-child').textContent.trim();
 
@@ -2433,7 +2500,9 @@ function deleteLanguage(element) {
         return;
     }
 
-    if (confirm('Are you sure you want to delete this language?')) {
+    // Create custom confirmation dialog instead of using system confirm
+    const confirmed = await showCustomConfirmDialog('Deleting this language will also delete the corresponding resources. Are you sure you want to delete?');
+    if (confirmed) {
         row.remove();
 
         // Remove column from resource table
