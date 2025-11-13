@@ -745,6 +745,7 @@ body {
 .detail-section {
     margin-bottom: 32px;
     padding-bottom: 0;
+    width: 100%;
 }
 
 .detail-section:last-child {
@@ -793,6 +794,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 }
 
 .info-row {
@@ -801,7 +803,7 @@ body {
 }
 
 .info-label {
-    width: 140px;
+    width: 300px;
     font-size: 14px;
     color: #666;
     flex-shrink: 0;
@@ -1082,6 +1084,9 @@ body {
 .settings-content {
     padding: 24px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .settings-content-scrollable {
@@ -1095,6 +1100,7 @@ body {
     font-size: 14px;
     margin-bottom: 24px;
     line-height: 1.6;
+    width: 100%;
 }
 
 .settings-footer {
@@ -1103,7 +1109,6 @@ body {
     background: white;
     display: flex;
     justify-content: flex-start;
-    padding-left: 600px;
 }
 
 .form-input {
@@ -1190,7 +1195,7 @@ body {
     gap: 12px;
     margin-top: 32px;
     padding-top: 24px;
-    padding-left: 750px;
+    padding-left: 0;
     border-top: 1px solid #e0e0e0;
 }
 

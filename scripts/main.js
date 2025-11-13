@@ -2806,6 +2806,80 @@ function bindResourceTableEditEvents() {
     });
 }
 
+// Filter functions for "Who can manage the application" column
+function toggleManageFilter(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById('manageFilterDropdown');
+    dropdown.classList.toggle('show');
+
+    // Close dropdown when clicking outside
+    if (dropdown.classList.contains('show')) {
+        setTimeout(() => {
+            document.addEventListener('click', closeManageFilterOnClickOutside);
+        }, 0);
+    }
+}
+
+function closeManageFilterOnClickOutside(event) {
+    const dropdown = document.getElementById('manageFilterDropdown');
+    const filterBtn = event.target.closest('.filter-icon-btn');
+
+    if (!filterBtn && dropdown && !dropdown.contains(event.target)) {
+        closeManageFilter();
+        document.removeEventListener('click', closeManageFilterOnClickOutside);
+    }
+}
+
+function closeManageFilter() {
+    const dropdown = document.getElementById('manageFilterDropdown');
+    if (dropdown) {
+        dropdown.classList.remove('show');
+    }
+    document.removeEventListener('click', closeManageFilterOnClickOutside);
+}
+
+function applyManageFilter() {
+    const noManagerChecked = document.getElementById('filterNoManager').checked;
+    const hasManagerChecked = document.getElementById('filterHasManager').checked;
+
+    // Get all table rows in the apps table
+    const table = document.querySelector('.all-apps-table tbody');
+    if (!table) return;
+
+    const rows = table.querySelectorAll('tr');
+
+    rows.forEach(row => {
+        const manageCell = row.querySelector('td[data-column="manage"]');
+        if (!manageCell) return;
+
+        // Check if the cell has any manage tags
+        const hasTags = manageCell.querySelector('.manage-tag') !== null;
+        const hasContent = manageCell.textContent.trim().length > 0;
+        const hasManagers = hasTags || hasContent;
+
+        // Determine visibility based on filter selections
+        let shouldShow = true;
+
+        if (noManagerChecked && hasManagerChecked) {
+            // Both checked: show all rows
+            shouldShow = true;
+        } else if (noManagerChecked) {
+            // Only "No Assigned Managers" checked: show rows without managers
+            shouldShow = !hasManagers;
+        } else if (hasManagerChecked) {
+            // Only "Has Assigned Managers" checked: show rows with managers
+            shouldShow = hasManagers;
+        } else {
+            // Neither checked: show all rows
+            shouldShow = true;
+        }
+
+        row.style.display = shouldShow ? '' : 'none';
+    });
+
+    closeManageFilter();
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();

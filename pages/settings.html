@@ -593,12 +593,12 @@
                     <h3 class="section-title">Set Basic Domain</h3>
                     <div class="info-grid">
                         <div class="info-row" style="align-items: center;">
-                            <div class="info-value" style="width: 820px; flex: 0 0 820px;">
+                            <div class="info-value" style="width: 100%;">
                                 <input type="text" class="form-input global-config-input" id="settingsBasicDomainInput" data-config="domain" placeholder="">
                             </div>
                         </div>
                         <div class="info-row">
-                            <div class="info-value" style="width: 820px; flex: 0 0 820px;">
+                            <div class="info-value" style="width: 100%;">
                                 <p class="domain-hint-text" id="settingsDomainHintText" style="color: #999; font-size: 13px; margin: 8px 0 4px 0; line-height: 1.5;">The init value of Set Domain property of new application will be like :</p>
                                 <p class="domain-example-text" id="settingsDomainExampleText" style="color: #999; font-size: 13px; margin: 0; line-height: 1.5;"></p>
                             </div>
@@ -611,9 +611,9 @@
                     <h3 class="section-title">Application History Setting</h3>
                     <div class="info-grid">
                         <div class="info-row" style="align-items: center;">
-                            <label class="info-label" style="width: 300px; flex-shrink: 0;">The Maximum Of Project Files</label>
-                            <div class="info-value" style="width: 520px; flex: 0 0 520px;">
-                                <input type="number" class="form-input global-config-input" data-config="maxProjectFiles" value="20">
+                            <label class="info-label">The Maximum Of Project Files</label>
+                            <div class="info-value">
+                                <input type="number" class="form-input global-config-input" data-config="maxProjectFiles" value="20" style="width: 300px;">
                             </div>
                         </div>
                     </div>
@@ -624,9 +624,9 @@
                     <h3 class="section-title">Audit Log Database</h3>
                     <div class="info-grid">
                         <div class="info-row" style="align-items: center;">
-                            <label class="info-label" style="width: 300px; flex-shrink: 0;">Maximum retention days of the log database</label>
-                            <div class="info-value" style="width: 520px; flex: 0 0 520px;">
-                                <input type="number" class="form-input global-config-input" data-config="logDbRetentionDays" value="28" placeholder="Enter retention days">
+                            <label class="info-label">Maximum retention days of the log database</label>
+                            <div class="info-value">
+                                <input type="number" class="form-input global-config-input" data-config="logDbRetentionDays" value="28" placeholder="Enter retention days" style="width: 300px;">
                             </div>
                         </div>
                     </div>
@@ -637,21 +637,21 @@
                     <h3 class="section-title">Audit Log File Configuration</h3>
                     <div class="info-grid">
                         <div class="info-row" style="align-items: center;">
-                            <label class="info-label" style="width: 300px; flex-shrink: 0;">Maximum number of reserved log files</label>
-                            <div class="info-value" style="width: 520px; flex: 0 0 520px;">
-                                <input type="number" class="form-input global-config-input" data-config="maxLogFiles" placeholder="Unlimited">
+                            <label class="info-label">Maximum number of reserved log files</label>
+                            <div class="info-value">
+                                <input type="number" class="form-input global-config-input" data-config="maxLogFiles" placeholder="Unlimited" style="width: 300px;">
                             </div>
                         </div>
                         <div class="info-row" style="align-items: center;">
-                            <label class="info-label" style="width: 300px; flex-shrink: 0;">Maximum retention days of log files</label>
-                            <div class="info-value" style="width: 520px; flex: 0 0 520px;">
-                                <input type="number" class="form-input global-config-input" data-config="logFileRetentionDays" value="28" placeholder="Enter retention days">
+                            <label class="info-label">Maximum retention days of log files</label>
+                            <div class="info-value">
+                                <input type="number" class="form-input global-config-input" data-config="logFileRetentionDays" value="28" placeholder="Enter retention days" style="width: 300px;">
                             </div>
                         </div>
                         <div class="info-row" style="align-items: center;">
-                            <label class="info-label" style="width: 300px; flex-shrink: 0;">Single file size limit(MB)</label>
-                            <div class="info-value" style="width: 520px; flex: 0 0 520px;">
-                                <input type="number" class="form-input global-config-input" data-config="logFileSizeLimit" value="10" placeholder="Enter size limit">
+                            <label class="info-label">Single file size limit(MB)</label>
+                            <div class="info-value">
+                                <input type="number" class="form-input global-config-input" data-config="logFileSizeLimit" value="10" placeholder="Enter size limit" style="width: 300px;">
                             </div>
                         </div>
                     </div>
@@ -679,9 +679,9 @@
             <div class="dialog-section">
                 <div class="info-grid">
                     <div class="info-row" style="align-items: flex-start; margin-bottom: 0;">
-                        <div class="info-label" style="width: 120px; flex: 0 0 120px; padding-top: 6px;">Language Name:</div>
+                        <div class="info-label" style="width: 120px; flex: 0 0 120px; padding-top: 6px;">Language Name <span style="color: #FF4D4F;">*</span>:</div>
                         <div class="info-value">
-                            <input type="text" class="form-input" id="newLanguageName" style="width: 340px; height: 32px;">
+                            <input type="text" class="form-input" id="newLanguageName" style="width: 340px; height: 32px;" required>
                         </div>
                     </div>
                     <div class="info-row" style="align-items: flex-start; margin-top: 0;">
