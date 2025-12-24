@@ -67,6 +67,12 @@
                 </svg>
                 <span>Cloud Storage Settings</span>
             </div>
+            <div class="primary-menu-item" data-setting="loadbalance">
+                <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+                <span>Load Balance Config</span>
+            </div>
             <div class="primary-menu-item" data-setting="resource">
                 <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18">
                     <path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
@@ -292,6 +298,201 @@
             <div class="settings-content">
                 <div class="detail-section">
                     <p style="color: #666; margin-top: 20px;">Cloud storage settings will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Balance Config 面板 -->
+        <div class="detail-panel" id="loadbalance-panel">
+            <div class="page-header" style="display: flex; align-items: center; gap: 24px;">
+                <h2 class="page-title" style="display: flex; align-items: center; gap: 8px; margin: 0;">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="20" height="20" style="color: #666;">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Load Balance Config
+                </h2>
+                <label class="lb-enable-checkbox" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="lbEnableCheckbox" style="width: 16px; height: 16px; cursor: pointer;">
+                    <span style="font-size: 14px; color: #333;">Enable</span>
+                </label>
+            </div>
+
+            <div class="settings-content-scrollable" style="padding: 20px 0;">
+                <!-- Description -->
+                <p style="margin: 0 0 16px 14px; font-size: 14px; color: #666; line-height: 1.5;">Servers configured with the same Share Storage Path form a load-balanced server cluster for distributing requests and sharing storage resources.</p>
+                <!-- Config Button -->
+                <div style="margin-bottom: 20px; padding-left: 14px;">
+                    <button class="btn-primary" id="lbConfigBtn" style="background-color: #00a4e9; min-width: 80px;" disabled>Config</button>
+                </div>
+
+                <!-- Share Storage Path Section - Readonly -->
+                <div class="lb-section">
+                    <h3 class="lb-section-title">Share Storage Path</h3>
+                    <div class="lb-form-grid">
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> Share Storage Path</label>
+                            <div class="lb-form-value">
+                                <input type="text" class="lb-form-input lb-readonly-display" id="lbShareStoragePath" value="" placeholder="Not configured" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Config Section - Readonly -->
+                <div class="lb-section">
+                    <h3 class="lb-section-title">Database Config</h3>
+                    <div class="lb-form-grid">
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> Database Type</label>
+                            <div class="lb-form-value">
+                                <input type="text" class="lb-form-input lb-readonly-display" id="lbDatabaseType" value="" placeholder="Not configured" readonly>
+                            </div>
+                        </div>
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> Database Connection String</label>
+                            <div class="lb-form-value">
+                                <div class="lb-password-wrapper">
+                                    <input type="password" class="lb-form-input lb-password-input lb-readonly-display" id="lbDbConnectionString" value="" placeholder="Not configured" readonly>
+                                    <button type="button" class="lb-toggle-password" onclick="togglePasswordVisibility('lbDbConnectionString', this)">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#999">
+                                            <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Redis Config Section - Readonly -->
+                <div class="lb-section">
+                    <h3 class="lb-section-title">Redis Config</h3>
+                    <div class="lb-form-grid">
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> Redis Server String</label>
+                            <div class="lb-form-value">
+                                <input type="text" class="lb-form-input lb-readonly-display" id="lbRedisServer" value="" placeholder="Not configured" readonly>
+                            </div>
+                        </div>
+                        <div class="lb-form-row">
+                            <label class="lb-form-label">Redis Password</label>
+                            <div class="lb-form-value">
+                                <input type="text" class="lb-form-input lb-readonly-display" id="lbRedisPassword" value="" placeholder="Not configured" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log Database Section - Readonly -->
+                <div class="lb-section">
+                    <h3 class="lb-section-title">Log Database</h3>
+                    <div class="lb-form-grid">
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> InfluxDB URL</label>
+                            <div class="lb-form-value">
+                                <input type="text" class="lb-form-input lb-readonly-display" id="lbInfluxDbUrl" value="" placeholder="Not configured" readonly>
+                            </div>
+                        </div>
+                        <div class="lb-form-row">
+                            <label class="lb-form-label"><span class="lb-required">*</span> InfluxDB Token</label>
+                            <div class="lb-form-value">
+                                <div class="lb-password-wrapper">
+                                    <input type="password" class="lb-form-input lb-password-input lb-readonly-display" id="lbInfluxDbToken" value="" placeholder="Not configured" readonly>
+                                    <button type="button" class="lb-toggle-password" onclick="togglePasswordVisibility('lbInfluxDbToken', this)">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#999">
+                                            <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Balance Config Dialog -->
+        <div class="dialog-overlay" id="lbConfigDialog">
+            <div class="dialog-container" style="width: 650px;">
+                <div class="dialog-header">
+                    <h3 class="dialog-title">Load Balance Configuration</h3>
+                    <button class="dialog-close-btn" onclick="closeLbConfigDialog()">&times;</button>
+                </div>
+                <div class="dialog-body" style="padding: 20px;">
+                    <!-- Step 1: Share Storage Path -->
+                    <div class="lb-dialog-step" id="lbDialogStep1">
+                        <div class="lb-dialog-form-row-horizontal">
+                            <label class="lb-dialog-label-h"><span class="lb-required">*</span> Share Storage Path</label>
+                            <div class="lb-dialog-input-wrapper">
+                                <input type="text" class="lb-dialog-input" id="lbDialogSharePath" placeholder="\\server\share\path">
+                                <p style="margin: 8px 0 0 0; font-size: 12px; color: #999;">Enter the share storage path, Next config will read from the shared path.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Other Configurations -->
+                    <div class="lb-dialog-step" id="lbDialogStep2" style="display: none;">
+                        <!-- Database Config -->
+                        <div class="lb-dialog-section">
+                            <h4 class="lb-dialog-section-title">Database Config</h4>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h"><span class="lb-required">*</span> Database Type</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <select class="lb-dialog-select" id="lbDialogDbType">
+                                        <option value="MySQL" selected>MySQL</option>
+                                        <option value="PostgreSQL">PostgreSQL</option>
+                                        <option value="SQLServer">SQL Server</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h"><span class="lb-required">*</span> Database Connection String</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <input type="text" class="lb-dialog-input" id="lbDialogDbConnString" placeholder="Server=localhost;User Id=root;password=123456;database=userservicedb;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Redis Config -->
+                        <div class="lb-dialog-section">
+                            <h4 class="lb-dialog-section-title">Redis Config</h4>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h"><span class="lb-required">*</span> Redis Server String</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <input type="text" class="lb-dialog-input" id="lbDialogRedisServer" placeholder="192.168.52.1:9528">
+                                </div>
+                            </div>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h">Redis Password</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <input type="text" class="lb-dialog-input" id="lbDialogRedisPassword" placeholder="Optional">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Log Database -->
+                        <div class="lb-dialog-section">
+                            <h4 class="lb-dialog-section-title">Log Database</h4>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h"><span class="lb-required">*</span> InfluxDB URL</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <input type="text" class="lb-dialog-input" id="lbDialogInfluxUrl" placeholder="http://192.168.52.1:8086">
+                                </div>
+                            </div>
+                            <div class="lb-dialog-form-row-horizontal">
+                                <label class="lb-dialog-label-h"><span class="lb-required">*</span> InfluxDB Token</label>
+                                <div class="lb-dialog-input-wrapper">
+                                    <input type="text" class="lb-dialog-input" id="lbDialogInfluxToken" placeholder="Enter InfluxDB token">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dialog-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button class="btn btn-secondary" id="lbDialogPrevBtn" style="display: none;" onclick="lbDialogPrevStep()">Previous</button>
+                    <button class="btn btn-primary" id="lbDialogNextBtn" style="background-color: #00A4E9;" onclick="lbDialogNextStep()">Next</button>
+                    <button class="btn btn-primary" id="lbDialogConfirmBtn" style="background-color: #00A4E9; display: none;" onclick="lbDialogConfirm()">OK</button>
+                    <button class="btn btn-secondary" id="lbDialogCancelBtn" style="display: none;" onclick="closeLbConfigDialog()">Cancel</button>
                 </div>
             </div>
         </div>

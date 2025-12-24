@@ -20,7 +20,10 @@
       "Bash(git push:*)",
       "Bash(start.bat)",
       "Bash(git log:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(start:*)",
+      "Bash(ping:*)",
+      "Bash(del \"\\\\?\\\\d:\\\\projects\\\\活字格功能设计\\\\nul\")"
     ],
     "deny": [],
     "ask": []

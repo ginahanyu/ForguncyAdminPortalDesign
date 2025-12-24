@@ -430,6 +430,27 @@ function bindPageEvents() {
 
     // 绑定Basic Domain输入框事件
     bindBasicDomainInput();
+
+    // 绑定Permission页面菜单事件
+    bindPermissionMenuEvents();
+
+    // 绑定Permission模式切换事件
+    bindPermissionModeSwitch();
+
+    // 绑定主选项卡切换事件
+    bindMainTabSwitch();
+
+    // 绑定PermissionGroup子选项卡切换事件
+    bindPermGroupSubTabSwitch();
+
+    // 绑定PermissionGroup树事件
+    bindPermGroupTreeEvents();
+
+    // 绑定Role树事件
+    bindRoleTreeEvents();
+
+    // 绑定Load Balance Config事件
+    bindLoadBalanceEvents();
 }
 
 // 绑定全局配置保存按钮
@@ -2880,6 +2901,256 @@ function applyManageFilter() {
     closeManageFilter();
 }
 
+// Handle permission mode switch (Role/PermissionGroup)
+function bindPermissionModeSwitch() {
+    const modeRadios = document.querySelectorAll('input[name="permissionMode"]');
+    const contentSplit = document.getElementById('permissionContentSplit');
+
+    console.log('bindPermissionModeSwitch - modeRadios:', modeRadios.length);
+    console.log('bindPermissionModeSwitch - contentSplit:', !!contentSplit);
+
+    modeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const mode = this.value;
+            console.log('Permission mode changed to:', mode);
+
+            if (contentSplit) {
+                if (mode === 'role') {
+                    // Role mode: Role panel on left (order 1), PermGroup on right (order 2)
+                    contentSplit.classList.remove('permgroup-mode');
+                } else if (mode === 'permissionGroup') {
+                    // PermissionGroup mode: PermGroup panel on left (order 1), Role on right (order 2)
+                    contentSplit.classList.add('permgroup-mode');
+                }
+            }
+        });
+    });
+}
+
+// Handle permission page menu clicks
+function bindPermissionMenuEvents() {
+    const primaryMenuItems = document.querySelectorAll('.primary-menu-item');
+    const submenuItems = document.querySelectorAll('.primary-submenu-item');
+
+    console.log('bindPermissionMenuEvents - primaryMenuItems:', primaryMenuItems.length);
+    console.log('bindPermissionMenuEvents - submenuItems:', submenuItems.length);
+
+    primaryMenuItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            console.log('Primary menu item clicked:', index, this.textContent.trim());
+
+            // Remove active class from all items
+            primaryMenuItems.forEach(i => i.classList.remove('active'));
+            submenuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            // Show split layout for "Server Manage Platform"
+            const mainContainer = document.querySelector('.permission-page > .main-container');
+
+            console.log('Elements found - mainContainer:', !!mainContainer);
+
+            if (mainContainer) {
+                mainContainer.classList.remove('show-app-permission');
+            }
+
+            console.log('Showing split layout (Admin Group Permission)');
+        });
+    });
+
+    submenuItems.forEach((item, index) => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            console.log('Submenu item clicked:', index, this.textContent.trim());
+
+            // Remove active class from all items
+            primaryMenuItems.forEach(i => i.classList.remove('active'));
+            submenuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            // Add class to main-container to show app permission panel
+            const mainContainer = document.querySelector('.permission-page > .main-container');
+
+            console.log('Elements found - mainContainer:', !!mainContainer);
+
+            if (mainContainer) {
+                mainContainer.classList.add('show-app-permission');
+            }
+
+            console.log('Showing app permission detail panel');
+        });
+    });
+
+    // Handle expandable menu items
+    const expandableItems = document.querySelectorAll('.primary-menu-item.expandable');
+    expandableItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('expanded');
+            const submenu = this.nextElementSibling;
+            if (submenu && submenu.classList.contains('primary-submenu')) {
+                submenu.style.display = this.classList.contains('expanded') ? 'block' : 'none';
+            }
+        });
+    });
+}
+
+// Handle main tab switch (RoleAssignment / PermissionGroup)
+function bindMainTabSwitch() {
+    const mainTabBtns = document.querySelectorAll('.main-tab-btn');
+    const mainTabContents = document.querySelectorAll('.main-tab-content');
+
+    console.log('bindMainTabSwitch - mainTabBtns:', mainTabBtns.length);
+
+    mainTabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            console.log('Main tab clicked:', targetTab);
+
+            // Update button states
+            mainTabBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update content visibility
+            mainTabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const targetContent = document.getElementById(targetTab + 'Tab');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// Handle PermissionGroup sub-tab switch
+function bindPermGroupSubTabSwitch() {
+    const subTabBtns = document.querySelectorAll('.sub-tab-btn');
+    const subTabContents = document.querySelectorAll('.sub-tab-content');
+
+    console.log('bindPermGroupSubTabSwitch - subTabBtns:', subTabBtns.length);
+
+    subTabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-subtab');
+            console.log('Sub tab clicked:', targetTab);
+
+            // Update button states
+            subTabBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update content visibility
+            subTabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const targetContent = document.getElementById(targetTab + 'Content');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// Handle Role tree events (RoleAssignment tab)
+function bindRoleTreeEvents() {
+    const roleTreeItems = document.querySelectorAll('.role-tree-item[data-role]');
+
+    console.log('bindRoleTreeEvents - roleTreeItems:', roleTreeItems.length);
+
+    roleTreeItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // 如果点击的是 checkbox，不处理选中状态（让 checkbox 自己处理）
+            if (e.target.type === 'checkbox' || e.target.classList.contains('role-checkbox')) {
+                return;
+            }
+
+            e.stopPropagation();
+
+            // 移除所有项的选中状态
+            roleTreeItems.forEach(i => i.classList.remove('selected'));
+            // 添加选中状态到当前项
+            this.classList.add('selected');
+
+            const roleName = this.querySelector('span:last-child').textContent;
+            console.log('Role selected:', roleName);
+        });
+    });
+
+    // 绑定可展开的文件夹点击事件
+    const expandableItems = document.querySelectorAll('.role-tree-item.expandable');
+    expandableItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // 如果点击的是 checkbox，不处理展开/收起
+            if (e.target.type === 'checkbox' || e.target.classList.contains('role-checkbox')) {
+                return;
+            }
+
+            e.stopPropagation();
+            this.classList.toggle('expanded');
+
+            const toggleIcon = this.querySelector('.tree-toggle');
+            const children = this.nextElementSibling;
+
+            if (toggleIcon) {
+                toggleIcon.textContent = this.classList.contains('expanded') ? '▼' : '▶';
+            }
+
+            if (children && children.classList.contains('role-tree-children')) {
+                children.style.display = this.classList.contains('expanded') ? 'block' : 'none';
+            }
+        });
+    });
+}
+
+// Handle PermissionGroup tree events
+function bindPermGroupTreeEvents() {
+    const treeItems = document.querySelectorAll('.permgroup-tree-item');
+
+    console.log('bindPermGroupTreeEvents - treeItems:', treeItems.length);
+
+    treeItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            // Handle folder expand/collapse
+            if (this.classList.contains('expandable')) {
+                this.classList.toggle('expanded');
+                const children = this.nextElementSibling;
+                if (children && children.classList.contains('permgroup-tree-children')) {
+                    children.style.display = this.classList.contains('expanded') ? 'block' : 'none';
+                }
+            }
+
+            // Handle item selection
+            if (this.hasAttribute('data-permgroup-id')) {
+                // Remove selected from all items
+                treeItems.forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+
+                // Update BaseInfo form with selected permission group name
+                const permGroupName = this.querySelector('span:last-child').textContent;
+                const nameInput = document.querySelector('.baseinfo-form .baseinfo-input');
+                if (nameInput) {
+                    nameInput.value = permGroupName;
+                }
+
+                console.log('Permission group selected:', permGroupName);
+            }
+        });
+    });
+
+    // Initialize folder tree children display
+    const folders = document.querySelectorAll('.permgroup-tree-folder');
+    folders.forEach(folder => {
+        const folderItem = folder.querySelector('.permgroup-tree-item.expandable');
+        const children = folder.querySelector('.permgroup-tree-children');
+        if (folderItem && children) {
+            children.style.display = folderItem.classList.contains('expanded') ? 'block' : 'none';
+        }
+    });
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initApp();
@@ -2887,3 +3158,169 @@ document.addEventListener('DOMContentLoaded', function() {
     bindBasicDomainInput();
     bindResourceTableEditEvents();
 });
+
+// Load Balance Config 事件绑定
+function bindLoadBalanceEvents() {
+    const enableCheckbox = document.getElementById('lbEnableCheckbox');
+    if (!enableCheckbox) return;
+
+    const configBtn = document.getElementById('lbConfigBtn');
+
+    // 根据checkbox状态切换 Config 按钮启用/禁用
+    function toggleConfigBtn(enabled) {
+        if (configBtn) configBtn.disabled = !enabled;
+    }
+
+    // 初始化状态（默认未启用）
+    toggleConfigBtn(enableCheckbox.checked);
+
+    // 监听checkbox变化
+    enableCheckbox.addEventListener('change', function() {
+        toggleConfigBtn(this.checked);
+    });
+
+    // 绑定 Config 按钮
+    if (configBtn) {
+        configBtn.addEventListener('click', function() {
+            openLbConfigDialog();
+        });
+    }
+}
+
+// 当前对话框步骤
+let lbDialogCurrentStep = 1;
+
+// 打开 Load Balance 配置对话框
+function openLbConfigDialog() {
+    const dialog = document.getElementById('lbConfigDialog');
+    if (dialog) {
+        // 重置步骤为第一步
+        lbDialogCurrentStep = 1;
+        updateLbDialogStep();
+
+        // 清空对话框表单（或加载当前配置）
+        const sharePathInput = document.getElementById('lbDialogSharePath');
+        const currentSharePath = document.getElementById('lbShareStoragePath');
+        if (sharePathInput && currentSharePath && currentSharePath.value) {
+            sharePathInput.value = currentSharePath.value;
+        }
+
+        dialog.style.display = 'flex';
+    }
+}
+
+// 关闭 Load Balance 配置对话框
+function closeLbConfigDialog() {
+    const dialog = document.getElementById('lbConfigDialog');
+    if (dialog) {
+        dialog.style.display = 'none';
+    }
+}
+
+// 对话框下一步
+function lbDialogNextStep() {
+    const sharePathInput = document.getElementById('lbDialogSharePath');
+    if (!sharePathInput || !sharePathInput.value.trim()) {
+        alert('Please enter Share Storage Path.');
+        return;
+    }
+
+    lbDialogCurrentStep = 2;
+    updateLbDialogStep();
+}
+
+// 对话框上一步
+function lbDialogPrevStep() {
+    lbDialogCurrentStep = 1;
+    updateLbDialogStep();
+}
+
+// 更新对话框步骤显示
+function updateLbDialogStep() {
+    const step1 = document.getElementById('lbDialogStep1');
+    const step2 = document.getElementById('lbDialogStep2');
+    const prevBtn = document.getElementById('lbDialogPrevBtn');
+    const nextBtn = document.getElementById('lbDialogNextBtn');
+    const confirmBtn = document.getElementById('lbDialogConfirmBtn');
+    const cancelBtn = document.getElementById('lbDialogCancelBtn');
+
+    if (lbDialogCurrentStep === 1) {
+        step1.style.display = 'block';
+        step2.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'inline-block';
+        confirmBtn.style.display = 'none';
+        if (cancelBtn) cancelBtn.style.display = 'none';
+    } else {
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        prevBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
+        confirmBtn.style.display = 'inline-block';
+        if (cancelBtn) cancelBtn.style.display = 'none';
+    }
+}
+
+// 对话框确认保存配置
+function lbDialogConfirm() {
+    // 获取对话框中的所有值
+    const sharePath = document.getElementById('lbDialogSharePath').value.trim();
+    const dbType = document.getElementById('lbDialogDbType').value;
+    const dbConnString = document.getElementById('lbDialogDbConnString').value.trim();
+    const redisServer = document.getElementById('lbDialogRedisServer').value.trim();
+    const redisPassword = document.getElementById('lbDialogRedisPassword').value.trim();
+    const influxUrl = document.getElementById('lbDialogInfluxUrl').value.trim();
+    const influxToken = document.getElementById('lbDialogInfluxToken').value.trim();
+
+    // 验证必填字段
+    if (!dbConnString) {
+        alert('Please enter Database Connection String.');
+        return;
+    }
+    if (!redisServer) {
+        alert('Please enter Redis Server String.');
+        return;
+    }
+    if (!influxUrl) {
+        alert('Please enter InfluxDB URL.');
+        return;
+    }
+    if (!influxToken) {
+        alert('Please enter InfluxDB Token.');
+        return;
+    }
+
+    // 更新主页面的只读显示字段
+    document.getElementById('lbShareStoragePath').value = sharePath;
+    document.getElementById('lbDatabaseType').value = dbType;
+    document.getElementById('lbDbConnectionString').value = dbConnString;
+    document.getElementById('lbRedisServer').value = redisServer;
+    document.getElementById('lbRedisPassword').value = redisPassword;
+    document.getElementById('lbInfluxDbUrl').value = influxUrl;
+    document.getElementById('lbInfluxDbToken').value = influxToken;
+
+    // 关闭对话框
+    closeLbConfigDialog();
+
+    alert('Load Balance configuration saved successfully!');
+}
+
+// 密码显示/隐藏切换
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        // 更换为显示图标（眼睛打开）
+        button.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="#999">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+        </svg>`;
+    } else {
+        input.type = 'password';
+        // 更换为隐藏图标（眼睛关闭）
+        button.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="#999">
+            <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+        </svg>`;
+    }
+}

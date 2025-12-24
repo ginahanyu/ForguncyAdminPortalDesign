@@ -4,12 +4,6 @@
         <div class="sidebar-title">Permission</div>
         <div class="sidebar-divider"></div>
         <div class="primary-menu-list">
-            <div class="primary-submenu-search">
-                <input type="text" class="primary-submenu-search-input" placeholder="Search apps...">
-                <svg class="primary-search-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </div>
             <div class="primary-menu-item active">Server Manage Platform</div>
             <div class="primary-menu-section">
                 <div class="primary-menu-item expandable expanded">
@@ -440,6 +434,417 @@
                 </div>
 
                 </div>
+        </div>
+
+        <!-- App Permission Setting -->
+        <div id="app-permission-detail">
+            <div class="app-permission-header">
+                <h2 class="app-permission-title">Inventory Management Permission Setting</h2>
+            </div>
+
+            <div class="app-permission-save-row">
+                <button class="btn-save-permission">Save</button>
+            </div>
+
+            <!-- Main Tabs: RoleAssignment and PermissionGroup -->
+            <div class="main-tab-container">
+                <div class="main-tab-nav">
+                    <button class="main-tab-btn active" data-tab="roleAssignment">RoleAssignment</button>
+                    <button class="main-tab-btn" data-tab="permissionGroup">PermissionGroup</button>
+                </div>
+
+                <!-- RoleAssignment Tab Content -->
+                <div class="main-tab-content active" id="roleAssignmentTab">
+                    <div class="permission-mode-section">
+                        <label class="mode-label">Mode:</label>
+                        <div class="radio-group-mode">
+                            <label class="radio-option">
+                                <input type="radio" name="permissionMode" value="role" checked>
+                                <span>Role</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="permissionMode" value="permissionGroup">
+                                <span>PermissionGroup</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Permission content split - panels can be swapped via mode switch -->
+                    <div class="permission-content-split" id="permissionContentSplit">
+                <!-- Role Panel -->
+                <div class="permission-panel role-panel">
+                    <!-- Header shown only in PermissionGroup mode (when role is on right side) -->
+                    <div class="panel-multi-header">
+                        <div class="selected-count">Already Select 0 item:</div>
+                        <div class="panel-sub-label">Roles with this permission group:</div>
+                    </div>
+
+                    <div class="filter-search-box">
+                        <input type="text" class="filter-input" placeholder="input key word to filter role tree">
+                        <svg class="search-icon-filter" viewBox="0 0 24 24" width="18" height="18">
+                            <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+
+                    <div class="role-tree-container">
+                        <div class="role-tree-item select-all-item">
+                            <input type="checkbox" class="role-checkbox">
+                            <span class="select-all-label">Select All</span>
+                        </div>
+                        <div class="role-tree-item" data-role="everyone">
+                            <input type="checkbox" class="role-checkbox">
+                            <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            <span>Everyone</span>
+                        </div>
+                        <div class="role-tree-item" data-role="authenticated">
+                            <input type="checkbox" class="role-checkbox">
+                            <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            <span>Authenticated Users</span>
+                        </div>
+                        <div class="role-tree-item" data-role="administrator">
+                            <input type="checkbox" class="role-checkbox">
+                            <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                            <span>Administrator</span>
+                        </div>
+                        <div class="role-tree-group">
+                            <div class="role-tree-item expandable expanded">
+                                <span class="tree-toggle">▼</span>
+                                <input type="checkbox" class="role-checkbox">
+                                <svg class="role-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                </svg>
+                                <span>Business Role</span>
+                            </div>
+                            <div class="role-tree-children">
+                                <div class="role-tree-item role-tree-child" data-role="buyer">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>buyer</span>
+                                </div>
+                                <div class="role-tree-item role-tree-child" data-role="salesperson">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>Salesperson</span>
+                                </div>
+                                <div class="role-tree-item role-tree-child" data-role="inventory-manager">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>Inventory Manager</span>
+                                </div>
+                                <div class="role-tree-item role-tree-child" data-role="warehouse-supervisor">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>Warehouse Supervisor</span>
+                                </div>
+                                <div class="role-tree-item role-tree-child" data-role="purchasing-manager">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>Purchasing Manager</span>
+                                </div>
+                                <div class="role-tree-item role-tree-child" data-role="sales-executive">
+                                    <span class="tree-indent"></span>
+                                    <input type="checkbox" class="role-checkbox">
+                                    <svg class="role-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                    <span>sales Executive</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PermissionGroup Panel -->
+                <div class="permission-panel permgroup-panel">
+                    <!-- Header shown only in Role mode (when permgroup is on right side) -->
+                    <div class="panel-multi-header">
+                        <div class="selected-count">Already Select 0 item:</div>
+                        <div class="panel-sub-label">Existing Permission Groups:</div>
+                    </div>
+
+                    <div class="filter-search-box">
+                        <input type="text" class="filter-input" placeholder="input key word to filter permission group tree">
+                        <svg class="search-icon-filter" viewBox="0 0 24 24" width="18" height="18">
+                            <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+
+                    <div class="permission-group-tree">
+                            <div class="perm-group-item select-all-item">
+                                <input type="checkbox" class="perm-checkbox">
+                                <span class="select-all-label">Select All</span>
+                            </div>
+                            <div class="perm-group-item">
+                                <input type="checkbox" class="perm-checkbox">
+                                <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                </svg>
+                                <span>Any module that can be accessed</span>
+                            </div>
+                            <div class="perm-group-item">
+                                <input type="checkbox" class="perm-checkbox">
+                                <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                </svg>
+                                <span>Basic permission group</span>
+                            </div>
+                            <div class="perm-group-item">
+                                <input type="checkbox" class="perm-checkbox">
+                                <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                </svg>
+                                <span>Inventory Management Module</span>
+                            </div>
+                            <div class="perm-group-expandable">
+                                <div class="perm-group-item">
+                                    <span class="tree-toggle">▼</span>
+                                    <input type="checkbox" class="perm-checkbox">
+                                    <svg class="perm-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                    </svg>
+                                    <span>Procurement module permissions</span>
+                                </div>
+                                <div class="perm-group-children">
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Basic Procurement Authority</span>
+                                    </div>
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Procurement process management permissions</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="perm-group-expandable">
+                                <div class="perm-group-item">
+                                    <span class="tree-toggle">▼</span>
+                                    <input type="checkbox" class="perm-checkbox">
+                                    <svg class="perm-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                    </svg>
+                                    <span>Inbound/outbound module permissions</span>
+                                </div>
+                                <div class="perm-group-children">
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Basic Inbound and Outbound Permissions</span>
+                                    </div>
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Inbound and outbound process management permissions</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="perm-group-expandable">
+                                <div class="perm-group-item">
+                                    <span class="tree-toggle">▼</span>
+                                    <input type="checkbox" class="perm-checkbox">
+                                    <svg class="perm-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                    </svg>
+                                    <span>Sales module permissions</span>
+                                </div>
+                                <div class="perm-group-children">
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Basic permissions for the sales module</span>
+                                    </div>
+                                    <div class="perm-group-item perm-group-child">
+                                        <span class="tree-indent"></span>
+                                        <input type="checkbox" class="perm-checkbox">
+                                        <svg class="perm-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                        <span>Sales process management permissions</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+                <!-- End of RoleAssignment Tab Content -->
+
+                <!-- PermissionGroup Tab Content -->
+                <div class="main-tab-content" id="permissionGroupTab">
+                    <div class="permgroup-tab-layout">
+                        <!-- Left Panel: Permission Group Tree -->
+                        <div class="permgroup-left-panel">
+                            <div class="permgroup-search-box no-border">
+                                <input type="text" class="permgroup-search-input" placeholder="Search...">
+                                <svg class="permgroup-search-icon" viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                </svg>
+                            </div>
+                            <div class="permgroup-tree-list">
+                                <div class="permgroup-tree-item selected" data-permgroup-id="basic">
+                                    <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                    </svg>
+                                    <span>Basic permission group</span>
+                                </div>
+                                <div class="permgroup-tree-item" data-permgroup-id="inventory">
+                                    <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                    </svg>
+                                    <span>Inventory Management Module</span>
+                                </div>
+                                <div class="permgroup-tree-folder">
+                                    <div class="permgroup-tree-item expandable expanded" data-folder-id="procurement">
+                                        <span class="tree-toggle">▼</span>
+                                        <svg class="permgroup-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                        </svg>
+                                        <span>Procurement module permissions</span>
+                                    </div>
+                                    <div class="permgroup-tree-children">
+                                        <div class="permgroup-tree-item child" data-permgroup-id="procurement-basic">
+                                            <span class="tree-indent"></span>
+                                            <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                                <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                            </svg>
+                                            <span>Basic Procurement Authority</span>
+                                        </div>
+                                        <div class="permgroup-tree-item child" data-permgroup-id="procurement-process">
+                                            <span class="tree-indent"></span>
+                                            <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                                <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                            </svg>
+                                            <span>Procurement process management permissions</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="permgroup-tree-folder">
+                                    <div class="permgroup-tree-item expandable expanded" data-folder-id="sales">
+                                        <span class="tree-toggle">▼</span>
+                                        <svg class="permgroup-folder-icon" viewBox="0 0 24 24" width="18" height="18">
+                                            <path fill="#FFA500" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                                        </svg>
+                                        <span>Sales module permissions</span>
+                                    </div>
+                                    <div class="permgroup-tree-children">
+                                        <div class="permgroup-tree-item child" data-permgroup-id="sales-basic">
+                                            <span class="tree-indent"></span>
+                                            <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                                <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                            </svg>
+                                            <span>Basic permissions for the sales module</span>
+                                        </div>
+                                        <div class="permgroup-tree-item child" data-permgroup-id="sales-process">
+                                            <span class="tree-indent"></span>
+                                            <svg class="permgroup-lock-icon" viewBox="0 0 24 24" width="18" height="18">
+                                                <path fill="#4A81E5" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                            </svg>
+                                            <span>Sales process management permissions</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Permission Group Detail -->
+                        <div class="permgroup-right-panel">
+                            <div class="permgroup-resource-link">
+                                <a href="#" class="resource-link-text">Click to show the existing resource permission of this permission group</a>
+                            </div>
+
+                            <!-- Sub Tabs: BaseInfo, Data, Page, Cell, ServerCommand, Process -->
+                            <div class="permgroup-sub-tabs">
+                                <button class="sub-tab-btn active" data-subtab="baseInfo">Base Info</button>
+                                <button class="sub-tab-btn" data-subtab="data">Data</button>
+                                <button class="sub-tab-btn" data-subtab="page">Page</button>
+                                <button class="sub-tab-btn" data-subtab="cell">Cell</button>
+                                <button class="sub-tab-btn" data-subtab="serverCommand">ServerCommand</button>
+                                <button class="sub-tab-btn" data-subtab="process">Process</button>
+                            </div>
+
+                            <!-- Sub Tab Contents -->
+                            <div class="permgroup-sub-content">
+                                <!-- Base Info Tab -->
+                                <div class="sub-tab-content active" id="baseInfoContent">
+                                    <div class="baseinfo-form">
+                                        <div class="form-row">
+                                            <label class="form-label">Name:</label>
+                                            <span class="baseinfo-value">Basic permission group</span>
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="form-label">Description:</label>
+                                            <span class="baseinfo-value">Basic operation permissions for all users</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Data Tab -->
+                                <div class="sub-tab-content" id="dataContent">
+                                    <div class="sub-tab-placeholder">Data permission configuration will be displayed here.</div>
+                                </div>
+
+                                <!-- Page Tab -->
+                                <div class="sub-tab-content" id="pageContent">
+                                    <div class="sub-tab-placeholder">Page permission configuration will be displayed here.</div>
+                                </div>
+
+                                <!-- Cell Tab -->
+                                <div class="sub-tab-content" id="cellContent">
+                                    <div class="sub-tab-placeholder">Cell permission configuration will be displayed here.</div>
+                                </div>
+
+                                <!-- ServerCommand Tab -->
+                                <div class="sub-tab-content" id="serverCommandContent">
+                                    <div class="sub-tab-placeholder">ServerCommand permission configuration will be displayed here.</div>
+                                </div>
+
+                                <!-- Process Tab -->
+                                <div class="sub-tab-content" id="processContent">
+                                    <div class="sub-tab-placeholder">Process permission configuration will be displayed here.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of PermissionGroup Tab Content -->
+            </div>
         </div>
     </div>
 

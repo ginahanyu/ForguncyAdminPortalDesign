@@ -265,6 +265,7 @@ body {
     display: flex;
     flex-direction: column;
     background: white;
+    position: relative;
 }
 
 .page-header {
@@ -1109,6 +1110,277 @@ body {
     background: white;
     display: flex;
     justify-content: flex-start;
+}
+
+/* Load Balance Config Styles */
+.lb-section {
+    margin-bottom: 24px;
+    padding-left: 0;
+}
+
+.lb-section-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 16px;
+    margin-left: 10px;
+    padding-left: 7px;
+    border-left: 3px solid #1976d2;
+}
+
+.lb-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 24px;
+}
+
+.lb-form-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.lb-form-label {
+    width: 200px;
+    min-width: 200px;
+    font-size: 14px;
+    color: #333;
+    padding-top: 8px;
+    text-align: right;
+}
+
+.lb-required {
+    color: #ff4d4f;
+    margin-right: 4px;
+}
+
+.lb-form-value {
+    flex: 1;
+    max-width: 560px;
+}
+
+.lb-form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    height: 36px;
+}
+
+.lb-form-input:focus {
+    border-color: #1976d2;
+}
+
+.lb-form-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+}
+
+.lb-form-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    background: white;
+    cursor: pointer;
+    height: 36px;
+    transition: border-color 0.2s;
+}
+
+.lb-form-select:focus {
+    border-color: #1976d2;
+}
+
+.lb-form-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+}
+
+.lb-form-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.lb-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lb-password-input {
+    padding-right: 40px;
+}
+
+.lb-toggle-password {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lb-toggle-password:hover svg {
+    fill: #666;
+}
+
+#loadbalance-panel .btn-primary:disabled {
+    background-color: #b0b0b0 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Load Balance Readonly Display */
+.lb-readonly-display {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+/* Load Balance Dialog Step Indicator */
+.lb-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.lb-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lb-step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.lb-step.active .lb-step-number {
+    background: #00a4e9;
+    color: white;
+}
+
+.lb-step-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.lb-step.active .lb-step-label {
+    color: #00a4e9;
+    font-weight: 500;
+}
+
+.lb-step-line {
+    width: 60px;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 16px;
+}
+
+/* Load Balance Dialog Form */
+.lb-dialog-section {
+    margin-bottom: 20px;
+}
+
+.lb-dialog-section-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 12px;
+    padding-left: 10px;
+    border-left: 3px solid #1976d2;
+}
+
+.lb-dialog-form-row {
+    margin-bottom: 12px;
+}
+
+.lb-dialog-label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.lb-dialog-input,
+.lb-dialog-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    height: 36px;
+    box-sizing: border-box;
+}
+
+.lb-dialog-input:focus,
+.lb-dialog-select:focus {
+    border-color: #1976d2;
+}
+
+.lb-dialog-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* Horizontal form layout for dialog */
+.lb-dialog-form-row-horizontal {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.lb-dialog-label-h {
+    flex: 0 0 150px;
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+    padding-right: 12px;
+    padding-top: 8px;
+}
+
+.lb-dialog-input-wrapper {
+    flex: 1;
+}
+
+.lb-dialog-input-wrapper .lb-dialog-input,
+.lb-dialog-input-wrapper .lb-dialog-select {
+    width: 100%;
+}
+
+.lb-dialog-input-wrapper .password-input-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.lb-dialog-input-wrapper .password-input-wrapper .lb-dialog-input {
+    flex: 1;
 }
 
 .form-input {
@@ -2488,3 +2760,652 @@ body {
 .app-dropdown-menu a:hover {
     background: #f5f5f5;
 }
+
+/* App Permission Setting Styles */
+#app-permission-detail {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.main-container.show-app-permission #app-permission-detail {
+    display: flex !important;
+}
+
+.main-container.show-app-permission .split-layout {
+    display: none !important;
+}
+
+.main-container.show-app-permission .page-header {
+    display: none !important;
+}
+
+.app-permission-save-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+}
+
+.app-permission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.app-permission-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.btn-save-permission {
+    padding: 8px 24px;
+    background: #00A7E1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-save-permission:hover {
+    background: #0096CC;
+}
+
+.permission-mode-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.mode-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.radio-group-mode {
+    display: flex;
+    gap: 24px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.radio-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.permission-content-split {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Permission panels - can be swapped via mode switch */
+.permission-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.permission-panel.role-panel {
+    width: 480px;
+    flex-shrink: 0;
+    order: 1;
+}
+
+.permission-panel.permgroup-panel {
+    flex: 1.5;
+    order: 2;
+}
+
+/* PermissionGroup mode - swap the panels */
+.permission-content-split.permgroup-mode .permission-panel.role-panel {
+    flex: 1.5;
+    width: auto;
+    order: 2;
+}
+
+.permission-content-split.permgroup-mode .permission-panel.permgroup-panel {
+    width: 480px;
+    flex: none;
+    flex-shrink: 0;
+    order: 1;
+}
+
+/* Panel multi header - shown only when panel is on right (multi-select mode) */
+.panel-multi-header {
+    display: none;
+}
+
+.panel-sub-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* In PermissionGroup mode, show role panel header (role is on right) */
+.permission-content-split.permgroup-mode .role-panel .panel-multi-header {
+    display: block;
+}
+
+/* In default Role mode, show permgroup panel header (permgroup is on right) */
+.permission-content-split:not(.permgroup-mode) .permgroup-panel .panel-multi-header {
+    display: block;
+}
+
+/* Checkbox visibility based on mode */
+/* In Role mode (default): hide checkboxes in role panel (left), show in permgroup panel (right) */
+.permission-content-split:not(.permgroup-mode) .role-panel .role-checkbox {
+    display: none;
+}
+
+.permission-content-split:not(.permgroup-mode) .role-panel .select-all-item {
+    display: none;
+}
+
+/* In PermissionGroup mode: hide checkboxes in permgroup panel (left), show in role panel (right) */
+.permission-content-split.permgroup-mode .permgroup-panel .perm-checkbox {
+    display: none;
+}
+
+.permission-content-split.permgroup-mode .permgroup-panel .select-all-item {
+    display: none;
+}
+
+/* Legacy support */
+.permission-left-panel {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.permission-right-panel {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.filter-search-box {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.filter-input {
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filter-input:focus {
+    border-color: #1976d2;
+}
+
+.search-icon-filter {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+}
+
+.role-tree-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.role-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.role-tree-item:hover {
+    background: #f5f5f5;
+}
+
+.role-tree-item.expandable {
+    cursor: pointer;
+}
+
+.role-tree-group {
+    margin-left: 0;
+}
+
+.role-tree-children {
+    margin-left: 24px;
+}
+
+.role-tree-child {
+    padding-left: 0;
+}
+
+/* Single select mode for role tree */
+.role-tree-item.selected {
+    background: #e3f2fd;
+}
+
+.role-tree-item[data-role]:hover {
+    cursor: pointer;
+}
+
+/* Single select mode for permission group tree */
+.permgroup-single-select .perm-group-item.selected {
+    background: #e3f2fd;
+    border-left: 3px solid #1976d2;
+}
+
+.permgroup-single-select .perm-group-item[data-permgroup]:hover {
+    cursor: pointer;
+}
+
+/* Multi select checkbox styles */
+.role-checkbox,
+.perm-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.role-multi-select .role-tree-item,
+.permission-group-tree:not(.permgroup-single-select) .perm-group-item {
+    cursor: default;
+}
+
+.tree-toggle {
+    width: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    user-select: none;
+}
+
+.tree-indent {
+    width: 24px;
+    display: inline-block;
+}
+
+.role-icon, .role-folder-icon {
+    flex-shrink: 0;
+    color: #666;
+}
+
+.role-icon path {
+    fill: #666;
+}
+
+.selected-count {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.existing-groups-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.existing-groups-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.permission-group-tree {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.perm-group-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.perm-group-item:hover {
+    background: #f5f5f5;
+}
+
+.perm-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.select-all-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.perm-icon, .perm-folder-icon {
+    flex-shrink: 0;
+    color: #666;
+}
+
+.perm-group-expandable {
+    margin-left: 0;
+}
+
+.perm-group-children {
+    margin-left: 24px;
+}
+
+.perm-group-child {
+    padding-left: 0;
+}
+
+/* Main Tab Container Styles */
+.main-tab-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-tab-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #e0e0e0;
+    background: transparent;
+}
+
+.main-tab-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.main-tab-btn:hover {
+    color: #1976d2;
+    background: #e3f2fd;
+}
+
+.main-tab-btn.active {
+    color: #1976d2;
+    border-bottom-color: #1976d2;
+    background: white;
+}
+
+.main-tab-content {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 16px;
+}
+
+.main-tab-content.active {
+    display: flex;
+}
+
+/* PermissionGroup Tab Layout */
+.permgroup-tab-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.permgroup-left-panel {
+    width: 520px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e0e0e0;
+    background: transparent;
+}
+
+.permgroup-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.btn-add-permgroup,
+.btn-add-folder {
+    padding: 6px 12px;
+    font-size: 13px;
+    color: #1976d2;
+    background: white;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-permgroup:hover,
+.btn-add-folder:hover {
+    background: #e3f2fd;
+}
+
+.permgroup-search-box {
+    position: relative;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.permgroup-search-box.no-border {
+    border-top: none;
+    border-bottom: none;
+}
+
+.permgroup-search-input {
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.permgroup-search-input:focus {
+    border-color: #1976d2;
+}
+
+.permgroup-search-icon {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+}
+
+.permgroup-tree-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.permgroup-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    color: #333;
+}
+
+.permgroup-tree-item:hover {
+    background: #e8e8e8;
+}
+
+.permgroup-tree-item.selected {
+    background: #e3f2fd;
+}
+
+.permgroup-tree-item.child {
+    padding-left: 24px;
+}
+
+.permgroup-tree-folder {
+    margin-bottom: 4px;
+}
+
+.permgroup-tree-children {
+    margin-left: 16px;
+    display: none;
+}
+
+.permgroup-tree-item.expanded + .permgroup-tree-children,
+.permgroup-tree-item.expanded ~ .permgroup-tree-children {
+    display: block;
+}
+
+.permgroup-lock-icon,
+.permgroup-folder-icon {
+    flex-shrink: 0;
+}
+
+/* PermissionGroup Right Panel */
+.permgroup-right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.permgroup-resource-link {
+    margin-bottom: 16px;
+}
+
+.resource-link-text {
+    color: #1976d2;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.resource-link-text:hover {
+    color: #1565c0;
+}
+
+/* Sub Tabs Styles */
+.permgroup-sub-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.sub-tab-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #666;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sub-tab-btn:hover {
+    color: #1976d2;
+}
+
+.sub-tab-btn.active {
+    color: #1976d2;
+    border-bottom-color: #1976d2;
+}
+
+.permgroup-sub-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sub-tab-content {
+    display: none;
+}
+
+.sub-tab-content.active {
+    display: block;
+}
+
+.sub-tab-placeholder {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Base Info Form Styles */
+.baseinfo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+}
+
+.baseinfo-form .form-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.baseinfo-form .form-label {
+    width: 100px;
+    font-size: 14px;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.baseinfo-form .baseinfo-value {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+}
+
