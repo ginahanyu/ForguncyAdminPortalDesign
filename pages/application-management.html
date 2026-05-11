@@ -469,15 +469,411 @@
 
             <!-- Server Commands 选项卡内容 -->
             <div class="app-tab-content" id="server-commands-content">
-                <div class="app-detail-scrollable">
-                    <p style="color: #666; padding: 24px;">Server commands configuration goes here...</p>
+                <div class="server-commands-layout">
+                    <div class="server-commands-sidebar">
+                        <div class="server-commands-sidebar-header">
+                            <h3 class="server-commands-title">Server Command List</h3>
+                            <button class="server-commands-config-btn" type="button">
+                                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                                    <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/>
+                                </svg>
+                                <span>View MCP Server Configuration</span>
+                            </button>
+                        </div>
+                        <div class="server-commands-search">
+                            <input type="text" class="server-command-search-input" id="serverCommandSearchInput" placeholder="Please enter a search keyword">
+                            <svg class="server-command-search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6 6 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20zm-5.5 0A4.5 4.5 0 1 1 10 5a4.5 4.5 0 0 1 0 9z"/>
+                            </svg>
+                        </div>
+                        <div class="server-command-tree" id="serverCommandTree">
+                            <div class="server-command-group" data-group-name="Procurement">
+                                <div class="server-command-group-header">
+                                    <span class="server-command-caret">&#9660;</span>
+                                    <svg class="server-command-folder-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                                        <path fill="currentColor" d="M10 4l2 2h8a1 1 0 0 1 1 1v2H3V5a1 1 0 0 1 1-1zm11 6v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z"/>
+                                    </svg>
+                                    <span class="server-command-group-name">Procurement</span>
+                                </div>
+                                <div class="server-command-items">
+                                    <button class="server-command-item active" type="button" data-command-id="delete-purchase-order">Delete Purchase Order</button>
+                                    <button class="server-command-item" type="button" data-command-id="maintain-po-request">Maintain Purchase Order Request</button>
+                                    <button class="server-command-item" type="button" data-command-id="create-purchase-order">Create Purchase Order</button>
+                                    <button class="server-command-item" type="button" data-command-id="maintain-purchase-amount">Maintain Purchase Amount</button>
+                                    <button class="server-command-item" type="button" data-command-id="edit-purchase-order">Edit Purchase Order</button>
+                                </div>
+                            </div>
+                            <div class="server-command-group" data-group-name="Items">
+                                <div class="server-command-group-header">
+                                    <span class="server-command-caret">&#9660;</span>
+                                    <svg class="server-command-folder-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                                        <path fill="currentColor" d="M10 4l2 2h8a1 1 0 0 1 1 1v2H3V5a1 1 0 0 1 1-1zm11 6v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z"/>
+                                    </svg>
+                                    <span class="server-command-group-name">Items</span>
+                                </div>
+                                <div class="server-command-items">
+                                    <button class="server-command-item" type="button" data-command-id="delete-item">Delete Item</button>
+                                    <button class="server-command-item" type="button" data-command-id="add-item">Add Item</button>
+                                    <button class="server-command-item" type="button" data-command-id="delete-item-category">Delete Item Category</button>
+                                    <button class="server-command-item" type="button" data-command-id="edit-item-category">Edit Item Category</button>
+                                    <button class="server-command-item" type="button" data-command-id="edit-item">Edit Item</button>
+                                    <button class="server-command-item" type="button" data-command-id="add-item-category">Add Item Category</button>
+                                </div>
+                            </div>
+                            <div class="server-command-group" data-group-name="Approval">
+                                <div class="server-command-group-header">
+                                    <span class="server-command-caret">&#9660;</span>
+                                    <svg class="server-command-folder-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                                        <path fill="currentColor" d="M10 4l2 2h8a1 1 0 0 1 1 1v2H3V5a1 1 0 0 1 1-1zm11 6v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z"/>
+                                    </svg>
+                                    <span class="server-command-group-name">Approval</span>
+                                </div>
+                                <div class="server-command-items">
+                                    <button class="server-command-item" type="button" data-command-id="execute-approval">Execute Approval Operation</button>
+                                    <button class="server-command-item" type="button" data-command-id="submit-approval-request">Submit Approval Request</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="server-commands-detail">
+                        <div class="server-command-detail-card active" data-command-id="delete-purchase-order">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">None</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Trigger Method</div>
+                                <div class="server-command-detail-value">
+                                    <div>Type: Event Trigger</div>
+                                    <div>Parameters:</div>
+                                    <div class="server-command-detail-indent">1. Purchase Order ID: Basic Type</div>
+                                    <div>Permissions required by authorized roles:</div>
+                                    <div class="server-command-detail-indent">Basic Permission Group, Procurement Module Permission, Procurement Process Management Permission</div>
+                                </div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Return Value</div>
+                                <div class="server-command-detail-value">None</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Command</div>
+                                <div class="server-command-detail-value">
+                                    <div>Transaction Command</div>
+                                    <div class="server-command-detail-indent">Data Table Operation: Delete Purchase Order Detail Table</div>
+                                    <div class="server-command-detail-indent">Data Table Operation: Delete Purchase Order Table</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="maintain-po-request">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Maintain submitted purchase order request records.</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Trigger Method</div>
+                                <div class="server-command-detail-value">
+                                    <div>Type: Event Trigger</div>
+                                    <div>Parameters:</div>
+                                    <div class="server-command-detail-indent">1. Request Number: Basic Type</div>
+                                    <div>Permissions required by authorized roles:</div>
+                                    <div class="server-command-detail-indent">Procurement Module Permission, Purchase Order Edit Permission</div>
+                                </div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Return Value</div>
+                                <div class="server-command-detail-value">None</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Command</div>
+                                <div class="server-command-detail-value">Transaction Command</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="create-purchase-order">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Create a new purchase order record.</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Trigger Method</div>
+                                <div class="server-command-detail-value">Type: Event Trigger</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Return Value</div>
+                                <div class="server-command-detail-value">Purchase order number</div>
+                            </div>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Command</div>
+                                <div class="server-command-detail-value">Create data and initialize workflow.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="maintain-purchase-amount">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Maintain the purchase amount summary.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="edit-purchase-order">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Edit an existing purchase order.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="delete-item">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Delete the selected item.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="add-item">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Add a new item record.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="delete-item-category">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Delete the selected item category.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="edit-item-category">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Edit the selected item category.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="edit-item">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Edit the selected item.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="add-item-category">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Add a new item category.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="execute-approval">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Execute the approval action for the current workflow step.</div>
+                            </div>
+                        </div>
+                        <div class="server-command-detail-card" data-command-id="submit-approval-request">
+                            <h3 class="server-command-detail-title">Settings</h3>
+                            <div class="server-command-detail-section">
+                                <div class="server-command-detail-label">Description</div>
+                                <div class="server-command-detail-value">Submit a new approval request.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Other tab contents (initially empty) -->
             <div class="app-tab-content" id="scheduled-tasks-content">
-                <div class="app-detail-scrollable">
-                    <p style="color: #666; padding: 24px;">Scheduled tasks configuration goes here...</p>
+                <div class="scheduled-tasks-layout">
+                    <div class="scheduled-tasks-list-panel">
+                        <div class="scheduled-tasks-search">
+                            <input type="text" class="scheduled-tasks-search-input" id="scheduledTasksSearchInput" placeholder="Input search terms">
+                            <svg class="scheduled-tasks-search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6 6 0 1 0-.71.71l.27.28v.79L20 21.5 21.5 20zm-5.5 0A4.5 4.5 0 1 1 10 5a4.5 4.5 0 0 1 0 9z"/>
+                            </svg>
+                        </div>
+                        <div class="scheduled-tasks-table-wrap">
+                            <table class="scheduled-tasks-table">
+                                <thead>
+                                    <tr>
+                                        <th>Scheduled Tasks</th>
+                                        <th class="scheduled-tasks-enable-col">Enable</th>
+                                        <th>Trigger Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scheduledTasksTableBody">
+                                    <tr class="scheduled-task-row active" data-task-id="task-1">
+                                        <td>
+                                            <div class="scheduled-task-name">
+                                                <img class="scheduled-task-icon" src="pages/Resource/计划任务图标.png" alt="" aria-hidden="true">
+                                                <span>Scheduled Task 1</span>
+                                            </div>
+                                        </td>
+                                        <td class="scheduled-tasks-enable-cell">
+                                            <svg class="scheduled-task-check-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </td>
+                                        <td>Detail: Trigger at 00:00:00 on 2023/05/23.</td>
+                                    </tr>
+                                    <tr class="scheduled-task-row" data-task-id="task-2">
+                                        <td>
+                                            <div class="scheduled-task-name">
+                                                <img class="scheduled-task-icon" src="pages/Resource/计划任务图标.png" alt="" aria-hidden="true">
+                                                <span>Scheduled Task 2</span>
+                                            </div>
+                                        </td>
+                                        <td class="scheduled-tasks-enable-cell">
+                                            <svg class="scheduled-task-check-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </td>
+                                        <td>Detail: Trigger at 08:30:00 every Monday.</td>
+                                    </tr>
+                                    <tr class="scheduled-task-row" data-task-id="task-3">
+                                        <td>
+                                            <div class="scheduled-task-name">
+                                                <img class="scheduled-task-icon" src="pages/Resource/计划任务图标.png" alt="" aria-hidden="true">
+                                                <span>Scheduled Task 3</span>
+                                            </div>
+                                        </td>
+                                        <td class="scheduled-tasks-enable-cell">
+                                            <svg class="scheduled-task-check-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </td>
+                                        <td>Detail: Trigger at 18:00:00 on the last day of every month.</td>
+                                    </tr>
+                                    <tr class="scheduled-task-row" data-task-id="task-4">
+                                        <td>
+                                            <div class="scheduled-task-name">
+                                                <img class="scheduled-task-icon" src="pages/Resource/计划任务图标.png" alt="" aria-hidden="true">
+                                                <span>Scheduled Task 4</span>
+                                            </div>
+                                        </td>
+                                        <td class="scheduled-tasks-enable-cell">
+                                            <span class="scheduled-task-disabled-mark">-</span>
+                                        </td>
+                                        <td>Detail: Trigger at 12:00:00 every day.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="scheduled-task-detail-panel">
+                        <div class="scheduled-task-detail-card active" data-task-id="task-1">
+                            <h3 class="scheduled-task-detail-title">Settings</h3>
+                            <div class="scheduled-task-action-row">
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Run</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Disable</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Edit Setting</button>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Status</div>
+                                <div class="scheduled-task-detail-value">Enabled</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Description</div>
+                                <div class="scheduled-task-detail-value">None</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Triggers</div>
+                                <div class="scheduled-task-detail-value">
+                                    <div>Type: Schedule Trigger ( One time )</div>
+                                    <div>Detail: Trigger at 00:00:00 on 2023/05/23.</div>
+                                </div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Commands</div>
+                                <div class="scheduled-task-detail-value">Copy File</div>
+                            </div>
+                        </div>
+                        <div class="scheduled-task-detail-card" data-task-id="task-2">
+                            <h3 class="scheduled-task-detail-title">Settings</h3>
+                            <div class="scheduled-task-action-row">
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Run</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Disable</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Edit Setting</button>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Status</div>
+                                <div class="scheduled-task-detail-value">Enabled</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Description</div>
+                                <div class="scheduled-task-detail-value">Synchronize weekly inventory snapshots.</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Triggers</div>
+                                <div class="scheduled-task-detail-value">
+                                    <div>Type: Schedule Trigger ( Weekly )</div>
+                                    <div>Detail: Trigger at 08:30:00 every Monday.</div>
+                                </div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Commands</div>
+                                <div class="scheduled-task-detail-value">Synchronize Data Table</div>
+                            </div>
+                        </div>
+                        <div class="scheduled-task-detail-card" data-task-id="task-3">
+                            <h3 class="scheduled-task-detail-title">Settings</h3>
+                            <div class="scheduled-task-action-row">
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Run</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Disable</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Edit Setting</button>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Status</div>
+                                <div class="scheduled-task-detail-value">Enabled</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Description</div>
+                                <div class="scheduled-task-detail-value">Generate the monthly procurement summary archive.</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Triggers</div>
+                                <div class="scheduled-task-detail-value">
+                                    <div>Type: Schedule Trigger ( Monthly )</div>
+                                    <div>Detail: Trigger at 18:00:00 on the last day of every month.</div>
+                                </div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Commands</div>
+                                <div class="scheduled-task-detail-value">Generate Report File</div>
+                            </div>
+                        </div>
+                        <div class="scheduled-task-detail-card" data-task-id="task-4">
+                            <h3 class="scheduled-task-detail-title">Settings</h3>
+                            <div class="scheduled-task-action-row">
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Run</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Enable</button>
+                                <button class="btn-primary scheduled-task-action-btn" type="button">Edit Setting</button>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Status</div>
+                                <div class="scheduled-task-detail-value">Disabled</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Description</div>
+                                <div class="scheduled-task-detail-value">Clean temporary files in the staging folder.</div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Triggers</div>
+                                <div class="scheduled-task-detail-value">
+                                    <div>Type: Schedule Trigger ( Daily )</div>
+                                    <div>Detail: Trigger at 12:00:00 every day.</div>
+                                </div>
+                            </div>
+                            <div class="scheduled-task-detail-section">
+                                <div class="scheduled-task-detail-label">Commands</div>
+                                <div class="scheduled-task-detail-value">Delete File</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="app-tab-content" id="reports-content">
@@ -517,7 +913,7 @@
                                     Allow HTTP referers from (list)
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <textarea class="settings-textarea" rows="4" placeholder="List of URLs to be allowed as HTTP Referer request headers (wildcard supported), e.g.&#10;https://www.example.com/*"></textarea>
+                                <textarea class="settings-textarea" id="allowHttpReferersInput" rows="4" placeholder="List of URLs to be allowed as HTTP Referer request headers (wildcard supported), e.g.&#10;https://www.example.com/*"></textarea>
                             </div>
 
                             <div class="settings-row">
@@ -525,7 +921,7 @@
                                     iframe CORS policy
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <select class="settings-select">
+                                <select class="settings-select" id="iframeCorsPolicySelect">
                                     <option value="">Select iframe CORS policy</option>
                                     <option>Same Origin</option>
                                     <option>Allow All</option>
@@ -537,7 +933,7 @@
                                     Customize HTTP Response Headers
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <textarea class="settings-textarea" rows="4" placeholder="Referrer-Policy:strict-origin-when-cross-origin&#10;X-Content-Type-Options:nosniff">Referrer-Policy:strict-origin-when-cross-origin&#10;X-Content-Type-Options:nosniff</textarea>
+                                <textarea class="settings-textarea" id="customResponseHeadersInput" rows="4" placeholder="Referrer-Policy:strict-origin-when-cross-origin&#10;X-Content-Type-Options:nosniff">Referrer-Policy:strict-origin-when-cross-origin&#10;X-Content-Type-Options:nosniff</textarea>
                             </div>
 
                             <div class="settings-row">
@@ -545,7 +941,7 @@
                                     MaxUploadBodySize(MB)
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <input type="text" class="settings-input" placeholder="Unlimited">
+                                <input type="text" class="settings-input" id="maxUploadBodySizeInput" placeholder="Unlimited">
                             </div>
 
                             <div class="settings-row">
@@ -553,7 +949,7 @@
                                     MaxRequestBodySize(MB)
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <input type="text" class="settings-input" placeholder="Unlimited">
+                                <input type="text" class="settings-input" id="maxRequestBodySizeInput" placeholder="Unlimited">
                             </div>
 
                             <div class="settings-row">
@@ -561,7 +957,7 @@
                                     SameSite
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <select class="settings-select">
+                                <select class="settings-select" id="sameSiteSelect">
                                     <option>Disabled</option>
                                     <option>Lax</option>
                                     <option>Strict</option>
@@ -574,7 +970,7 @@
                                     Allow update user infos by ServerCommands/API
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <input type="checkbox" class="settings-checkbox">
+                                <input type="checkbox" class="settings-checkbox" id="allowUpdateUserInfosCheckbox">
                             </div>
                         </div>
 
@@ -587,7 +983,7 @@
                                     IP Address List to Access Application(White List)
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <textarea class="settings-textarea" rows="4" placeholder="Configure a list of IP addresses to access the application, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
+                                <textarea class="settings-textarea" id="ipWhiteListInput" rows="4" placeholder="Configure a list of IP addresses to access the application, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
                             </div>
 
                             <div class="settings-row">
@@ -595,7 +991,7 @@
                                     IP Address List Cannot Access Application(Black List)
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <textarea class="settings-textarea" rows="4" placeholder="Configure a list of IP addresses that cannot access the application, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
+                                <textarea class="settings-textarea" id="ipBlackListInput" rows="4" placeholder="Configure a list of IP addresses that cannot access the application, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
                             </div>
 
                             <div class="settings-row">
@@ -603,7 +999,7 @@
                                     Known Proxy Addresses
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <textarea class="settings-textarea" rows="4" placeholder="Configure list of known proxy addresses, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
+                                <textarea class="settings-textarea" id="knownProxyAddressesInput" rows="4" placeholder="Configure list of known proxy addresses, please separate multiple IPs with new lines, support CIDR method to assign IP addresses, such as.192.168.0.0/24"></textarea>
                             </div>
                         </div>
 
@@ -616,7 +1012,7 @@
                                     Upload Folder Path
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <input type="text" class="settings-input">
+                                <input type="text" class="settings-input" id="uploadFolderPathInput">
                             </div>
                         </div>
 
@@ -629,10 +1025,21 @@
                                     The detail of the server command log
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <select class="settings-select">
-                                    <option>Simplify</option>
-                                    <option>Detail</option>
+                                <select class="settings-select" id="advancedServerCommandLogDetailSelect">
+                                    <option value="no-log">No Log</option>
+                                    <option value="simplify" selected>Simplify</option>
+                                    <option value="normal">Normal</option>
+                                    <option value="detailed">Detailed</option>
                                 </select>
+                            </div>
+
+                            <div class="settings-row custom-log-config-row" id="customLogDetailConfigRow" style="display: none;">
+                                <label class="settings-label">
+                                    Custom Log Detail Configuration
+                                </label>
+                                <div class="custom-log-config-links">
+                                    <a href="javascript:void(0)" class="custom-log-config-link" id="openServerCommandLogConfigLink">Server Command Log Detail Config</a>
+                                </div>
                             </div>
 
                             <div class="settings-row">
@@ -640,7 +1047,7 @@
                                     Application running mode
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <select class="settings-select">
+                                <select class="settings-select" id="applicationRunningModeSelect">
                                     <option>Publish</option>
                                     <option>Debug</option>
                                 </select>
@@ -651,7 +1058,7 @@
                                     Redirect URL
                                     <span class="help-icon-inline" title="Help">?</span>
                                 </label>
-                                <input type="text" class="settings-input" placeholder="Enter redirect URL">
+                                <input type="text" class="settings-input" id="redirectUrlInput" placeholder="Enter redirect URL">
                             </div>
                         </div>
 
@@ -661,6 +1068,53 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog-overlay" id="logDetailConfigDialog">
+        <div class="dialog-container log-detail-config-dialog">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Custom Log Detail Configuration</h3>
+                <button class="dialog-close-btn" type="button" onclick="closeLogDetailConfigDialog()">&times;</button>
+            </div>
+            <div class="dialog-body">
+                <div class="log-detail-config-tabs">
+                    <button class="log-detail-config-tab active" type="button" data-log-config-tab="server-commands">Server Commands</button>
+                    <button class="log-detail-config-tab" type="button" data-log-config-tab="scheduled-tasks">Scheduled Tasks</button>
+                </div>
+
+                <div class="log-detail-config-panel active" id="server-commands-log-config-panel">
+                    <div class="log-detail-config-table-wrap">
+                        <table class="log-detail-config-table">
+                            <thead>
+                                <tr>
+                                    <th>Server Command</th>
+                                    <th>Log Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serverCommandLogConfigTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="log-detail-config-panel" id="scheduled-tasks-log-config-panel">
+                    <div class="log-detail-config-table-wrap">
+                        <table class="log-detail-config-table">
+                            <thead>
+                                <tr>
+                                    <th>Scheduled Task</th>
+                                    <th>Log Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduledTaskLogConfigTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-primary" type="button" onclick="closeLogDetailConfigDialog()">OK</button>
+                <button class="btn btn-secondary" type="button" onclick="closeLogDetailConfigDialog()">Cancel</button>
             </div>
         </div>
     </div>
@@ -2343,5 +2797,522 @@
     font-size: 13px;
     margin: 0;
     line-height: 1.5;
+}
+
+.server-commands-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background: #fff;
+}
+
+.server-commands-sidebar {
+    width: calc(36% );
+    min-width: 220px;
+    border-right: 1px solid #d9d9d9;
+    padding: 0 12px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.server-commands-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0 10px 0;
+}
+
+.server-commands-title,
+.server-command-detail-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.server-commands-title {
+    color: #0d87f2;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #0d87f2;
+    display: inline-flex;
+}
+
+.server-commands-config-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.server-commands-config-btn:hover {
+    background: #f7f7f7;
+}
+
+.server-commands-search {
+    position: relative;
+    width: 320px;
+    margin: 2px 0 12px 0;
+}
+
+.server-command-search-input {
+    width: 100%;
+    height: 32px;
+    padding: 0 36px 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+}
+
+.server-command-search-input:focus {
+    border-color: #40a9ff;
+}
+
+.server-command-search-input::placeholder {
+    color: #b5b5b5;
+}
+
+.server-command-search-icon {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    color: #666;
+    pointer-events: none;
+}
+
+.server-command-tree {
+    flex: 1;
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.server-command-group {
+    margin-bottom: 8px;
+}
+
+.server-command-group-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
+    color: #333;
+    font-size: 14px;
+}
+
+.server-command-caret {
+    font-size: 10px;
+    color: #444;
+}
+
+.server-command-folder-icon {
+    color: #f3b224;
+    flex-shrink: 0;
+}
+
+.server-command-group-name {
+    font-weight: 500;
+}
+
+.server-command-items {
+    margin-left: 28px;
+}
+
+.server-command-item {
+    display: block;
+    width: max-content;
+    min-width: 180px;
+    border: none;
+    background: transparent;
+    color: #1f1f1f;
+    font-size: 14px;
+    text-align: left;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 4px 0;
+}
+
+.server-command-item:hover {
+    background: #edf6ff;
+}
+
+.server-command-item.active {
+    background: #cfeeff;
+    color: #0b5cab;
+}
+
+.server-command-item.hidden,
+.server-command-group.hidden {
+    display: none;
+}
+
+.server-commands-detail {
+    flex: 1;
+    min-width: 0;
+    overflow: auto;
+    padding: 4px 0 0 24px;
+}
+
+.server-command-detail-card {
+    display: none;
+}
+
+.server-command-detail-card.active {
+    display: block;
+}
+
+.server-command-detail-section {
+    margin-top: 26px;
+}
+
+.server-command-detail-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.server-command-detail-value {
+    font-size: 14px;
+    color: #000;
+    line-height: 1.45;
+    white-space: normal;
+}
+
+.server-command-detail-indent {
+    padding-left: 22px;
+}
+
+.per-item-log-detail-section {
+    margin-top: 18px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.per-item-log-detail-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.log-detail-select {
+    min-width: 180px;
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+    color: #222;
+    outline: none;
+}
+
+.log-detail-select:focus {
+    border-color: #40a9ff;
+}
+
+.scheduled-tasks-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background: #fff;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.scheduled-tasks-list-panel {
+    width: 40%;
+    min-width: 0;
+    padding-right: 10px;
+    border-right: 1px solid #e6e6e6;
+    overflow: hidden;
+}
+
+.scheduled-tasks-search {
+    position: relative;
+    width: 640px;
+    max-width: calc(100% - 8px);
+    margin-bottom: 12px;
+}
+
+.scheduled-tasks-search-input {
+    width: 100%;
+    height: 34px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 0 40px 0 12px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+}
+
+.scheduled-tasks-search-input:focus {
+    border-color: #40a9ff;
+}
+
+.scheduled-tasks-search-input::placeholder {
+    color: #bcbcbc;
+}
+
+.scheduled-tasks-search-icon {
+    position: absolute;
+    right: 12px;
+    top: 7px;
+    color: #666;
+    pointer-events: none;
+}
+
+.scheduled-tasks-table-wrap {
+    overflow: auto;
+}
+
+.scheduled-tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 14px;
+    color: #1f1f1f;
+}
+
+.scheduled-tasks-table thead th {
+    text-align: left;
+    font-weight: 600;
+    color: #1f1f1f;
+    padding: 12px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+}
+
+.scheduled-tasks-table tbody td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f2f2f2;
+    vertical-align: middle;
+}
+
+.scheduled-tasks-enable-col,
+.scheduled-tasks-enable-cell {
+    width: 90px;
+    text-align: center;
+}
+
+.scheduled-task-row {
+    cursor: pointer;
+}
+
+.scheduled-task-row.active {
+    background: #bfe7fb;
+}
+
+.scheduled-task-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.scheduled-task-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.scheduled-task-check-icon {
+    color: #5b9f16;
+}
+
+.scheduled-task-disabled-mark {
+    color: #b0b0b0;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.scheduled-task-detail-panel {
+    flex: 1;
+    min-width: 380px;
+    padding-left: 18px;
+    overflow: auto;
+}
+
+.scheduled-task-detail-title {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #efefef;
+    font-size: 16px;
+    font-weight: 500;
+    color: #111;
+}
+
+.scheduled-task-action-row {
+    display: flex;
+    gap: 10px;
+    margin: 26px 0 12px 0;
+}
+
+.scheduled-task-action-btn {
+    min-width: 58px;
+    padding: 8px 18px;
+}
+
+.scheduled-task-detail-card {
+    display: none;
+}
+
+.scheduled-task-detail-card.active {
+    display: block;
+}
+
+.scheduled-task-detail-section {
+    margin-top: 16px;
+}
+
+.scheduled-task-detail-label {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 6px;
+}
+
+.scheduled-task-detail-value {
+    font-size: 14px;
+    color: #000;
+    line-height: 1.45;
+    padding-left: 16px;
+}
+
+.custom-log-config-row {
+    align-items: flex-start;
+}
+
+.custom-log-config-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 6px;
+}
+
+.custom-log-config-link {
+    color: #1890ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.custom-log-config-link:hover {
+    text-decoration: underline;
+}
+
+.log-detail-config-dialog {
+    width: 980px;
+    max-width: 980px;
+    height: 700px;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.log-detail-config-tabs {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid #ececec;
+    margin-bottom: 20px;
+}
+
+.log-detail-config-tab {
+    border: none;
+    background: none;
+    padding: 0 0 12px 0;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.log-detail-config-tab.active {
+    color: #1890ff;
+    border-bottom-color: #1890ff;
+    font-weight: 500;
+}
+
+.log-detail-config-panel {
+    display: none;
+    flex: 1;
+    min-height: 0;
+}
+
+.log-detail-config-panel.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.log-detail-config-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+#logDetailConfigDialog .dialog-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#logDetailConfigDialog .dialog-footer {
+    flex-shrink: 0;
+}
+
+.log-detail-config-table-wrap {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.log-detail-config-table th,
+.log-detail-config-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ececec;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.log-detail-config-table th {
+    color: #222;
+    font-weight: 600;
+    background: #fafafa;
+}
+
+.log-detail-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+}
+
+.log-detail-radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.log-detail-radio {
+    margin: 0;
+    accent-color: #1890ff;
 }
 </style>

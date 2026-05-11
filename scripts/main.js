@@ -11,6 +11,27 @@ const pageConfig = {
     'docs': 'pages/permission-docs.html?v=' + Date.now()
 };
 
+const LOG_DETAIL_OPTIONS = [
+    { value: 'inherit-global', label: 'Inherit Global' },
+    { value: 'no-log', label: 'No Log' },
+    { value: 'simplify', label: 'Simplify' },
+    { value: 'normal', label: 'Normal' },
+    { value: 'detailed', label: 'Detailed' }
+];
+
+const LOG_DETAIL_DIALOG_OPTIONS = [
+    { value: 'no-log', label: 'No Log' },
+    { value: 'simplify', label: 'Simplify' },
+    { value: 'normal', label: 'Normal' },
+    { value: 'detailed', label: 'Detailed' }
+];
+
+const logDetailConfigState = {
+    globalMode: 'simplify',
+    serverCommands: {},
+    scheduledTasks: {}
+};
+
 // 初始化应用
 function initApp() {
     // 加载全局配置
@@ -238,6 +259,10 @@ function bindPageEvents() {
                 }
             });
         });
+
+        initServerCommandsPanel();
+        initScheduledTasksPanel();
+        initLogDetailSettings();
     }
 
     // 绑定管理组树形节点点击
@@ -451,6 +476,330 @@ function bindPageEvents() {
 
     // 绑定Load Balance Config事件
     bindLoadBalanceEvents();
+}
+
+function initServerCommandsPanel() {
+    const commandItems = document.querySelectorAll('.server-command-item');
+    const detailCards = document.querySelectorAll('.server-command-detail-card');
+    const searchInput = document.getElementById('serverCommandSearchInput');
+
+    if (!commandItems.length || !detailCards.length) {
+        return;
+    }
+
+    commandItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const commandId = this.getAttribute('data-command-id');
+
+            commandItems.forEach(btn => btn.classList.remove('active'));
+            detailCards.forEach(card => card.classList.remove('active'));
+
+            this.classList.add('active');
+            const targetCard = document.querySelector(`.server-command-detail-card[data-command-id="${commandId}"]`);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+        });
+    });
+
+    if (searchInput && !searchInput.dataset.bound) {
+        searchInput.dataset.bound = 'true';
+        searchInput.addEventListener('input', function() {
+            const keyword = this.value.trim().toLowerCase();
+            const groups = document.querySelectorAll('.server-command-group');
+
+            groups.forEach(group => {
+                const items = group.querySelectorAll('.server-command-item');
+                let hasVisibleItem = false;
+
+                items.forEach(item => {
+                    const text = item.textContent.trim().toLowerCase();
+                    const matched = !keyword || text.includes(keyword);
+                    item.classList.toggle('hidden', !matched);
+                    if (matched) {
+                        hasVisibleItem = true;
+                    }
+                });
+
+                group.classList.toggle('hidden', !hasVisibleItem);
+            });
+        });
+    }
+}
+
+function initScheduledTasksPanel() {
+    const taskRows = document.querySelectorAll('.scheduled-task-row');
+    const detailCards = document.querySelectorAll('.scheduled-task-detail-card');
+    const searchInput = document.getElementById('scheduledTasksSearchInput');
+
+    if (!taskRows.length || !detailCards.length) {
+        return;
+    }
+
+    taskRows.forEach(row => {
+        row.addEventListener('click', function() {
+            const taskId = this.getAttribute('data-task-id');
+
+            taskRows.forEach(item => item.classList.remove('active'));
+            detailCards.forEach(card => card.classList.remove('active'));
+
+            this.classList.add('active');
+            const targetCard = document.querySelector(`.scheduled-task-detail-card[data-task-id="${taskId}"]`);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+        });
+    });
+
+    if (searchInput && !searchInput.dataset.bound) {
+        searchInput.dataset.bound = 'true';
+        searchInput.addEventListener('input', function() {
+            const keyword = this.value.trim().toLowerCase();
+
+            taskRows.forEach(row => {
+                const text = row.textContent.trim().toLowerCase();
+                const matched = !keyword || text.includes(keyword);
+                row.style.display = matched ? '' : 'none';
+            });
+        });
+    }
+}
+
+function initLogDetailSettings() {
+    initPerItemLogDetailControls('.server-command-detail-card', 'serverCommands', 'data-command-id', '.server-command-detail-title');
+    initPerItemLogDetailControls('.scheduled-task-detail-card', 'scheduledTasks', 'data-task-id', '.scheduled-task-detail-title');
+    initAdvancedLogDetailControls();
+    initLogDetailConfigDialog();
+    syncAllLogDetailSelects();
+}
+
+function initPerItemLogDetailControls(cardSelector, stateKey, idAttribute, titleSelector) {
+    const cards = document.querySelectorAll(cardSelector);
+    cards.forEach(card => {
+        if (card.querySelector('.per-item-log-detail-section')) {
+            return;
+        }
+
+        const itemId = card.getAttribute(idAttribute);
+        const title = card.querySelector(titleSelector);
+        if (!itemId || !title) {
+            return;
+        }
+
+        const section = document.createElement('div');
+        section.className = 'per-item-log-detail-section';
+        section.innerHTML = `
+            <div class="per-item-log-detail-label">
+                <span>Log Detail</span>
+                <span class="help-icon-inline" title="Inherit Global uses the same log detail setting configured for 'The detail of the server command log' in Advanced settings.">?</span>
+            </div>
+            <select class="log-detail-select per-item-log-detail-select" data-state-key="${stateKey}" data-item-id="${itemId}">
+                ${buildLogDetailOptions('inherit-global')}
+            </select>
+        `;
+
+        card.appendChild(section);
+    });
+
+    document.querySelectorAll('.per-item-log-detail-select').forEach(select => {
+        if (select.dataset.bound) {
+            return;
+        }
+
+        select.dataset.bound = 'true';
+        select.addEventListener('change', function() {
+            const key = this.getAttribute('data-state-key');
+            const itemId = this.getAttribute('data-item-id');
+            logDetailConfigState[key][itemId] = this.value;
+            syncAllLogDetailSelects();
+        });
+    });
+}
+
+function initAdvancedLogDetailControls() {
+    const select = document.getElementById('advancedServerCommandLogDetailSelect');
+    const serverCommandLink = document.getElementById('openServerCommandLogConfigLink');
+
+    if (!select) {
+        return;
+    }
+
+    select.value = logDetailConfigState.globalMode;
+    toggleCustomLogConfigRow(false);
+
+    if (!select.dataset.bound) {
+        select.dataset.bound = 'true';
+        select.addEventListener('change', function() {
+            logDetailConfigState.globalMode = this.value;
+            toggleCustomLogConfigRow(false);
+            syncAllLogDetailSelects();
+        });
+    }
+
+    if (serverCommandLink && !serverCommandLink.dataset.bound) {
+        serverCommandLink.dataset.bound = 'true';
+        serverCommandLink.addEventListener('click', function() {
+            openLogDetailConfigDialog('server-commands');
+        });
+    }
+}
+
+function initLogDetailConfigDialog() {
+    renderLogDetailConfigRows();
+    bindLogDetailConfigTabs();
+}
+
+function buildLogDetailOptions(selectedValue) {
+    return LOG_DETAIL_OPTIONS.map(option => `<option value="${option.value}"${selectedValue === option.value ? ' selected' : ''}>${option.label}</option>`).join('');
+}
+
+function populateLogDetailSelect(select, selectedValue) {
+    if (!select) {
+        return;
+    }
+
+    select.innerHTML = buildLogDetailOptions(selectedValue || 'inherit-global');
+}
+
+function renderLogDetailConfigRows() {
+    renderLogDetailConfigTable('serverCommandLogConfigTableBody', '.server-command-item', 'serverCommands', 'data-command-id', false);
+    renderLogDetailConfigTable('scheduledTaskLogConfigTableBody', '.scheduled-task-row', 'scheduledTasks', 'data-task-id', true);
+}
+
+function renderLogDetailConfigTable(tbodyId, selector, stateKey, idAttribute, useInnerLabel) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody) {
+        return;
+    }
+
+    const rows = Array.from(document.querySelectorAll(selector)).map(item => {
+        const itemId = item.getAttribute(idAttribute);
+        const itemName = useInnerLabel
+            ? item.querySelector('.scheduled-task-name span')?.textContent.trim() || item.textContent.trim()
+            : item.textContent.trim();
+        const currentValue = getDialogLogDetailValue(stateKey, itemId);
+
+        return `
+            <tr>
+                <td>${itemName}</td>
+                <td>
+                    <div class="log-detail-radio-group">
+                        ${buildDialogLogDetailRadios(stateKey, itemId, currentValue)}
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = rows.join('');
+
+    tbody.querySelectorAll('.dialog-log-detail-radio').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const key = this.getAttribute('data-state-key');
+            const itemId = this.getAttribute('data-item-id');
+            logDetailConfigState[key][itemId] = this.value;
+            syncAllLogDetailSelects();
+        });
+    });
+}
+
+function buildDialogLogDetailRadios(stateKey, itemId, currentValue) {
+    const groupName = `${stateKey}-${itemId}-log-detail`;
+    return LOG_DETAIL_DIALOG_OPTIONS.map(option => `
+        <label class="log-detail-radio-label">
+            <input
+                class="dialog-log-detail-radio log-detail-radio"
+                type="radio"
+                name="${groupName}"
+                value="${option.value}"
+                data-state-key="${stateKey}"
+                data-item-id="${itemId}"
+                ${currentValue === option.value ? 'checked' : ''}
+            >
+            <span>${option.label}</span>
+        </label>
+    `).join('');
+}
+
+function getDialogLogDetailValue(stateKey, itemId) {
+    const storedValue = logDetailConfigState[stateKey][itemId];
+    if (storedValue && storedValue !== 'inherit-global') {
+        return storedValue;
+    }
+
+    if (LOG_DETAIL_DIALOG_OPTIONS.some(option => option.value === logDetailConfigState.globalMode)) {
+        return logDetailConfigState.globalMode;
+    }
+
+    return 'simplify';
+}
+
+function bindLogDetailConfigTabs() {
+    document.querySelectorAll('.log-detail-config-tab').forEach(tab => {
+        if (tab.dataset.bound) {
+            return;
+        }
+
+        tab.dataset.bound = 'true';
+        tab.addEventListener('click', function() {
+            activateLogDetailConfigTab(this.getAttribute('data-log-config-tab'));
+        });
+    });
+}
+
+function syncAllLogDetailSelects() {
+    const advancedSelect = document.getElementById('advancedServerCommandLogDetailSelect');
+    if (advancedSelect) {
+        advancedSelect.value = logDetailConfigState.globalMode;
+    }
+
+    document.querySelectorAll('.per-item-log-detail-select').forEach(select => {
+        const key = select.getAttribute('data-state-key');
+        const itemId = select.getAttribute('data-item-id');
+        populateLogDetailSelect(select, logDetailConfigState[key][itemId] || 'inherit-global');
+    });
+
+    document.querySelectorAll('.dialog-log-detail-radio').forEach(radio => {
+        const key = radio.getAttribute('data-state-key');
+        const itemId = radio.getAttribute('data-item-id');
+        radio.checked = radio.value === getDialogLogDetailValue(key, itemId);
+    });
+}
+
+function toggleCustomLogConfigRow(visible) {
+    const row = document.getElementById('customLogDetailConfigRow');
+    if (row) {
+        row.style.display = visible ? 'flex' : 'none';
+    }
+}
+
+function activateLogDetailConfigTab(tabName) {
+    document.querySelectorAll('.log-detail-config-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.getAttribute('data-log-config-tab') === tabName);
+    });
+
+    document.querySelectorAll('.log-detail-config-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === `${tabName}-log-config-panel`);
+    });
+}
+
+function openLogDetailConfigDialog(tabName) {
+    const dialog = document.getElementById('logDetailConfigDialog');
+    if (!dialog) {
+        return;
+    }
+
+    renderLogDetailConfigRows();
+    syncAllLogDetailSelects();
+    activateLogDetailConfigTab(tabName || 'server-commands');
+    dialog.classList.add('active');
+}
+
+function closeLogDetailConfigDialog() {
+    const dialog = document.getElementById('logDetailConfigDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
 }
 
 // 绑定全局配置保存按钮
@@ -2235,25 +2584,26 @@ function saveAdvancedSettings() {
     // 这里可以收集所有设置项的值
     const settings = {
         webSecurity: {
-            httpReferers: document.querySelector('.settings-textarea[placeholder*="HTTP Referer"]')?.value || '',
-            iframeCorsPolicy: document.querySelector('.settings-select')?.value || '',
-            customHeaders: document.querySelectorAll('.settings-textarea')[1]?.value || '',
-            maxUploadBodySize: document.querySelectorAll('.settings-input[placeholder="Unlimited"]')[0]?.value || '',
-            maxRequestBodySize: document.querySelectorAll('.settings-input[placeholder="Unlimited"]')[1]?.value || '',
-            sameSite: document.querySelectorAll('.settings-select')[1]?.value || '',
-            allowUpdateUserInfos: document.querySelector('.settings-checkbox')?.checked || false
+            httpReferers: document.getElementById('allowHttpReferersInput')?.value || '',
+            iframeCorsPolicy: document.getElementById('iframeCorsPolicySelect')?.value || '',
+            customHeaders: document.getElementById('customResponseHeadersInput')?.value || '',
+            maxUploadBodySize: document.getElementById('maxUploadBodySizeInput')?.value || '',
+            maxRequestBodySize: document.getElementById('maxRequestBodySizeInput')?.value || '',
+            sameSite: document.getElementById('sameSiteSelect')?.value || '',
+            allowUpdateUserInfos: document.getElementById('allowUpdateUserInfosCheckbox')?.checked || false
         },
         ipRestriction: {
-            whiteList: document.querySelectorAll('.settings-textarea')[2]?.value || '',
-            blackList: document.querySelectorAll('.settings-textarea')[3]?.value || '',
-            proxyAddresses: document.querySelectorAll('.settings-textarea')[4]?.value || ''
+            whiteList: document.getElementById('ipWhiteListInput')?.value || '',
+            blackList: document.getElementById('ipBlackListInput')?.value || '',
+            proxyAddresses: document.getElementById('knownProxyAddressesInput')?.value || ''
         },
         pathSettings: {
-            uploadFolderPath: document.querySelector('.settings-input:not([placeholder="Unlimited"])')?.value || ''
+            uploadFolderPath: document.getElementById('uploadFolderPathInput')?.value || ''
         },
         otherSettings: {
-            serverCommandLogDetail: document.querySelectorAll('.settings-select')[2]?.value || '',
-            applicationRunningMode: document.querySelectorAll('.settings-select')[3]?.value || ''
+            serverCommandLogDetail: document.getElementById('advancedServerCommandLogDetailSelect')?.value || '',
+            applicationRunningMode: document.getElementById('applicationRunningModeSelect')?.value || '',
+            redirectUrl: document.getElementById('redirectUrlInput')?.value || ''
         }
     };
 
