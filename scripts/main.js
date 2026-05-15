@@ -2568,9 +2568,9 @@ function ensureAllAppsDefaultTags() {
         if (!defaultTag) {
             defaultTag = document.createElement('span');
             defaultTag.className = 'all-app-default-tag';
-            defaultTag.textContent = '默认应用';
             cell.appendChild(defaultTag);
         }
+        defaultTag.textContent = 'Default';
     });
 }
 
@@ -2585,6 +2585,7 @@ function updateDefaultAppTags() {
         const match = onclickAttr.match(/switchToApp\('([^']+)'\)/);
         const appId = match ? match[1] : '';
         if (tag) {
+            tag.textContent = 'Default';
             tag.classList.toggle('is-default', appId === currentDefaultManagedApp);
         }
     });
@@ -2641,6 +2642,7 @@ function updateAiModelDefaultTags() {
         const modelName = cell.getAttribute('data-ai-model-name');
         const tag = cell.querySelector('.ai-config-default-tag');
         if (tag) {
+            tag.textContent = 'Default';
             tag.classList.toggle('is-default', modelName === currentDefaultAiModel);
         }
     });
