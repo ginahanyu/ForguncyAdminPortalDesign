@@ -898,7 +898,83 @@
             </div>
             <div class="app-tab-content" id="ai-config-content">
                 <div class="app-detail-scrollable">
-                    <p style="color: #666; padding: 24px;">AI configuration goes here...</p>
+                    <div class="ai-config-page">
+                        <section class="ai-config-section">
+                            <h3 class="ai-config-section-title">AI模型</h3>
+                            <div class="ai-config-table-card">
+                                <div class="ai-config-table-header ai-config-model-grid">
+                                    <div>AI模型名称</div>
+                                    <div>操作</div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-model-grid">
+                                    <div class="ai-config-name-cell" data-ai-model-name="GCAPI">GCAPI<span class="ai-config-default-tag is-default">默认模型</span></div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openAiModelDialog('GCAPI')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-model-grid">
+                                    <div class="ai-config-name-cell" data-ai-model-name="智谱清言GLM-Flash">智谱清言GLM-Flash<span class="ai-config-default-tag">默认模型</span></div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openAiModelDialog('智谱清言GLM-Flash')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-model-grid">
+                                    <div class="ai-config-name-cell" data-ai-model-name="智谱清言GLM-4-plus">智谱清言GLM-4-plus<span class="ai-config-default-tag">默认模型</span></div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openAiModelDialog('智谱清言GLM-4-plus')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-model-grid">
+                                    <div class="ai-config-name-cell" data-ai-model-name="通义千问">通义千问<span class="ai-config-default-tag">默认模型</span></div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openAiModelDialog('通义千问')">编辑</a></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="ai-config-section">
+                            <h3 class="ai-config-section-title">MCP工具管理</h3>
+                            <div class="ai-config-table-card">
+                                <div class="ai-config-table-header ai-config-mcp-grid">
+                                    <div>名称</div>
+                                    <div>启用</div>
+                                    <div>操作</div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-mcp-grid">
+                                    <div class="ai-config-name-cell">ForguncyOAuth</div>
+                                    <div class="ai-config-center-cell">
+                                        <img class="ai-config-status-icon" data-mcp-status="ForguncyOAuth" src="pages/Resource/启用.png" alt="启用">
+                                    </div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openMcpToolDialog('ForguncyOAuth')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-mcp-grid">
+                                    <div class="ai-config-name-cell">filesystem</div>
+                                    <div class="ai-config-center-cell">
+                                        <img class="ai-config-status-icon" data-mcp-status="filesystem" src="pages/Resource/启用.png" alt="启用">
+                                    </div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openMcpToolDialog('filesystem')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-mcp-grid">
+                                    <div class="ai-config-name-cell">ForguncyToken</div>
+                                    <div class="ai-config-center-cell">
+                                        <img class="ai-config-status-icon" data-mcp-status="ForguncyToken" src="pages/Resource/启用.png" alt="启用">
+                                    </div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openMcpToolDialog('ForguncyToken')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-mcp-grid">
+                                    <div class="ai-config-name-cell">local_Forguncy</div>
+                                    <div class="ai-config-center-cell">
+                                        <img class="ai-config-status-icon" data-mcp-status="local_Forguncy" src="pages/Resource/启用.png" alt="启用">
+                                    </div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openMcpToolDialog('local_Forguncy')">编辑</a></div>
+                                </div>
+                                <div class="ai-config-table-row ai-config-mcp-grid">
+                                    <div class="ai-config-name-cell">localMCP</div>
+                                    <div class="ai-config-center-cell">
+                                        <img class="ai-config-status-icon" data-mcp-status="localMCP" src="pages/Resource/启用.png" alt="启用">
+                                    </div>
+                                    <div class="ai-config-action-cell"><a href="javascript:void(0)" onclick="openMcpToolDialog('localMCP')">编辑</a></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="ai-config-footer">
+                            <button class="btn-primary ai-config-save-btn">保存设置</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="app-tab-content" id="advanced-content">
@@ -1115,6 +1191,91 @@
             <div class="dialog-footer">
                 <button class="btn btn-primary" type="button" onclick="closeLogDetailConfigDialog()">OK</button>
                 <button class="btn btn-secondary" type="button" onclick="closeLogDetailConfigDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog-overlay" id="mcpToolDialog">
+        <div class="dialog-container mcp-tool-dialog">
+            <div class="dialog-header mcp-tool-dialog-header">
+                <h3 class="dialog-title mcp-tool-dialog-title">设置</h3>
+                <button class="dialog-close-btn mcp-tool-dialog-close" type="button" onclick="closeMcpToolDialog()">×</button>
+            </div>
+            <div class="dialog-body mcp-tool-dialog-body">
+                <p class="mcp-tool-dialog-desc">请设置MCP服务器配置，必须为JSON数据。</p>
+
+                <div class="mcp-tool-form-row">
+                    <label class="mcp-tool-label" for="mcpToolNameInput"><span class="mcp-tool-required">*</span> 名称</label>
+                    <input type="text" id="mcpToolNameInput" class="mcp-tool-input" readonly>
+                </div>
+
+                <div class="mcp-tool-form-row mcp-tool-config-row">
+                    <label class="mcp-tool-label" for="mcpToolConfigInput"><span class="mcp-tool-required">*</span> 服务器配置</label>
+                    <textarea id="mcpToolConfigInput" class="mcp-tool-textarea" spellcheck="false"></textarea>
+                </div>
+
+                <div class="mcp-tool-form-row mcp-tool-enable-row">
+                    <span></span>
+                    <label class="mcp-tool-enable-toggle" for="mcpToolEnabledInput">
+                        <input type="checkbox" id="mcpToolEnabledInput">
+                        <span>启用</span>
+                    </label>
+                </div>
+            </div>
+            <div class="dialog-footer mcp-tool-dialog-footer">
+                <button class="btn mcp-tool-test-btn" type="button">测试</button>
+                <div class="mcp-tool-footer-actions">
+                    <button class="btn btn-primary mcp-tool-confirm-btn" type="button" onclick="saveMcpToolDialog()">确定</button>
+                    <button class="btn mcp-tool-cancel-btn" type="button" onclick="closeMcpToolDialog()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog-overlay" id="aiModelDialog">
+        <div class="dialog-container ai-model-dialog">
+            <div class="dialog-header ai-model-dialog-header">
+                <h3 class="dialog-title ai-model-dialog-title">设置</h3>
+                <button class="dialog-close-btn ai-model-dialog-close" type="button" onclick="closeAiModelDialog()">×</button>
+            </div>
+            <div class="dialog-body ai-model-dialog-body">
+                <p class="ai-model-dialog-desc">请根据需要配置AI大模型以开启智能功能。</p>
+
+                <div class="ai-model-form-grid">
+                    <label class="ai-model-label" for="aiModelNameInput">名称</label>
+                    <input type="text" id="aiModelNameInput" class="ai-model-input ai-model-input-readonly" readonly>
+
+                    <label class="ai-model-label ai-model-required" for="aiModelEndpointInput">接口地址<span class="ai-model-help-icon" title="接口地址">?</span></label>
+                    <input type="text" id="aiModelEndpointInput" class="ai-model-input">
+
+                    <label class="ai-model-label" for="aiModelApiKeyInput">API Key<span class="ai-model-help-icon" title="API Key">?</span></label>
+                    <input type="text" id="aiModelApiKeyInput" class="ai-model-input">
+
+                    <label class="ai-model-label ai-model-required" for="aiModelIdInput">模型名称<span class="ai-model-help-icon" title="模型名称">?</span></label>
+                    <input type="text" id="aiModelIdInput" class="ai-model-input">
+
+                    <label class="ai-model-label" for="aiModelMaxTokensInput">最大输出Token数(max_tokens)<span class="ai-model-help-icon" title="最大输出Token数">?</span></label>
+                    <input type="text" id="aiModelMaxTokensInput" class="ai-model-input">
+
+                    <label class="ai-model-label" for="aiModelTemperatureInput">采样温度(temperature)<span class="ai-model-help-icon" title="采样温度">?</span></label>
+                    <input type="text" id="aiModelTemperatureInput" class="ai-model-input">
+
+                    <label class="ai-model-label" for="aiModelTopPInput">核取样(top_p)<span class="ai-model-help-icon" title="核取样">?</span></label>
+                    <input type="text" id="aiModelTopPInput" class="ai-model-input">
+
+                    <span></span>
+                    <label class="ai-model-default-toggle" for="aiModelDefaultCheckbox">
+                        <input type="checkbox" id="aiModelDefaultCheckbox">
+                        <span>设置为默认模型</span>
+                    </label>
+                </div>
+            </div>
+            <div class="dialog-footer ai-model-dialog-footer">
+                <button class="btn ai-model-test-btn" type="button">测试</button>
+                <div class="ai-model-footer-actions">
+                    <button class="btn ai-model-confirm-btn" type="button" onclick="saveAiModelDialog()">确定</button>
+                    <button class="btn ai-model-cancel-btn" type="button" onclick="closeAiModelDialog()">取消</button>
+                </div>
             </div>
         </div>
     </div>
@@ -2182,6 +2343,560 @@
     flex-direction: column;
 }
 
+.ai-config-page {
+    min-height: 100%;
+    padding: 4px 18px 28px 0;
+}
+
+.ai-config-section {
+    margin-bottom: 8px;
+}
+
+.ai-config-section-title {
+    margin: 0 0 6px;
+    padding-left: 10px;
+    border-left: 4px solid #0d5398;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: #111;
+}
+
+.ai-config-table-card {
+    margin-top: 20px;
+    margin-left: 0px;
+    width: 600px;
+    min-width: 600px;
+    max-width: 600px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.ai-config-table-header,
+.ai-config-table-row {
+    display: grid;
+    align-items: center;
+}
+
+.ai-config-model-grid {
+    grid-template-columns: minmax(0, 1fr) 136px;
+}
+
+.ai-config-mcp-grid {
+    grid-template-columns: minmax(0, 1fr) 120px 136px;
+}
+
+.ai-config-table-header {
+    min-height: 56px;
+    background: #fafafa;
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ai-config-table-header > div,
+.ai-config-table-row > div {
+    padding: 0 30px;
+}
+
+.ai-config-table-header > div:not(:first-child) {
+    border-left: 1px solid #ececec;
+}
+
+.ai-config-table-row {
+    min-height: 58px;
+    border-bottom: 1px solid #efefef;
+    color: #1f1f1f;
+    font-size: 14px;
+}
+
+.ai-config-name-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #111;
+}
+
+.ai-config-default-tag {
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    width: 72px;
+    min-width: 72px;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 4px;
+    border: 1px solid #93d3ee;
+    background: #ddf5ff;
+    box-sizing: border-box;
+    font-family: 'PingFangSC-Regular', 'PingFang SC', sans-serif;
+    color: #0098d9;
+    font-size: 12px;
+    text-align: left;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.ai-config-default-tag.is-default {
+    display: inline-flex;
+}
+
+.ai-config-center-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-config-action-cell a {
+    color: #1890ff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.ai-config-status-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.ai-config-checkbox {
+    position: relative;
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+}
+
+.ai-config-checkbox input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ai-config-checkbox span {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background: #fff;
+    display: inline-block;
+    position: relative;
+}
+
+.ai-config-checkbox input:checked + span {
+    background: #f5f5f5;
+    border-color: #d9d9d9;
+}
+
+.ai-config-checkbox input:checked + span::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 11px;
+    border: solid #b8b8b8;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ai-config-switch {
+    position: relative;
+    display: inline-flex;
+    width: 66px;
+    height: 32px;
+}
+
+.ai-config-switch input {
+    position: absolute;
+    opacity: 0;
+}
+
+.ai-config-switch-track {
+    position: relative;
+    width: 66px;
+    height: 32px;
+    border-radius: 999px;
+    background: #d9d9d9;
+    transition: background-color 0.2s ease;
+}
+
+.ai-config-switch-track::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease;
+}
+
+.ai-config-switch input:checked + .ai-config-switch-track {
+    background: #15a3e6;
+}
+
+.ai-config-switch input:checked + .ai-config-switch-track::after {
+    transform: translateX(34px);
+}
+
+.ai-config-footer {
+    display: flex;
+    justify-content: flex-start;
+    padding: 66px 0 0 600px;
+}
+
+.ai-config-save-btn {
+    width: 120px;
+    min-width: 120px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #15a3e6;
+}
+
+.ai-config-save-btn:hover {
+    background: #0996d8;
+}
+
+.mcp-tool-dialog {
+    width: 900px;
+    max-width: 900px;
+    max-height: none;
+    border-radius: 6px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+}
+
+.mcp-tool-dialog-header {
+    padding: 28px 34px 0;
+}
+
+.mcp-tool-dialog-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+}
+
+.mcp-tool-dialog-close {
+    width: 36px;
+    height: 36px;
+    font-size: 28px;
+    color: #9a9a9a;
+}
+
+.mcp-tool-dialog-body {
+    max-height: none;
+    overflow: visible;
+    padding: 18px 20px 0;
+}
+
+.mcp-tool-dialog-desc {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.mcp-tool-form-row {
+    margin-bottom: 12px;
+}
+
+.mcp-tool-enable-row {
+    display: grid;
+    grid-template-columns: 0 1fr;
+    align-items: center;
+    gap: 0;
+    margin-top: 12px;
+}
+
+.mcp-tool-config-row {
+    margin-bottom: 0;
+}
+
+.mcp-tool-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.mcp-tool-required {
+    color: #ff4d4f;
+}
+
+.mcp-tool-enable-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.mcp-tool-enable-toggle input {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+
+.mcp-tool-input,
+.mcp-tool-textarea {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+}
+
+.mcp-tool-input {
+    height: 32px;
+    padding: 0 16px;
+    color: #b9b9b9;
+    background: #fff;
+}
+
+.mcp-tool-textarea {
+    height: 280px;
+    padding: 14px 16px;
+    line-height: 1.65;
+    resize: none;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+.mcp-tool-dialog-footer {
+    justify-content: space-between;
+    align-items: center;
+    padding: 34px 36px 30px;
+}
+
+.mcp-tool-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mcp-tool-test-btn,
+.mcp-tool-confirm-btn,
+.mcp-tool-cancel-btn {
+    min-width: 80px;
+    width: 80px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.mcp-tool-dialog-footer .btn.mcp-tool-test-btn,
+.mcp-tool-dialog-footer .btn.mcp-tool-confirm-btn,
+.mcp-tool-dialog-footer .btn.mcp-tool-cancel-btn {
+    width: 80px !important;
+    min-width: 80px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 4x !important;
+}
+
+.mcp-tool-dialog-footer .mcp-tool-test-btn {
+    background: #fff !important;
+    color: #333 !important;
+    border: 1px solid #d9d9d9 !important;
+    margin-right: auto;
+}
+
+.mcp-tool-dialog-footer .mcp-tool-test-btn:hover {
+    background: #f7f7f7 !important;
+    border-color: #cfcfcf !important;
+}
+
+.mcp-tool-confirm-btn {
+    background: #15a3e6 !important;
+    color: #fff !important;
+    border: 1px solid #15a3e6 !important;
+}
+
+.mcp-tool-confirm-btn:hover {
+    background: #0996d8 !important;
+    border-color: #0996d8 !important;
+}
+
+.mcp-tool-dialog-footer .mcp-tool-cancel-btn {
+    background: transparent !important;
+    color: #333 !important;
+    border: 1px solid #d9d9d9 !important;
+}
+
+.mcp-tool-dialog-footer .mcp-tool-cancel-btn:hover {
+    background: #f7f7f7 !important;
+    border-color: #cfcfcf !important;
+}
+
+.ai-model-dialog {
+    width: 918px;
+    max-width: 918px;
+    max-height: none;
+    border-radius: 6px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+}
+
+.ai-model-dialog-header {
+    padding: 18px 22px 0 24px;
+}
+
+.ai-model-dialog-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+}
+
+.ai-model-dialog-close {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    color: #969696;
+}
+
+.ai-model-dialog-body {
+    max-height: none;
+    overflow: visible;
+    padding: 16px 26px 0 24px;
+}
+
+.ai-model-dialog-desc {
+    margin: 0 0 22px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.ai-model-form-grid {
+    display: grid;
+    grid-template-columns: 235px 1fr;
+    row-gap: 24px;
+    column-gap: 16px;
+    align-items: center;
+}
+
+.ai-model-label {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1;
+}
+
+.ai-model-required::before {
+    content: "*";
+    color: #ff4d4f;
+    margin-right: 2px;
+}
+
+.ai-model-help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #bfbfbf;
+    border-radius: 50%;
+    color: #8c8c8c;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.ai-model-input {
+    width: 100%;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+}
+
+.ai-model-input-readonly {
+    color: #b4b4b4;
+}
+
+.ai-model-default-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.ai-model-default-toggle input {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+
+.ai-model-dialog-footer {
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 24px 18px;
+}
+
+.ai-model-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-model-dialog-footer .btn.ai-model-test-btn,
+.ai-model-dialog-footer .btn.ai-model-confirm-btn,
+.ai-model-dialog-footer .btn.ai-model-cancel-btn {
+    width: 64px !important;
+    min-width: 64px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.ai-model-dialog-footer .ai-model-test-btn {
+    background: #fff !important;
+    color: #333 !important;
+    border: 1px solid #d9d9d9 !important;
+    margin-right: auto;
+}
+
+.ai-model-dialog-footer .ai-model-test-btn:hover {
+    background: #f7f7f7 !important;
+    border-color: #cfcfcf !important;
+}
+
+.ai-model-dialog-footer .ai-model-confirm-btn {
+    background: #15a3e6 !important;
+    color: #fff !important;
+    border: 1px solid #15a3e6 !important;
+}
+
+.ai-model-dialog-footer .ai-model-confirm-btn:hover {
+    background: #0996d8 !important;
+    border-color: #0996d8 !important;
+}
+
+.ai-model-dialog-footer .ai-model-cancel-btn {
+    background: #fff !important;
+    color: #333 !important;
+    border: 1px solid #d9d9d9 !important;
+}
+
+.ai-model-dialog-footer .ai-model-cancel-btn:hover {
+    background: #f7f7f7 !important;
+    border-color: #cfcfcf !important;
+}
+
 /* 左侧标题和分割线样式 */
 .left-section-header {
     height: 82px;
@@ -2205,6 +2920,32 @@
 }
 
 /* View Settings 按钮样式 */
+.all-app-default-tag {
+    display: none;
+    margin-left: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 72px;
+    min-width: 72px;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 4px;
+    border: 1px solid #93d3ee;
+    background: #ddf5ff;
+    box-sizing: border-box;
+    font-family: 'PingFangSC-Regular', 'PingFang SC', sans-serif;
+    color: #0098d9;
+    font-size: 12px;
+    text-align: left;
+    line-height: normal;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.all-app-default-tag.is-default {
+    display: inline-flex;
+}
+
 .all-apps-actions {
     display: flex;
     align-items: center;

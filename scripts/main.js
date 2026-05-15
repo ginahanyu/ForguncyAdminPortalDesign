@@ -190,6 +190,7 @@ function bindPageEvents() {
     const appMgmtItems = document.querySelectorAll('.app-mgmt-item');
     if (appMgmtItems.length > 0) {
         console.log('Found app management items:', appMgmtItems.length);
+        updateDefaultAppTags();
 
         appMgmtItems.forEach(item => {
             item.addEventListener('click', function(e) {
@@ -231,11 +232,24 @@ function bindPageEvents() {
                     if (appDetailName) {
                         appDetailName.textContent = appName;
                     }
+
+                    updateDefaultAppTags();
                 }
             });
         });
 
         // 绑定选项卡切换
+        const defaultAppCheckbox = document.getElementById('defaultAppCheckbox');
+        if (defaultAppCheckbox) {
+            defaultAppCheckbox.addEventListener('change', function() {
+                const activeAppItem = document.querySelector('.app-mgmt-item.active[data-id]:not([data-id="all-apps"])');
+                if (this.checked && activeAppItem) {
+                    currentDefaultManagedApp = activeAppItem.getAttribute('data-id');
+                }
+                updateDefaultAppTags();
+            });
+        }
+
         const appTabs = document.querySelectorAll('.app-tab');
         appTabs.forEach(tab => {
             tab.addEventListener('click', function() {
@@ -2458,6 +2472,247 @@ function switchResourceTab(tabName) {
         document.getElementById('pluginResourceTab').classList.add('active');
     }
 }
+
+const MCP_TOOL_CONFIGS = {
+    ForguncyOAuth: `{
+  "url": "http://xa-dd3-yan/mcp/api/mcp",
+  "oauth": {
+    "clientId": "ac37e94f-63b7-4ec7-9f6d-5f5dfcc9",
+    "clientSecret": "839d41d1-6d08-4310-8e35-06ec7f81",
+    "tokenUrl": "http://xa-dd3-yan:22345/UserService/connect/token"
+  }
+}`,
+    filesystem: `{
+  "type": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@modelcontextprotocol/server-filesystem",
+    "D:/Forguncy"
+  ]
+}`,
+    ForguncyToken: `{
+  "url": "http://xa-dd3-yan/mcp/token",
+  "headers": {
+    "Authorization": "Bearer forguncy-demo-token"
+  }
+}`,
+    local_Forguncy: `{
+  "url": "http://127.0.0.1:3010/mcp",
+  "transport": "sse"
+}`,
+    localMCP: `{
+  "type": "stdio",
+  "command": "node",
+  "args": [
+    "D:/projects/local-mcp/dist/index.js"
+  ]
+}`
+};
+
+const MCP_TOOL_STATES = {
+    ForguncyOAuth: { enabled: true },
+    filesystem: { enabled: true },
+    ForguncyToken: { enabled: true },
+    local_Forguncy: { enabled: true },
+    localMCP: { enabled: true }
+};
+
+const AI_MODEL_CONFIGS = {
+    GCAPI: {
+        endpoint: 'https://gcapi.cn/v1',
+        apiKey: 'sk-******pqf',
+        modelId: 'MiniMax-M2.7-highspeed',
+        maxTokens: '',
+        temperature: '',
+        topP: ''
+    },
+    '智谱清言GLM-Flash': {
+        endpoint: 'https://open.bigmodel.cn/api/paas/v4',
+        apiKey: 'glm-******flash',
+        modelId: 'glm-4-flash',
+        maxTokens: '',
+        temperature: '',
+        topP: ''
+    },
+    '智谱清言GLM-4-plus': {
+        endpoint: 'https://open.bigmodel.cn/api/paas/v4',
+        apiKey: 'glm-******plus',
+        modelId: 'glm-4-plus',
+        maxTokens: '',
+        temperature: '',
+        topP: ''
+    },
+    '通义千问': {
+        endpoint: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+        apiKey: 'qwen-******key',
+        modelId: 'qwen-plus',
+        maxTokens: '',
+        temperature: '',
+        topP: ''
+    }
+};
+
+let currentDefaultAiModel = 'GCAPI';
+let currentDefaultManagedApp = 'testappwithexternaldb';
+
+function ensureAllAppsDefaultTags() {
+    const appNameCells = document.querySelectorAll('td[data-column="app-name"]');
+    appNameCells.forEach(cell => {
+        const link = cell.querySelector('.app-name-link');
+        if (!link) {
+            return;
+        }
+
+        let defaultTag = cell.querySelector('.all-app-default-tag');
+        if (!defaultTag) {
+            defaultTag = document.createElement('span');
+            defaultTag.className = 'all-app-default-tag';
+            defaultTag.textContent = '默认应用';
+            cell.appendChild(defaultTag);
+        }
+    });
+}
+
+function updateDefaultAppTags() {
+    ensureAllAppsDefaultTags();
+
+    const appNameCells = document.querySelectorAll('td[data-column="app-name"]');
+    appNameCells.forEach(cell => {
+        const link = cell.querySelector('.app-name-link');
+        const tag = cell.querySelector('.all-app-default-tag');
+        const onclickAttr = link ? link.getAttribute('onclick') || '' : '';
+        const match = onclickAttr.match(/switchToApp\('([^']+)'\)/);
+        const appId = match ? match[1] : '';
+        if (tag) {
+            tag.classList.toggle('is-default', appId === currentDefaultManagedApp);
+        }
+    });
+
+    const defaultAppCheckbox = document.getElementById('defaultAppCheckbox');
+    const activeAppItem = document.querySelector('.app-mgmt-item.active[data-id]:not([data-id="all-apps"])');
+    if (defaultAppCheckbox && activeAppItem) {
+        defaultAppCheckbox.checked = activeAppItem.getAttribute('data-id') === currentDefaultManagedApp;
+    }
+}
+
+function openAiModelDialog(modelName) {
+    const dialog = document.getElementById('aiModelDialog');
+    if (!dialog) {
+        return;
+    }
+
+    const config = AI_MODEL_CONFIGS[modelName] || {};
+    const fields = {
+        aiModelNameInput: modelName || '',
+        aiModelEndpointInput: config.endpoint || '',
+        aiModelApiKeyInput: config.apiKey || '',
+        aiModelIdInput: config.modelId || '',
+        aiModelMaxTokensInput: config.maxTokens || '',
+        aiModelTemperatureInput: config.temperature || '',
+        aiModelTopPInput: config.topP || ''
+    };
+
+    Object.entries(fields).forEach(([id, value]) => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.value = value;
+        }
+    });
+
+    const defaultCheckbox = document.getElementById('aiModelDefaultCheckbox');
+    if (defaultCheckbox) {
+        defaultCheckbox.checked = modelName === currentDefaultAiModel;
+    }
+
+    dialog.classList.add('active');
+}
+
+function closeAiModelDialog() {
+    const dialog = document.getElementById('aiModelDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+function updateAiModelDefaultTags() {
+    const modelCells = document.querySelectorAll('[data-ai-model-name]');
+    modelCells.forEach(cell => {
+        const modelName = cell.getAttribute('data-ai-model-name');
+        const tag = cell.querySelector('.ai-config-default-tag');
+        if (tag) {
+            tag.classList.toggle('is-default', modelName === currentDefaultAiModel);
+        }
+    });
+}
+
+function saveAiModelDialog() {
+    const nameInput = document.getElementById('aiModelNameInput');
+    const defaultCheckbox = document.getElementById('aiModelDefaultCheckbox');
+
+    if (nameInput && defaultCheckbox && defaultCheckbox.checked) {
+        currentDefaultAiModel = nameInput.value;
+    }
+
+    updateAiModelDefaultTags();
+    closeAiModelDialog();
+}
+
+function openMcpToolDialog(toolName) {
+    const dialog = document.getElementById('mcpToolDialog');
+    const nameInput = document.getElementById('mcpToolNameInput');
+    const enabledInput = document.getElementById('mcpToolEnabledInput');
+    const configInput = document.getElementById('mcpToolConfigInput');
+
+    if (!dialog || !nameInput || !enabledInput || !configInput) {
+        return;
+    }
+
+    nameInput.value = toolName || '';
+    enabledInput.checked = !!(MCP_TOOL_STATES[toolName] && MCP_TOOL_STATES[toolName].enabled);
+    configInput.value = MCP_TOOL_CONFIGS[toolName] || '{\n}';
+    dialog.classList.add('active');
+}
+
+function closeMcpToolDialog() {
+    const dialog = document.getElementById('mcpToolDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+    }
+}
+
+function updateMcpStatusIcons() {
+    const icons = document.querySelectorAll('[data-mcp-status]');
+    icons.forEach(icon => {
+        const toolName = icon.getAttribute('data-mcp-status');
+        const enabled = !!(MCP_TOOL_STATES[toolName] && MCP_TOOL_STATES[toolName].enabled);
+        icon.src = enabled ? 'pages/Resource/启用.png' : 'pages/Resource/禁用.png';
+        icon.alt = enabled ? '启用' : '禁用';
+    });
+}
+
+function saveMcpToolDialog() {
+    const nameInput = document.getElementById('mcpToolNameInput');
+    const enabledInput = document.getElementById('mcpToolEnabledInput');
+
+    if (nameInput && enabledInput) {
+        const toolName = nameInput.value;
+        if (!MCP_TOOL_STATES[toolName]) {
+            MCP_TOOL_STATES[toolName] = { enabled: false };
+        }
+        MCP_TOOL_STATES[toolName].enabled = enabledInput.checked;
+    }
+
+    updateMcpStatusIcons();
+    closeMcpToolDialog();
+}
+
+window.openMcpToolDialog = openMcpToolDialog;
+window.closeMcpToolDialog = closeMcpToolDialog;
+window.saveMcpToolDialog = saveMcpToolDialog;
+window.openAiModelDialog = openAiModelDialog;
+window.closeAiModelDialog = closeAiModelDialog;
+window.saveAiModelDialog = saveAiModelDialog;
 
 // System Resource tab switching functionality
 function initSystemResourceTabs() {

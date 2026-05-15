@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheme One Log Detail Overview</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --text: #1f1f1f;
+            --muted: #666;
+            --border: #e5e5e5;
+            --panel: #fafafa;
+            --accent: #1677ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 40px 24px 64px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .intro {
+            margin: 0 0 28px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        section {
+            margin-top: 28px;
+            padding: 20px 22px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--panel);
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        h3 {
+            margin: 18px 0 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+
+        ul {
+            margin: 8px 0 0 20px;
+            padding: 0;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        .list-title {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .note {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-left: 3px solid var(--accent);
+            background: #fff;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .card {
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .card strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                padding: 24px 16px 40px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <h1>Scheme One: Per-Item Log Detail</h1>
+        <p class="intro">
+            Scheme One allows each server command and each scheduled task to define its own log detail level directly in the item details panel. This gives administrators a simple way to control logging precision at the item level without leaving the current tab.
+        </p>
+
+        <section>
+            <h2>Feature Summary</h2>
+            <p>
+                In Scheme One, the log detail setting is part of the details area on the right side of the <strong>Server Commands</strong> and <strong>Scheduled Tasks</strong> tabs.
+            </p>
+            <ul>
+                <li>Each server command can have its own log detail configuration.</li>
+                <li>Each scheduled task can have its own log detail configuration.</li>
+                <li>The setting appears at the end of the details panel for the selected item.</li>
+                <li>The configuration is easy to review because it is shown together with the rest of the item information.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Available Options</h2>
+            <p>The log detail selector provides the following options:</p>
+            <div class="grid">
+                <div class="card">
+                    <strong>Inherit Global</strong>
+                    Use the same log detail level configured in <em>Advanced &gt; The detail of the server command log</em>.
+                </div>
+                <div class="card">
+                    <strong>No Log</strong>
+                    Do not record detailed log content for the selected item.
+                </div>
+                <div class="card">
+                    <strong>Simplify</strong>
+                    Record a lightweight log with the most important execution information.
+                </div>
+                <div class="card">
+                    <strong>Normal</strong>
+                    Record a balanced amount of detail for routine troubleshooting and review.
+                </div>
+                <div class="card">
+                    <strong>Detailed</strong>
+                    Record the most complete execution details for deeper investigation.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Where It Appears</h2>
+            <h3>Server Commands</h3>
+            <p>
+                When a server command is selected from the list on the left, its details are shown on the right. The <strong>Log Detail</strong> field appears at the bottom of that details area.
+            </p>
+
+            <h3>Scheduled Tasks</h3>
+            <p>
+                When a scheduled task is selected from the table on the left, its details are shown on the right. The <strong>Log Detail</strong> field also appears at the bottom of the task details area.
+            </p>
+        </section>
+
+        <section>
+            <h2>Help Information</h2>
+            <p>
+                A help indicator is displayed next to the <strong>Log Detail</strong> title. Hovering over it shows the following explanation:
+            </p>
+            <div class="note">
+                Inherit Global uses the same log detail setting configured for “The detail of the server command log” in Advanced settings.
+            </div>
+        </section>
+
+        <section>
+            <h2>Why This Scheme Is Useful</h2>
+            <ul>
+                <li><span class="list-title">Clear ownership:</span> the setting belongs to the selected item and is easy to understand in context.</li>
+                <li><span class="list-title">Fast adjustment:</span> administrators can change logging without opening an extra configuration dialog.</li>
+                <li><span class="list-title">Flexible control:</span> high-risk items can use more detailed logs while common items stay lightweight.</li>
+                <li><span class="list-title">Consistency:</span> the same interaction pattern is used for both server commands and scheduled tasks.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
