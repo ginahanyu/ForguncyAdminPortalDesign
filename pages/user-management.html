@@ -500,7 +500,12 @@
                                         <td>Forms User</td>
                                         <td><span class="user-status-tag user-status-tag-enabled">Enable</span></td>
                                         <td></td>
-                                        <td><input type="checkbox" class="table-checkbox" disabled></td>
+                                        <td>
+                                            <label class="supervisor-switch" aria-label="Toggle supervisor">
+                                                <input type="checkbox" class="supervisor-switch-input">
+                                                <span class="supervisor-switch-slider"></span>
+                                            </label>
+                                        </td>
                                         <td class="member-remove-cell">🗑</td>
                                     </tr>
                                     <tr>
@@ -509,7 +514,12 @@
                                         <td>Forms User</td>
                                         <td><span class="user-status-tag user-status-tag-disabled">Disable</span></td>
                                         <td></td>
-                                        <td><input type="checkbox" class="table-checkbox" disabled></td>
+                                        <td>
+                                            <label class="supervisor-switch" aria-label="Toggle supervisor">
+                                                <input type="checkbox" class="supervisor-switch-input">
+                                                <span class="supervisor-switch-slider"></span>
+                                            </label>
+                                        </td>
                                         <td class="member-remove-cell">🗑</td>
                                     </tr>
                                 </tbody>
@@ -1348,5 +1358,62 @@
 
 .org-member-table .member-supervisor-col {
     width: 180px;
+}
+
+.org-member-table td:nth-child(6) {
+    text-align: center;
+}
+
+.supervisor-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 38px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.supervisor-switch-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.supervisor-switch-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    background: #d9d9d9;
+    transition: background-color 0.2s ease;
+}
+
+.supervisor-switch-slider::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease;
+}
+
+.supervisor-switch-input:checked + .supervisor-switch-slider {
+    background: #1677ff;
+}
+
+.supervisor-switch-input:checked + .supervisor-switch-slider::after {
+    transform: translateX(16px);
+}
+
+.supervisor-switch-input:focus-visible + .supervisor-switch-slider {
+    outline: 2px solid rgba(22, 119, 255, 0.28);
+    outline-offset: 2px;
 }
 </style>
