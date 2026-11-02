@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作流审批备注常用语 - 活字格功能设计</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../styles/workflow-remarks.css?v=2.8">
+    <script src="../scripts/workflow-remarks.js?v=2.6" defer></script>
+</head>
+<body>
+<main class="wr-page" id="workflowRemarksPage">
+    <header class="wr-page-heading"><h1>工作流审批备注常用语</h1><span>设计页面</span></header>
+    <p class="wr-explanation">点击“常用语”编辑，保存后在备注下方显示最新的常用语标签。</p>
+    <div class="wr-previews">
+        <section class="wr-desktop-section" aria-labelledby="wrDesktopHeading">
+            <h2 id="wrDesktopHeading">电脑端</h2>
+            <div class="wr-stage">
+                <section class="wr-window" aria-labelledby="wrApprovalTitle">
+                    <header class="wr-window-header"><h3 id="wrApprovalTitle">提交</h3><button type="button" class="wr-close" data-clear="desktop" aria-label="取消电脑端填写">×</button></header>
+                    <form class="wr-approval-form" data-view="desktop">
+                        <div class="wr-approval-body">
+                            <h4>审批</h4>
+                            <div class="wr-approval-field wr-owner-field"><label for="wrOwner">负责人<span class="wr-required">*</span></label><div class="wr-owner-control"><input id="wrOwner" placeholder="请选择用户" required autocomplete="off" list="wrUsers"><svg width="19" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7" r="4" fill="none" stroke="currentColor"/><path d="M3 21v-3a7 7 0 0 1 12-5M18 14v8m-4-4h8" fill="none" stroke="currentColor"/></svg></div></div>
+                            <div class="wr-approval-field wr-textarea-field"><label for="wrRemark">备注</label><textarea id="wrRemark" placeholder="请输入备注信息"></textarea></div>
+                            <div class="wr-approval-field wr-phrases-field"><button type="button" class="wr-edit-trigger" data-edit="desktop" title="编辑常用语" aria-label="编辑电脑端常用语">常用语<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/><path d="M7.5 8h9m-9 4h6"/></svg></button><div class="wr-phrase-tags" data-tags="desktop" aria-label="电脑端常用语标签"></div></div>
+                        </div>
+                        <footer class="wr-window-footer"><button class="wr-button wr-primary" type="submit">确定</button><button class="wr-button" type="button" data-clear="desktop">取消</button></footer>
+                        <p class="wr-submit-status" role="status"></p>
+                    </form>
+                </section>
+            </div>
+        </section>
+        <section class="wr-mobile-section" aria-labelledby="wrMobileHeading">
+            <h2 id="wrMobileHeading">手机端</h2>
+            <div class="wr-phone">
+                <div class="wr-phone-status" aria-hidden="true"><b>17:43</b><span>▥ ◔ ▰</span></div>
+                <div class="wr-task-header"><span aria-hidden="true">×</span><div>任务详情<small>10.32.13.102</small></div><span aria-hidden="true">•••</span></div>
+                <div id="wrMobileSubmitView">
+                <header class="wr-phone-header"><button type="button" data-clear="mobile" aria-label="取消手机端填写">‹</button><h3>提交</h3></header>
+                <form class="wr-approval-form wr-mobile-form" data-view="mobile">
+                    <div class="wr-phone-content">
+                        <section class="wr-phone-approval"><h4>审批</h4><div class="wr-phone-owner"><label for="wrMobileOwner">负责人<span class="wr-required">*</span></label><input id="wrMobileOwner" placeholder="请选择用户" required autocomplete="off" list="wrUsers"><span aria-hidden="true">›</span></div></section>
+                        <section class="wr-phone-remark"><label for="wrMobileRemark">备注</label><textarea id="wrMobileRemark" placeholder="请输入备注信息"></textarea><div class="wr-phone-phrases"><button type="button" class="wr-edit-trigger" data-edit="mobile" title="编辑常用语" aria-label="编辑手机端常用语">常用语<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/><path d="M7.5 8h9m-9 4h6"/></svg></button><div class="wr-phrase-tags" data-tags="mobile" aria-label="手机端常用语标签"></div></div></section>
+                        <p class="wr-submit-status" role="status"></p>
+                    </div>
+                    <footer class="wr-phone-footer"><button class="wr-primary" type="submit">确定</button></footer>
+                </form>
+                </div>
+                <section id="wrMobilePhrasesPage" class="wr-mobile-route" aria-labelledby="wrMobilePhrasesTitle" hidden>
+                    <header class="wr-phone-header"><button type="button" id="wrMobilePhrasesBack" aria-label="返回提交页面">‹</button><h3 id="wrMobilePhrasesTitle" tabindex="-1">编辑常用语</h3></header>
+                    <div class="wr-mobile-route-body"><p class="wr-mobile-list-hint">管理审批时使用的常用语</p><div id="wrMobilePhraseList" class="wr-mobile-phrase-list"></div></div>
+                    <footer class="wr-mobile-add-footer"><button type="button" id="wrMobileAddPhrase">添加</button></footer>
+                </section>
+                <div class="wr-mobile-overlay" id="wrMobilePhraseOverlay" hidden>
+                    <section class="wr-mobile-prompt" id="wrMobilePhrasePrompt" role="dialog" aria-modal="true" aria-labelledby="wrMobilePromptTitle" tabindex="-1">
+                        <h3 id="wrMobilePromptTitle">编辑常用语</h3>
+                        <form id="wrMobilePhraseForm">
+                            <div class="wr-mobile-prompt-body"><label class="wr-sr-only" for="wrMobilePhraseInput">常用语内容</label><textarea id="wrMobilePhraseInput" maxlength="500" rows="4" placeholder="请输入常用语"></textarea><div class="wr-mobile-input-count" id="wrMobilePhraseCount">0/500</div><p class="wr-config-error" id="wrMobilePhraseError" role="alert"></p></div>
+                            <div class="wr-mobile-prompt-actions"><button type="button" data-mobile-prompt-cancel>取消</button><button type="submit">保存</button></div>
+                        </form>
+                        <div id="wrMobileDeleteContent" hidden><p>确定删除这条常用语吗？</p><p class="wr-mobile-delete-preview" id="wrMobileDeletePreview"></p><div class="wr-mobile-prompt-actions"><button type="button" data-mobile-prompt-cancel>取消</button><button class="wr-mobile-confirm-delete" id="wrMobileConfirmDelete" type="button">删除</button></div></div>
+                    </section>
+                </div>
+                <div class="wr-phone-browser" aria-hidden="true"><span>‹</span><span>›</span></div>
+            </div>
+        </section>
+    </div>
+    <datalist id="wrUsers"><option value="张三"><option value="李四"><option value="王五"></datalist>
+    <p class="wr-status" id="wrStatus" role="status" aria-live="polite"></p>
+    <dialog class="wr-editor" id="wrConfigDialog" aria-labelledby="wrConfigTitle">
+        <header class="wr-editor-header"><h3 id="wrConfigTitle">编辑常用语</h3><button class="wr-add" type="button" id="wrAddPhrase"><span aria-hidden="true">＋</span> 添加</button></header>
+        <div class="wr-editor-body"><div id="wrConfigList" class="wr-config-list"></div><p class="wr-config-error" id="wrConfigError" role="alert"></p></div>
+        <footer class="wr-editor-footer"><button class="wr-button" type="button" id="wrCancelConfig">取消</button><button class="wr-button wr-save" type="button" id="wrSaveConfig">保存</button></footer>
+    </dialog>
+    <dialog class="wr-desktop-delete-dialog" id="wrDesktopDeleteDialog" aria-labelledby="wrDesktopDeleteTitle" aria-describedby="wrDesktopDeleteQuestion">
+        <h3 id="wrDesktopDeleteTitle">删除常用语</h3>
+        <p id="wrDesktopDeleteQuestion">确定删除这条常用语吗？</p>
+        <p class="wr-desktop-delete-preview" id="wrDesktopDeletePreview"></p>
+        <footer><button type="button" class="wr-button" id="wrDesktopCancelDelete" autofocus>取消</button><button type="button" class="wr-button wr-danger" id="wrDesktopConfirmDelete">删除</button></footer>
+    </dialog>
+</main>
+</body>
+</html>
