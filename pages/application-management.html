@@ -66,6 +66,7 @@
                     </svg>
                 </div>
                 <div class="all-apps-actions">
+                    <button class="btn-secondary" id="appCustomPropertiesButton" onclick="openAppCustomPropertiesDialog()">Custom Properties</button>
                     <button class="btn-secondary" onclick="openViewSettingsDialog()">View Settings</button>
                     <button class="btn-secondary" onclick="exportToExcel()">Export to Excel</button>
                     <button class="btn-offline-publish">Offline Publish</button>
@@ -113,7 +114,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr data-app-id="testappwithexternaldb">
                             <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testappwithexternaldb')">testappwithexternaldb</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
@@ -141,7 +142,7 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
+                        <tr data-app-id="token">
                             <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('token')">获取token网</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage"></td>
@@ -166,7 +167,7 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
+                        <tr data-app-id="testapp">
                             <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testapp')">testapp</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
@@ -193,7 +194,7 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
+                        <tr data-app-id="testpermission1">
                             <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testpermission1')">testpermission1</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
@@ -222,7 +223,7 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
+                        <tr data-app-id="testpermission2">
                             <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testpermission2')">testpermission2</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage"></td>
@@ -247,8 +248,8 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
-                            <td data-column="app-name"><a href="#" class="app-name-link">testpermission</a></td>
+                        <tr data-app-id="testpermission">
+                            <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testpermission')">testpermission</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
                                 <span class="manage-tag">DevOps</span>
@@ -275,8 +276,8 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
-                            <td data-column="app-name"><a href="#" class="app-name-link">test</a></td>
+                        <tr data-app-id="test">
+                            <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('test')">test</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
                                 <span class="manage-tag">Managers</span>
@@ -302,8 +303,8 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
-                            <td data-column="app-name"><a href="#" class="app-name-link">testpm</a></td>
+                        <tr data-app-id="testpm">
+                            <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('testpm')">testpm</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage"></td>
                             <td data-column="host-port">80</td>
@@ -327,8 +328,8 @@
                             </td>
                             <td data-column="description"></td>
                         </tr>
-                        <tr>
-                            <td data-column="app-name"><a href="#" class="app-name-link">app1</a></td>
+                        <tr data-app-id="app1">
+                            <td data-column="app-name"><a href="javascript:void(0)" class="app-name-link" onclick="switchToApp('app1')">app1</a></td>
                             <td data-column="access">All Users</td>
                             <td data-column="manage">
                                 <span class="manage-tag">PowerUsers</span>
@@ -459,9 +460,15 @@
                             </div>
                         </div>
 
+                        <section class="info-item app-config-section" aria-labelledby="appCustomPropertiesHeading">
+                            <h3 class="section-title" id="appCustomPropertiesHeading">Custom Properties</h3>
+                            <div id="appCustomPropertyInputs"></div>
+                        </section>
+
                         <!-- Save Button -->
                         <div class="button-group" style="margin-top: 24px;">
-                            <button class="btn-primary">Save</button>
+                            <button class="btn-primary" id="saveAppGeneralButton" onclick="saveAppCustomPropertyValues()">Save</button>
+                            <span id="appCustomPropertySaveStatus" class="app-property-status" role="status"></span>
                         </div>
                     </div>
                 </div>
@@ -1280,6 +1287,54 @@
         </div>
     </div>
 
+    <!-- Application custom property definitions -->
+    <div class="dialog-overlay" id="appCustomPropertiesDialog">
+        <div class="dialog-container app-properties-dialog" role="dialog" aria-modal="true" aria-labelledby="appCustomPropertiesTitle" tabindex="-1">
+            <div class="dialog-header">
+                <h3 class="dialog-title" id="appCustomPropertiesTitle">Custom Properties</h3>
+                <button class="dialog-close-btn" type="button" aria-label="Close Custom Properties" onclick="closeAppCustomPropertiesDialog()">×</button>
+            </div>
+            <div class="dialog-body">
+                <div class="app-properties-toolbar">
+                    <button class="btn-primary" id="addAppPropertyButton" type="button" onclick="editAppCustomProperty()">Add Property</button>
+                </div>
+                <div class="app-properties-table-container">
+                    <table class="app-properties-table">
+                        <thead><tr><th scope="col">Name</th><th scope="col">Description</th><th scope="col">Actions</th></tr></thead>
+                        <tbody id="appCustomPropertiesTableBody"></tbody>
+                    </table>
+                </div>
+                <p id="appCustomPropertiesStatus" class="app-property-error" role="alert"></p>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-secondary" type="button" onclick="closeAppCustomPropertiesDialog()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Property Dialog -->
+    <div class="dialog-overlay" id="appCustomPropertyEditorDialog">
+        <div class="dialog-container app-property-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="appCustomPropertyFormTitle" tabindex="-1">
+            <div class="dialog-header">
+                <h3 class="dialog-title" id="appCustomPropertyFormTitle">Add Property</h3>
+                <button class="dialog-close-btn" type="button" aria-label="Close Property Editor" onclick="cancelAppCustomPropertyEdit()">×</button>
+            </div>
+            <form id="appCustomPropertyForm">
+                <div class="dialog-body app-property-form">
+                    <label for="appCustomPropertyName">Name <span aria-hidden="true">*</span></label>
+                    <input class="form-input" id="appCustomPropertyName" name="name" required placeholder="Enter property name" aria-describedby="appCustomPropertyError">
+                    <label for="appCustomPropertyDescription">Description</label>
+                    <textarea class="form-input" id="appCustomPropertyDescription" name="description" rows="3" placeholder="Enter description"></textarea>
+                    <p id="appCustomPropertyError" class="app-property-error" role="alert"></p>
+                </div>
+                <div class="dialog-footer">
+                    <button class="btn btn-primary" type="submit">Save Property</button>
+                    <button class="btn btn-secondary" type="button" onclick="cancelAppCustomPropertyEdit()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- View Settings Dialog -->
     <div class="dialog-overlay" id="viewSettingsDialog">
         <div class="dialog-container">
@@ -2018,6 +2073,197 @@
 }
 
 /* All Apps 页面样式 */
+.permission-page:has(.all-apps-table) > .right-section {
+    min-width: 0;
+}
+
+.all-apps-toolbar,
+.all-apps-actions {
+    flex-wrap: wrap;
+}
+
+.all-apps-actions > button {
+    white-space: nowrap;
+}
+
+.all-apps-table-container {
+    overflow-x: auto;
+}
+
+.all-apps-table [data-app-property] {
+    min-width: 160px;
+    max-width: 320px;
+    overflow-wrap: anywhere;
+}
+
+#appCustomPropertiesDialog .app-properties-dialog {
+    width: 760px;
+    max-width: calc(100vw - 40px);
+}
+
+.app-properties-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.app-property-help,
+.app-property-empty {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.app-properties-toolbar button {
+    flex-shrink: 0;
+}
+
+.app-properties-table-container {
+    overflow-x: auto;
+}
+
+.app-properties-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 14px;
+}
+
+.app-properties-table th,
+.app-properties-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.app-properties-table th {
+    background: #f8f9fa;
+    color: #666;
+    font-weight: 500;
+}
+
+.app-properties-table th:first-child {
+    width: 27%;
+}
+
+.app-properties-table th:last-child {
+    width: 96px;
+}
+
+.app-property-actions {
+    white-space: nowrap !important;
+}
+
+.app-property-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+}
+
+.app-property-actions button:hover {
+    background: #f0f6fa;
+    color: #0098d9;
+}
+
+.app-property-actions button:focus-visible {
+    outline: 2px solid #0098d9;
+    outline-offset: 2px;
+}
+
+.app-property-actions .app-property-delete:hover {
+    background: #fff0ef;
+    color: #c23934;
+}
+
+.app-property-form {
+    padding: 16px 24px 0;
+}
+
+#appCustomPropertyEditorDialog {
+    z-index: 1100;
+}
+
+#appCustomPropertyEditorDialog .app-property-editor-dialog {
+    width: 500px;
+    max-width: calc(100vw - 40px);
+}
+
+#appCustomPropertyForm {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.app-property-form label,
+.app-property-value > label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 6px;
+    overflow-wrap: anywhere;
+}
+
+.app-property-form .form-input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.app-property-form textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.app-property-error {
+    color: #c23934;
+    font-size: 13px;
+}
+
+.app-property-error:empty {
+    display: none;
+}
+
+.app-property-status {
+    font-size: 13px;
+    color: #666;
+    align-self: center;
+}
+
+#appCustomPropertiesHeading {
+    margin: 0;
+}
+
+.app-property-value {
+    margin: 8px 0 20px;
+    max-width: 750px;
+}
+
+.app-property-value .form-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.app-property-help {
+    margin-top: 6px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
 .all-apps-header {
     display: flex;
     align-items: center;

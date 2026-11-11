@@ -234,6 +234,7 @@ function bindPageEvents() {
                     }
 
                     updateDefaultAppTags();
+                    renderAppCustomPropertyInputs();
                 }
             });
         });
@@ -277,6 +278,7 @@ function bindPageEvents() {
         initServerCommandsPanel();
         initScheduledTasksPanel();
         initLogDetailSettings();
+        initAppCustomProperties();
     }
 
     // 绑定管理组树形节点点击
